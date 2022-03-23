@@ -9,7 +9,7 @@ public class GestionnaireCommande {
     private LinkedList<Commande> listeCmdPersp2;
     private static GestionnaireCommande instance;
 
-    private void gestionnaireCommande() {
+    private gestionnaireCommande() {
         instance = new GestionnaireCommande();
     }
 
