@@ -27,4 +27,9 @@ public class VueVignette extends JPanel implements observateur.Observer {
     public void initContenu(){
 
     }
+
+    @Override
+    public void update() {
+
+    }
 }

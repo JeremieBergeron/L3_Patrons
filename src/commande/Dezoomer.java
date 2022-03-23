@@ -2,7 +2,7 @@ package commande;
 
 import modele.Perspective;
 
-public class Dezoomer {
+public class Dezoomer implements Commande {
 
     private Perspective modelePerspective;
 

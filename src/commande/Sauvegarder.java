@@ -1,20 +1,21 @@
 package commande;
 
-import modele.ModelePrincipale;
+
+import modele.ModelePrincipal;
 
 public class Sauvegarder implements Commande {
 
     private boolean etat = false;
-    private ModelePrincipale modelePrincipale;
+    private ModelePrincipal modelePrincipal;
 
-    public void commandeSauvegarder(ModelePrincipale modelePrincipale) {
-        this.modelePrincipale = modelePrincipale;
+    public Sauvegarder(ModelePrincipal modelePrincipal) {
+        this.modelePrincipal = modelePrincipal;
     }
 
     @Override
     public boolean execute() {
         if(etat) {
-            modelePrincipale.sauvegarder();
+            //modelePrincipal.sauvegarder();
             return true;
         } else{
             return false;

@@ -2,7 +2,7 @@ package commande;
 
 import modele.Perspective;
 
-public class Translater {
+public class Translater implements Commande {
 
     private Perspective modelePerspective;
 
@@ -12,12 +12,12 @@ public class Translater {
 
     @Override
     public boolean execute() {
-        modelePerspective.translater();
+        //modelePerspective.translater();
         return true;
     }
 
     public boolean defaire() {
-        modelePerspective.translater();
+        //modelePerspective.translater();
         return true;
     }
 
