@@ -6,7 +6,7 @@ public class Translater implements Commande {
 
     private Perspective modelePerspective;
 
-    public void commandeTranslater(Perspective modelePerspective) {
+    public void Translater(Perspective modelePerspective) {
         this.modelePerspective = modelePerspective;
     }
 
