@@ -1,8 +1,8 @@
 package vue;
 
-import controlleur.ControlleurPerspective;
-import controlleur.ControlleurVignette;
-import modele.ModelePrincipale;
+import controleur.ControleurPerspective;
+import controleur.ControleurVignette;
+import modele.ModelePrincipal;
 import modele.Perspective;
 import modele.Image;
 
@@ -14,7 +14,7 @@ import javax.swing.*;
 
 public class PanneauPrincipale extends JPanel {
 
-    private ModelePrincipale modelePrincipale;
+    private ModelePrincipal modelePrincipale;
 
     private VueVignette vueVignette;
     private VuePerspective vuePerspectiveGauche;
@@ -23,7 +23,7 @@ public class PanneauPrincipale extends JPanel {
     /**
      * Create the frame.
      */
-    public PanneauPrincipale(ModelePrincipale modelePrincipale) {
+    public PanneauPrincipale(ModelePrincipal modelePrincipale) {
 
         this.modelePrincipale = modelePrincipale;
 
@@ -41,15 +41,15 @@ public class PanneauPrincipale extends JPanel {
         // Creation des vues
         Image image = new Image();
         vueVignette = new VueVignette(image);
-        new ControlleurVignette(vueVignette, image);
+        new ControleurVignette(vueVignette, image);
 
         Perspective perspectiveGauche = new Perspective(image);
         vuePerspectiveGauche = new VuePerspective(perspectiveGauche);
-        new ControlleurPerspective(vuePerspectiveGauche, perspectiveGauche);
+        new ControleurPerspective(vuePerspectiveGauche, perspectiveGauche);
 
         Perspective perspectiveDroite = new Perspective(image);
         vuePerspectiveDroite = new VuePerspective(perspectiveDroite);
-        new ControlleurPerspective(vuePerspectiveGauche, perspectiveDroite);
+        new ControleurPerspective(vuePerspectiveGauche, perspectiveDroite);
 
         // Ajout des vues
         add(vueVignette);

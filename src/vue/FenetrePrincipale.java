@@ -1,25 +1,26 @@
 package vue;
 
-import modele.ModelePrincipale;
+import modele.ModelePrincipal;
+import observateur.Observer;
 
 import javax.swing.JFrame;
-import java.awt.Dimension;
+import java.awt.*;
 
-public class FenetrePrincipale extends JFrame implements Runnable{
+public class FenetrePrincipale extends JFrame implements Runnable, Observer {
 
     private static final String TITRE_FENETRE = "L3 - Patrons";
     private static final Dimension DIMENSIONS = new Dimension(700, 700);
 
-    private ModelePrincipale modelePrincipale;
+    private ModelePrincipal modelePrincipale;
 
     private PanneauPrincipale panneauPrincipale;
-    private MenuFenetre menuFenetre;
+    private MenuFenetre menuFenetre = new MenuFenetre();
 
     /**
      *
      * @param modelePrincipale :
      */
-    public FenetrePrincipale (ModelePrincipale modelePrincipale) {
+    public FenetrePrincipale (ModelePrincipal modelePrincipale) {
         this.modelePrincipale = modelePrincipale;
     }
 
@@ -48,6 +49,7 @@ public class FenetrePrincipale extends JFrame implements Runnable{
         setTitle(TITRE_FENETRE);
         setSize(DIMENSIONS);
 
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
 
         // Mettre la fenêtre au centre de l'écran
@@ -62,9 +64,19 @@ public class FenetrePrincipale extends JFrame implements Runnable{
      */
     private void initContenu() {
 
+        add(menuFenetre, BorderLayout.NORTH);
+
         PanneauPrincipale panneauPrincipale = new PanneauPrincipale(modelePrincipale);
 
         add(panneauPrincipale);
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void update() {
+
 
     }
 }
