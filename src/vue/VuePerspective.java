@@ -18,7 +18,9 @@ public class VuePerspective extends JPanel {
     }
 
     public void initPanneau(){
-
+        setLayout(new FlowLayout());
+        setBackground(Color.ORANGE);
+        setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
     public void initContenu(){
