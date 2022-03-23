@@ -13,7 +13,7 @@ public class FenetrePrincipale extends JFrame implements Runnable, Observer {
 
     private ModelePrincipal modelePrincipale;
 
-    private PanneauPrincipale panneauPrincipale;
+    private PanneauPrincipal panneauPrincipale;
     private MenuFenetre menuFenetre = new MenuFenetre();
 
     /**
@@ -66,7 +66,7 @@ public class FenetrePrincipale extends JFrame implements Runnable, Observer {
 
         add(menuFenetre, BorderLayout.NORTH);
 
-        PanneauPrincipale panneauPrincipale = new PanneauPrincipale(modelePrincipale);
+        PanneauPrincipal panneauPrincipale = new PanneauPrincipal(modelePrincipale);
 
         add(panneauPrincipale);
     }
