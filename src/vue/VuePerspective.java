@@ -1,12 +1,11 @@
 package vue;
 
 import modele.Perspective;
-import modele.Vignette;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class VuePerspective extends JPanel {
+public class VuePerspective extends JPanel implements observateur.Observer {
     private Perspective perspective;
 
     public VuePerspective(Perspective perspective){

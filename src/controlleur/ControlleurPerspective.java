@@ -1,9 +1,7 @@
 package controlleur;
 
 import modele.Perspective;
-import modele.Vignette;
 import vue.VuePerspective;
-import vue.VueVignette;
 
 public class ControlleurPerspective {
     VuePerspective vuePerspective;
