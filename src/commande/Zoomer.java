@@ -6,7 +6,7 @@ public class Zoomer implements Commande {
 
     private Perspective modelePerspective;
 
-    public commandeZoomer(Perspective modelePerspective) {
+    public Zoomer(Perspective modelePerspective) {
         this.modelePerspective = modelePerspective;
     }
 
