@@ -5,10 +5,10 @@ import java.awt.Dimension;
 
 public class FenetrePrincipale extends JFrame implements Runnable{
 
-    private static final String TITRE_FENETRE = "Laboratoire 1 : LOG121 - Simulation";
-    private static final Dimension DIMENSION = new Dimension(700, 700);
+    private static final String TITRE_FENETRE = "L3 - Patrons";
+    private static final Dimension DIMENSIONS = new Dimension(700, 700);
 
-    //private PanneauPrincipale panneauPrincipale;
+    private PanneauPrincipale panneauPrincipale;
     private MenuFenetre menuFenetre;
 
     /**
@@ -24,6 +24,8 @@ public class FenetrePrincipale extends JFrame implements Runnable{
      */
     @Override
     public void run() {
+        initFenetre();
+        initContenu();
 
     }
 
@@ -31,7 +33,16 @@ public class FenetrePrincipale extends JFrame implements Runnable{
      *
      */
     private void initFenetre() {
+        setTitle(TITRE_FENETRE);
+        setSize(DIMENSIONS);
 
+        setVisible(true);
+
+        // Mettre la fenêtre au centre de l'écran
+        setLocationRelativeTo(null);
+
+        // Empêcher la redimensionne de la fenêtre
+        setResizable(false);
     }
 
     /**
