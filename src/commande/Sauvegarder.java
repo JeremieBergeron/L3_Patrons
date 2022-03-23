@@ -2,7 +2,7 @@ package commande;
 
 import modele.ModelePrincipale;
 
-public class Sauvgarder implements Commande {
+public class Sauvegarder implements Commande {
 
     private boolean etat = false;
     private ModelePrincipale modelePrincipale;

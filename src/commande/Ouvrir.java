@@ -11,7 +11,7 @@ public class Ouvrir implements Commande{
     }
 
     @Override
-    public boolean execute(ModelePrincipale modelePrincipale) {
+    public boolean execute() {
         modelePrincipale.ouvrir();
         return true;
     }

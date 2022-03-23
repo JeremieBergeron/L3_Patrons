@@ -1,4 +1,24 @@
 package commande;
 
+import modele.Perspective;
+
 public class Dezoomer {
+
+    private Perspective modelePerspective;
+
+    public void commandeDezoomer(Perspective modelePerspective) {
+        this.modelePerspective = modelePerspective;
+    }
+
+    @Override
+    public boolean execute() {
+        modelePerspective.dezoomer();
+        return true;
+    }
+
+    public boolean defaire() {
+        modelePerspective.zoomer();
+        return true;
+    }
+
 }
