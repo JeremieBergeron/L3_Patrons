@@ -1,6 +1,9 @@
 package vue;
 
+import modele.ModelePrincipale;
+
 import javax.swing.JFrame;
+import javax.swing.border.EmptyBorder;
 import java.awt.Dimension;
 
 public class FenetrePrincipale extends JFrame implements Runnable{
@@ -8,7 +11,8 @@ public class FenetrePrincipale extends JFrame implements Runnable{
     private static final String TITRE_FENETRE = "Laboratoire 1 : LOG121 - Simulation";
     private static final Dimension DIMENSION = new Dimension(700, 700);
 
-    //private PanneauPrincipale panneauPrincipale;
+    private PanneauPrincipale panneauPrincipale;
+    private ModelePrincipale modelePrincipale;
     private MenuFenetre menuFenetre;
 
     /**
@@ -22,22 +26,34 @@ public class FenetrePrincipale extends JFrame implements Runnable{
      *
      * @see Thread#run()
      */
+
+    public FenetrePrincipale(ModelePrincipale modelePrincipale){
+        this.modelePrincipale = modelePrincipale;
+    }
+
     @Override
     public void run() {
-
+        initFenetre();
+        initContenu();
     }
 
     /**
      *
      */
     private void initFenetre() {
-
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocation(10, 10);
     }
 
     /**
      *
      */
     private void initContenu() {
+        panneauPrincipale = new PanneauPrincipale(modelePrincipale);
+        //add(panneauPrincipale);
+
+        setContentPane(panneauPrincipale);
+
 
     }
 }

@@ -2,6 +2,7 @@ package vue;
 
 import controlleur.ControlleurPerspective;
 import controlleur.ControlleurVignette;
+import modele.ModelePrincipale;
 import modele.Perspective;
 import modele.Vignette;
 
@@ -15,7 +16,7 @@ import javax.swing.*;
 
 public class PanneauPrincipale extends JPanel {
 
-    private MonModele monModele;
+    private ModelePrincipale modelePrincipale;
 
     private VueVignette vueVignette;
     private VuePerspective vuePerspectiveGauche;
@@ -24,9 +25,9 @@ public class PanneauPrincipale extends JPanel {
     /**
      * Create the frame.
      */
-    public PanneauPrincipale(MonModele monModele) {
+    public PanneauPrincipale(ModelePrincipale modelePrincipale) {
 
-        this.monModele = monModele;
+        this.modelePrincipale = modelePrincipale;
 
         initPanneau();
         initContenu();
@@ -54,7 +55,7 @@ public class PanneauPrincipale extends JPanel {
         new ControlleurPerspective(vuePerspectiveGauche, perspectiveDroite);
 
 
-        // Base sur https://stackoverflow.com/questions/28425321/java-divide-the-screen
+        /*// Base sur https://stackoverflow.com/questions/28425321/java-divide-the-screen
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;
         c.weighty = 1;
@@ -64,7 +65,7 @@ public class PanneauPrincipale extends JPanel {
         c.weightx = 1/3;
         add(vuePerspectiveGauche, c);
         c.weightx = 1/3;
-        add(vuePerspectiveDroite, c);
+        add(vuePerspectiveDroite, c);*/
 
 
     }
