@@ -3,13 +3,14 @@ package vue;
 import modele.Vignette;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class VueVignette extends JPanel {
 
     private Vignette vignette;
 
-    public VueVignette(Vignette Vignette){
+    public VueVignette(Vignette vignette){
         this.vignette = vignette;
 
         initPanneau();
@@ -18,6 +19,9 @@ public class VueVignette extends JPanel {
     }
 
     public void initPanneau(){
+        setLayout(new FlowLayout());
+        setBackground(Color.GRAY);
+        setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
     }
 
