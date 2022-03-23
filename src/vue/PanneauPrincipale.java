@@ -1,7 +1,7 @@
 package vue;
 
-import controlleur.ControlleurPerspective;
-import controlleur.ControlleurVignette;
+import controleur.ControleurPerspective;
+import controleur.ControleurVignette;
 import modele.ModelePrincipal;
 import modele.Perspective;
 import modele.Vignette;
@@ -44,15 +44,15 @@ public class PanneauPrincipale extends JPanel {
 
         Vignette vignette = new Vignette();
         vueVignette = new VueVignette(vignette);
-        new ControlleurVignette(vueVignette, vignette);
+        new ControleurVignette(vueVignette, vignette);
 
         Perspective perspectiveGauche = new Perspective();
         vuePerspectiveGauche = new VuePerspective(perspectiveGauche);
-        new ControlleurPerspective(vuePerspectiveGauche, perspectiveGauche);
+        new ControleurPerspective(vuePerspectiveGauche, perspectiveGauche);
 
         Perspective perspectiveDroite = new Perspective();
         vuePerspectiveDroite = new VuePerspective(perspectiveDroite);
-        new ControlleurPerspective(vuePerspectiveGauche, perspectiveDroite);
+        new ControleurPerspective(vuePerspectiveGauche, perspectiveDroite);
 
 
         /*// Base sur https://stackoverflow.com/questions/28425321/java-divide-the-screen
