@@ -1,18 +1,19 @@
 package commande;
 
-import modele.ModelePrincipale;
+
+import modele.ModelePrincipal;
 
 public class Ouvrir implements Commande{
 
-    private ModelePrincipale modelePrincipale;
+    private ModelePrincipal modelePrincipal;
 
-    public void commandeOuvrir(ModelePrincipale modelePrincipale) {
-        this.modelePrincipale = modelePrincipale;
+    public Ouvrir (ModelePrincipal modelePrincipal) {
+        this.modelePrincipal = modelePrincipal;
     }
 
     @Override
-    public boolean execute(ModelePrincipale modelePrincipale) {
-        modelePrincipale.ouvrir();
+    public boolean execute() {
+        //modelePrincipal.ouvrir();
         return true;
     }
 

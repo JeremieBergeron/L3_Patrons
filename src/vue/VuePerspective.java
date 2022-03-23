@@ -25,4 +25,9 @@ public class VuePerspective extends JPanel implements observateur.Observer {
     public void initContenu(){
 
     }
+
+    @Override
+    public void update() {
+
+    }
 }
