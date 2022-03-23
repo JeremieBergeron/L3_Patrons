@@ -1,5 +1,7 @@
 package vue;
 
+import modele.ModelePrincipale;
+
 import javax.swing.JFrame;
 import java.awt.Dimension;
 
@@ -8,8 +10,18 @@ public class FenetrePrincipale extends JFrame implements Runnable{
     private static final String TITRE_FENETRE = "L3 - Patrons";
     private static final Dimension DIMENSIONS = new Dimension(700, 700);
 
+    private ModelePrincipale modelePrincipale;
+
     private PanneauPrincipale panneauPrincipale;
     private MenuFenetre menuFenetre;
+
+    /**
+     *
+     * @param modelePrincipale :
+     */
+    public FenetrePrincipale (ModelePrincipale modelePrincipale) {
+        this.modelePrincipale = modelePrincipale;
+    }
 
     /**
      * When an object implementing interface <code>Runnable</code> is used
