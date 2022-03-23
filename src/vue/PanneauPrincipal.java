@@ -12,9 +12,9 @@ import javax.swing.*;
 // import java.awt.Point;
 
 
-public class PanneauPrincipale extends JPanel {
+public class PanneauPrincipal extends JPanel {
 
-    private ModelePrincipal modelePrincipale;
+    private ModelePrincipal modelePrincipal;
 
     private VueVignette vueVignette;
     private VuePerspective vuePerspectiveGauche;
@@ -23,9 +23,9 @@ public class PanneauPrincipale extends JPanel {
     /**
      * Create the frame.
      */
-    public PanneauPrincipale(ModelePrincipal modelePrincipale) {
+    public PanneauPrincipal(ModelePrincipal modelePrincipal) {
 
-        this.modelePrincipale = modelePrincipale;
+        this.modelePrincipal = modelePrincipal;
 
         initPanneau();
         initContenu();
