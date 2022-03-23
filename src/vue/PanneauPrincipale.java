@@ -4,9 +4,7 @@ import controleur.ControleurPerspective;
 import controleur.ControleurVignette;
 import modele.ModelePrincipal;
 import modele.Perspective;
-import modele.Vignette;
-
-import java.awt.*;
+import modele.Image;
 
 
 import javax.swing.*;
@@ -35,37 +33,28 @@ public class PanneauPrincipale extends JPanel {
     }
 
     public void initPanneau(){
-        setLayout(new GridBagLayout());
-
-
+        setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
     }
 
     public void initContenu(){
 
-        Vignette vignette = new Vignette();
-        vueVignette = new VueVignette(vignette);
-        new ControleurVignette(vueVignette, vignette);
+        // Creation des vues
+        Image image = new Image();
+        vueVignette = new VueVignette(image);
+        new ControlleurVignette(vueVignette, image);
 
-        Perspective perspectiveGauche = new Perspective();
+        Perspective perspectiveGauche = new Perspective(image);
         vuePerspectiveGauche = new VuePerspective(perspectiveGauche);
         new ControleurPerspective(vuePerspectiveGauche, perspectiveGauche);
 
-        Perspective perspectiveDroite = new Perspective();
+        Perspective perspectiveDroite = new Perspective(image);
         vuePerspectiveDroite = new VuePerspective(perspectiveDroite);
         new ControleurPerspective(vuePerspectiveGauche, perspectiveDroite);
 
-
-        /*// Base sur https://stackoverflow.com/questions/28425321/java-divide-the-screen
-        GridBagConstraints c = new GridBagConstraints();
-        c.fill = GridBagConstraints.BOTH;
-        c.weighty = 1;
-
-        c.weightx = 1/3;
-        add(vueVignette, c);
-        c.weightx = 1/3;
-        add(vuePerspectiveGauche, c);
-        c.weightx = 1/3;
-        add(vuePerspectiveDroite, c);*/
+        // Ajout des vues
+        add(vueVignette);
+        add(vuePerspectiveGauche);
+        add(vuePerspectiveDroite);
 
 
     }

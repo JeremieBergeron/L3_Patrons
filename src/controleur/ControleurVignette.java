@@ -1,16 +1,16 @@
 package controleur;
 
-import modele.Vignette;
+import modele.Image;
 import vue.VueVignette;
 
 public class ControleurVignette {
 
     VueVignette vueVignette;
-    Vignette vignette;
+    Image image;
 
     public ControleurVignette(VueVignette vueVignette, Vignette vignette){
         this.vueVignette = vueVignette;
-        this.vignette = vignette;
+        this.image = image;
 
     }
 }

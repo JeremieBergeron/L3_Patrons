@@ -1,15 +1,16 @@
 package vue;
 
-import modele.Vignette;
+import modele.Image;
 
 import javax.swing.*;
+import java.awt.*;
 
-public class VueVignette extends JPanel {
+public class VueVignette extends JPanel implements observateur.Observer {
 
-    private Vignette vignette;
+    private Image image;
 
-    public VueVignette(Vignette Vignette){
-        this.vignette = vignette;
+    public VueVignette(Image image){
+        this.image = image;
 
         initPanneau();
         initContenu();
@@ -17,6 +18,9 @@ public class VueVignette extends JPanel {
     }
 
     public void initPanneau(){
+        setLayout(new FlowLayout());
+        setBackground(Color.GRAY);
+        setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
     }
 

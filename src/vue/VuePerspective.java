@@ -1,11 +1,11 @@
 package vue;
 
 import modele.Perspective;
-import modele.Vignette;
 
 import javax.swing.*;
+import java.awt.*;
 
-public class VuePerspective extends JFrame {
+public class VuePerspective extends JPanel implements observateur.Observer {
     private Perspective perspective;
 
     public VuePerspective(Perspective perspective){
@@ -17,7 +17,9 @@ public class VuePerspective extends JFrame {
     }
 
     public void initPanneau(){
-
+        setLayout(new FlowLayout());
+        setBackground(Color.ORANGE);
+        setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
     public void initContenu(){
