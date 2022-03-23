@@ -8,7 +8,7 @@ public class ControleurVignette {
     VueVignette vueVignette;
     Image image;
 
-    public ControleurVignette(VueVignette vueVignette, Vignette vignette){
+    public ControleurVignette(VueVignette vueVignette, Image image){
         this.vueVignette = vueVignette;
         this.image = image;
 

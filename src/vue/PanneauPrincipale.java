@@ -41,7 +41,7 @@ public class PanneauPrincipale extends JPanel {
         // Creation des vues
         Image image = new Image();
         vueVignette = new VueVignette(image);
-        new ControlleurVignette(vueVignette, image);
+        new ControleurVignette(vueVignette, image);
 
         Perspective perspectiveGauche = new Perspective(image);
         vuePerspectiveGauche = new VuePerspective(perspectiveGauche);
