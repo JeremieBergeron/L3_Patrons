@@ -55,17 +55,20 @@ public class PanneauPrincipale extends JPanel {
         new ControlleurPerspective(vuePerspectiveGauche, perspectiveDroite);
 
 
-        /*// Base sur https://stackoverflow.com/questions/28425321/java-divide-the-screen
+        // Base sur https://stackoverflow.com/questions/28425321/java-divide-the-screen
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;
         c.weighty = 1;
 
         c.weightx = 1/3;
         add(vueVignette, c);
+        vueVignette.setBackground(Color.BLACK);
         c.weightx = 1/3;
         add(vuePerspectiveGauche, c);
+        vuePerspectiveGauche.setBackground(Color.RED);
         c.weightx = 1/3;
-        add(vuePerspectiveDroite, c);*/
+        add(vuePerspectiveDroite, c);
+        vuePerspectiveDroite.setBackground(Color.BLUE);
 
 
     }

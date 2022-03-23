@@ -4,8 +4,9 @@ import modele.Perspective;
 import modele.Vignette;
 
 import javax.swing.*;
+import java.awt.*;
 
-public class VuePerspective extends JFrame {
+public class VuePerspective extends JPanel {
     private Perspective perspective;
 
     public VuePerspective(Perspective perspective){
