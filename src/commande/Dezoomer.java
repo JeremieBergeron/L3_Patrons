@@ -6,7 +6,7 @@ public class Dezoomer implements Commande {
 
     private Perspective modelePerspective;
 
-    public commandeDezoomer(Perspective modelePerspective) {
+    public Dezoomer(Perspective modelePerspective) {
         this.modelePerspective = modelePerspective;
     }
 
