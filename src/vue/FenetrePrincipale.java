@@ -62,5 +62,7 @@ public class FenetrePrincipale extends JFrame implements Runnable{
      */
     private void initContenu() {
 
+        PanneauPrincipale panneauPrincipale = new PanneauPrincipale(modelePrincipale);
+
     }
 }

@@ -3,6 +3,7 @@ package vue;
 import modele.Vignette;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class VueVignette extends JPanel {
 
