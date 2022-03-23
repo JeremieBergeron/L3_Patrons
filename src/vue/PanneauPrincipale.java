@@ -4,9 +4,7 @@ import controlleur.ControlleurPerspective;
 import controlleur.ControlleurVignette;
 import modele.ModelePrincipale;
 import modele.Perspective;
-import modele.Vignette;
-
-import java.awt.*;
+import modele.Image;
 
 
 import javax.swing.*;
@@ -41,15 +39,15 @@ public class PanneauPrincipale extends JPanel {
     public void initContenu(){
 
         // Creation des vues
-        Vignette vignette = new Vignette();
-        vueVignette = new VueVignette(vignette);
-        new ControlleurVignette(vueVignette, vignette);
+        Image image = new Image();
+        vueVignette = new VueVignette(image);
+        new ControlleurVignette(vueVignette, image);
 
-        Perspective perspectiveGauche = new Perspective();
+        Perspective perspectiveGauche = new Perspective(image);
         vuePerspectiveGauche = new VuePerspective(perspectiveGauche);
         new ControlleurPerspective(vuePerspectiveGauche, perspectiveGauche);
 
-        Perspective perspectiveDroite = new Perspective();
+        Perspective perspectiveDroite = new Perspective(image);
         vuePerspectiveDroite = new VuePerspective(perspectiveDroite);
         new ControlleurPerspective(vuePerspectiveGauche, perspectiveDroite);
 

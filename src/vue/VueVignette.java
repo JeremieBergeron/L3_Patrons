@@ -1,17 +1,16 @@
 package vue;
 
-import modele.Vignette;
+import modele.Image;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 
-public class VueVignette extends JPanel {
+public class VueVignette extends JPanel implements observateur.Observer {
 
-    private Vignette vignette;
+    private Image image;
 
-    public VueVignette(Vignette vignette){
-        this.vignette = vignette;
+    public VueVignette(Image image){
+        this.image = image;
 
         initPanneau();
         initContenu();
