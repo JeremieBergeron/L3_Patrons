@@ -1,4 +1,6 @@
 package modele;
 
-public class ModelePrincipale {
+import observateur.Observable;
+
+public class ModelePrincipale extends Observable {
 }
