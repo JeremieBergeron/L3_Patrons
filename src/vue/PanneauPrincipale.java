@@ -2,7 +2,7 @@ package vue;
 
 import controlleur.ControlleurPerspective;
 import controlleur.ControlleurVignette;
-import modele.ModelePrincipale;
+import modele.ModelePrincipal;
 import modele.Perspective;
 import modele.Vignette;
 
@@ -16,7 +16,7 @@ import javax.swing.*;
 
 public class PanneauPrincipale extends JPanel {
 
-    private ModelePrincipale modelePrincipale;
+    private ModelePrincipal modelePrincipale;
 
     private VueVignette vueVignette;
     private VuePerspective vuePerspectiveGauche;
@@ -25,7 +25,7 @@ public class PanneauPrincipale extends JPanel {
     /**
      * Create the frame.
      */
-    public PanneauPrincipale(ModelePrincipale modelePrincipale) {
+    public PanneauPrincipale(ModelePrincipal modelePrincipale) {
 
         this.modelePrincipale = modelePrincipale;
 

@@ -1,6 +1,6 @@
 package vue;
 
-import modele.ModelePrincipale;
+import modele.ModelePrincipal;
 import observateur.Observer;
 
 import javax.swing.JFrame;
@@ -11,7 +11,7 @@ public class FenetrePrincipale extends JFrame implements Runnable, Observer {
     private static final String TITRE_FENETRE = "L3 - Patrons";
     private static final Dimension DIMENSIONS = new Dimension(700, 700);
 
-    private ModelePrincipale modelePrincipale;
+    private ModelePrincipal modelePrincipale;
 
     private PanneauPrincipale panneauPrincipale;
     private MenuFenetre menuFenetre = new MenuFenetre();
@@ -20,7 +20,7 @@ public class FenetrePrincipale extends JFrame implements Runnable, Observer {
      *
      * @param modelePrincipale :
      */
-    public FenetrePrincipale (ModelePrincipale modelePrincipale) {
+    public FenetrePrincipale (ModelePrincipal modelePrincipale) {
         this.modelePrincipale = modelePrincipale;
     }
 
@@ -65,5 +65,13 @@ public class FenetrePrincipale extends JFrame implements Runnable, Observer {
     private void initContenu() {
 
         add(menuFenetre, BorderLayout.NORTH);
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void update() {
+
     }
 }
