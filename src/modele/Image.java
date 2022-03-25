@@ -1,15 +1,30 @@
 package modele;
 
-public class Image {
+import observateur.Observable;
 
-    // Attention, du a la méthode setPathImage qui est static, cette variable l'est en quelque sorte aussi
-    private String pathImage;
+import java.io.File;
+
+public class Image extends Observable {
+
+    //private String pathImage;
+    private File fileImage;
 
     public Image(){
 
     }
 
-    public static void setPathImage(String pathImage) {
-        pathImage = pathImage;
+    /**
+     *
+     * @param pathImage :
+     */
+    public void setPathImage(/*String pathImage*/ File pathImage) {
+        //this.pathImage = pathImage;
+        this.fileImage = pathImage;
+        notifierObservers();
+
+    }
+
+    public /*String*/ File getPathImage() {
+        return this.fileImage;
     }
 }
