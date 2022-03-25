@@ -8,13 +8,13 @@ public class Perspective extends Observable {
 
     private Image image;
     private Point position = new Point();
-    private int zoomLevel = 2;
-    private int hauteur = 20;
-    private int longueur = 50;
+   // private int zoomLevel = 2;
+    private int hauteur = 10;
+    private int longueur = 10;
 
     /**
      *
-     * @param image :
+     *
      */
     public Perspective(/*Image image*/){
         //this.image = image;
@@ -46,6 +46,24 @@ public class Perspective extends Observable {
      *
      * @return :
      */
+    public Image getImage() {
+        return this.image;
+    }
+
+    /**
+     *
+     * @param image :
+     */
+    public void setImage(Image image) {
+        this.image = image;
+
+        notifierObservers();
+    }
+
+    /**
+     *
+     * @return :
+     */
     public Point getPosition() {
         return this.position;
     }
@@ -68,7 +86,6 @@ public class Perspective extends Observable {
 
     /**
      *
-     * @return :
      */
     public void setLongueur(int longueur) {
         this.longueur = longueur;
@@ -76,7 +93,6 @@ public class Perspective extends Observable {
 
     /**
      *
-     * @return :
      */
     public void setHauteur(int hauteur) {
         this.hauteur = hauteur;

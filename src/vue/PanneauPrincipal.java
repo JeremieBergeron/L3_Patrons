@@ -49,14 +49,14 @@ public class PanneauPrincipal extends JPanel implements Observer {
         controleurPrincipale = new ControleurPrincipale(this, modelePrincipal);
 
         // Creation des vues
-        Image image = new Image();
+        //Image image = new Image();
         vueVignette = new VueVignette();
 
-        Perspective perspectiveGauche = new Perspective(/*image*/);
-        vuePerspectiveGauche = new VuePerspective(perspectiveGauche);
+        //Perspective perspectiveGauche = new Perspective(/*image*/);
+        vuePerspectiveGauche = new VuePerspective(/*perspectiveGauche*/);
 
-        Perspective perspectiveDroite = new Perspective(/*image*/);
-        vuePerspectiveDroite = new VuePerspective(perspectiveDroite);
+        //Perspective perspectiveDroite = new Perspective(/*image*/);
+        vuePerspectiveDroite = new VuePerspective(/*perspectiveDroite*/);
 
         // Ajout des vues
         add(vueVignette);
@@ -81,14 +81,26 @@ public class PanneauPrincipal extends JPanel implements Observer {
      */
     @Override
     public void update() {
-        String path = this.modelePrincipal.getPathImage();
+        //String path = this.modelePrincipal.getPathImage();
+        File path = this.modelePrincipal.getPathImage();
 
         Image image = new Image();
         image.ajouterObservers(vueVignette);
-        image.setPathImage(path);
-
         vueVignette.setImage(image);
+        //image.setPathImage(path);
+        image.setPathImage(path); // Ceci est nécessaire pour faire rafraichir la vue
 
-        System.out.println("Obeserver update()");
+        // Vue de droite
+        Perspective perspectiveDroite = new Perspective(/*image*/);
+        perspectiveDroite.ajouterObservers(vuePerspectiveDroite);
+        vuePerspectiveDroite.setPerspective(perspectiveDroite);
+        perspectiveDroite.setImage(image); // Ceci est nécessaire pour faire rafraichir la vue
+
+        // Vue de gauche
+        Perspective perspectiveGauche = new Perspective(/*image*/);
+        perspectiveGauche.ajouterObservers(vuePerspectiveGauche);
+        vuePerspectiveGauche.setPerspective(perspectiveGauche);
+        perspectiveGauche.setImage(image); // Ceci est nécessaire pour faire rafraichir la vue
+
     }
 }

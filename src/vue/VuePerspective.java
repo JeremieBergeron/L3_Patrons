@@ -12,31 +12,29 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 public class VuePerspective extends JPanel implements Observer, MouseWheelListener, MouseMotionListener, MouseListener {
 
     private boolean vueActive;
 
-    private final Perspective perspective;
-    private final ControleurPerspective ctrlPerspective;
+    private /*final*/ Perspective perspective;
+    private /*final*/ ControleurPerspective ctrlPerspective;
 
     /*
     test
     private int id;
-    */
-    private BufferedImage i;
-    private Toolkit t;
+
+    // private BufferedImage i;
+    // private Toolkit t;*/
 
 
     /**
      *
-     * @param perspective :
      */
-    public VuePerspective(Perspective perspective){
-        this.perspective = perspective;
-        ctrlPerspective = new ControleurPerspective(this, perspective);
+    public VuePerspective(/*Perspective perspective*/){
+        //this.perspective = perspective;
+        /*ctrlPerspective = new ControleurPerspective(this, perspective);*/
         /*
         test
         this.id = id;
@@ -51,11 +49,11 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
      *
      */
     public void initPanneau(){
+        ctrlPerspective = new ControleurPerspective(this, perspective);
+
         vueActive = false;
         addMouseWheelListener(this);
         addMouseListener(this);
-
-
 
         setLayout(new FlowLayout());
         setBackground(Color.ORANGE);
@@ -67,9 +65,9 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
      */
     public void initContenu() {
 
-        /*test*/
+        /*test
         //t = Toolkit.getDefaultToolkit();
-        try {
+        /* try {
             i = ImageIO.read(new File("src/img/test1.png"));
         } catch (IOException e) {
             e.printStackTrace();
@@ -82,9 +80,7 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
 
         System.out.println(i.getHeight());
         System.out.println(i.getWidth());
-        //System.out.println(i.get);
-
-        perspective.ajouterObservers(this);
+        System.out.println(i.get);*/
 
     }
 
@@ -96,9 +92,26 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
     public void paint(Graphics g) {
         super.paint(g);
 
-        g.drawImage(i, perspective.getPosition().x, perspective.getPosition().y, perspective.getLongueur(), perspective.getHauteur(),  this);
+        try {
+            if(perspective != null && perspective.getImage() != null) {
 
+                //BufferedImage i = ImageIO.read(new File(image.getPathImage()));
+                BufferedImage i = ImageIO.read(perspective.getImage().getPathImage());
+                //POSITION_VIGNETTE.y = (this.getHeight()/2) - (i.getHeight()/2);
 
+                g.drawImage(i, perspective.getPosition().x, perspective.getPosition().y, perspective.getHauteur(), perspective.getLongueur(),this);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *
+     * @param perspective :
+     */
+    public void setPerspective(Perspective perspective) {
+        this.perspective = perspective;
     }
 
     /**
@@ -118,7 +131,7 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
     @Override
     public void mouseWheelMoved(MouseWheelEvent event) {
 
-        System.out.println(event.isControlDown());
+        //System.out.println(event.getPreciseWheelRotation());
 
         if(vueActive) {
 
