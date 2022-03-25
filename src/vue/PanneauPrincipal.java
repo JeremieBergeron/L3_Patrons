@@ -39,7 +39,7 @@ public class PanneauPrincipal extends JPanel {
     public void initContenu(){
 
         // Creation des vues
-        Image image = new Image();
+        Image image = new Image(null);
         vueVignette = new VueVignette(image);
         new ControleurVignette(vueVignette, image);
 
