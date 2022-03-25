@@ -1,5 +1,6 @@
 package vue;
 
+import controleur.ControleurVignette;
 import modele.Image;
 
 import javax.swing.*;
@@ -9,6 +10,10 @@ public class VueVignette extends JPanel implements observateur.Observer {
 
     private Image image;
 
+    /**
+     *
+     * @param image :
+     */
     public VueVignette(Image image){
         this.image = image;
 
@@ -17,6 +22,9 @@ public class VueVignette extends JPanel implements observateur.Observer {
 
     }
 
+    /**
+     *
+     */
     public void initPanneau(){
         setLayout(new FlowLayout());
         setBackground(Color.GRAY);
@@ -24,12 +32,24 @@ public class VueVignette extends JPanel implements observateur.Observer {
 
     }
 
+    /**
+     *
+     */
     public void initContenu(){
+
+        new ControleurVignette(this, image);
 
     }
 
+    /**
+     *
+     */
     @Override
     public void update() {
 
+    }
+
+    public void setImage (Image image) {
+        this.image = image;
     }
 }

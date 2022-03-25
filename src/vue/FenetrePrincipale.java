@@ -12,17 +12,17 @@ public class FenetrePrincipale extends JFrame implements Runnable, Observer {
     private static final Dimension DIMENSIONS = Toolkit.getDefaultToolkit().getScreenSize();
     //private static final Dimension DIMENSIONS = new Dimension(700, 700);
 
-    private ModelePrincipal modelePrincipale;
+    private ModelePrincipal modelePrincipal;
 
-    private PanneauPrincipal panneauPrincipale;
-    private MenuFenetre menuFenetre = new MenuFenetre();
+    private PanneauPrincipal panneauPrincipal;
+    private MenuFenetre menuFenetre;
 
     /**
      *
-     * @param modelePrincipale :
+     * @param modelePrincipal :
      */
-    public FenetrePrincipale (ModelePrincipal modelePrincipale) {
-        this.modelePrincipale = modelePrincipale;
+    public FenetrePrincipale (ModelePrincipal modelePrincipal) {
+        this.modelePrincipal = modelePrincipal;
     }
 
     /**
@@ -64,12 +64,19 @@ public class FenetrePrincipale extends JFrame implements Runnable, Observer {
      *
      */
     private void initContenu() {
+        menuFenetre = new MenuFenetre(this);
+        panneauPrincipal = new PanneauPrincipal(modelePrincipal);
 
         add(menuFenetre, BorderLayout.NORTH);
+        add(panneauPrincipal);
+    }
 
-        PanneauPrincipal panneauPrincipale = new PanneauPrincipal(modelePrincipale);
-
-        add(panneauPrincipale);
+    /**
+     *
+     * @return :
+     */
+    public PanneauPrincipal getPanneauPrincipal() {
+        return this.panneauPrincipal;
     }
 
     /**

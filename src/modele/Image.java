@@ -10,7 +10,15 @@ public class Image {
 
     }
 
+    /**
+     *
+     * @param pathImage :
+     */
     public static void setPathImage(String pathImage) {
         pathImage = pathImage;
+    }
+
+    public String getPathImage() {
+        return this.pathImage;
     }
 }

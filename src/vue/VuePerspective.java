@@ -75,6 +75,8 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
             e.printStackTrace();
         }
 
+        new ControleurPerspective(this, perspective);
+
         perspective.setLongueur(i.getWidth());
         perspective.setHauteur(i.getHeight());
 
@@ -123,12 +125,12 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
             if (event.getPreciseWheelRotation() < 0) {
 
                 Commande cmdZoomer = new Zoomer(perspective);
-                ctrlPerspective.executreCommande(cmdZoomer);
+                ctrlPerspective.executerCommande(cmdZoomer);
 
             } else {
 
                 Commande cmdDezoomer = new Dezoomer(perspective);
-                ctrlPerspective.executreCommande(cmdDezoomer);
+                ctrlPerspective.executerCommande(cmdDezoomer);
 
             }
         }

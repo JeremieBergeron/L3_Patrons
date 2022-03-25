@@ -10,8 +10,8 @@ public class ControleurPerspective {
 
     /**
      *
-     * @param vuePerspective
-     * @param perspective
+     * @param vuePerspective :
+     * @param perspective :
      */
     public ControleurPerspective(VuePerspective vuePerspective, Perspective perspective){
         this.vuePerspective = vuePerspective;
@@ -21,9 +21,9 @@ public class ControleurPerspective {
 
     /**
      *
-     * @param commande
+     * @param commande :
      */
-    public void executreCommande(Commande commande) {
+    public void executerCommande(Commande commande) {
 
         //
         commande.execute();
