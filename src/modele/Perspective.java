@@ -16,8 +16,8 @@ public class Perspective extends Observable {
      *
      * @param image :
      */
-    public Perspective(Image image){
-        this.image = image;
+    public Perspective(/*Image image*/){
+        //this.image = image;
         position.x = 1;
         position.y = 2;
     }

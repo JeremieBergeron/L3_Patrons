@@ -49,13 +49,13 @@ public class PanneauPrincipal extends JPanel implements Observer {
         controleurPrincipale = new ControleurPrincipale(this, modelePrincipal);
 
         // Creation des vues
-        Image image = new Image(null);
-        vueVignette = new VueVignette(image);
+        Image image = new Image();
+        vueVignette = new VueVignette();
 
-        Perspective perspectiveGauche = new Perspective(image);
+        Perspective perspectiveGauche = new Perspective(/*image*/);
         vuePerspectiveGauche = new VuePerspective(perspectiveGauche);
 
-        Perspective perspectiveDroite = new Perspective(image);
+        Perspective perspectiveDroite = new Perspective(/*image*/);
         vuePerspectiveDroite = new VuePerspective(perspectiveDroite);
 
         // Ajout des vues
@@ -81,6 +81,14 @@ public class PanneauPrincipal extends JPanel implements Observer {
      */
     @Override
     public void update() {
+        String path = this.modelePrincipal.getPathImage();
 
+        Image image = new Image();
+        image.ajouterObservers(vueVignette);
+        image.setPathImage(path);
+
+        vueVignette.setImage(image);
+
+        System.out.println("Obeserver update()");
     }
 }

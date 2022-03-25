@@ -1,12 +1,13 @@
 package modele;
 
-public class Image {
+import observateur.Observable;
+
+public class Image extends Observable {
 
     // Attention, du a la méthode setPathImage qui est static, cette variable l'est en quelque sorte aussi
     private String pathImage;
 
-    public Image(String path){
-        this.pathImage = path;
+    public Image(){
 
     }
 
@@ -14,8 +15,10 @@ public class Image {
      *
      * @param pathImage :
      */
-    public static void setPathImage(String pathImage) {
-        pathImage = pathImage;
+    public void setPathImage(String pathImage) {
+        this.pathImage = pathImage;
+        notifierObservers();
+
     }
 
     public String getPathImage() {

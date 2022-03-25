@@ -17,8 +17,7 @@ public class Ouvrir implements Commande{
 
     @Override
     public boolean execute() {
-        System.out.println(selectedFile);
-        modelePrincipal.ouvrir();
+        modelePrincipal.ouvrir(selectedFile);
         return true;
     }
 

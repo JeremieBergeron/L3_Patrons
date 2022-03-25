@@ -12,10 +12,9 @@ public class VueVignette extends JPanel implements observateur.Observer {
 
     /**
      *
-     * @param image :
+     *
      */
-    public VueVignette(Image image){
-        this.image = image;
+    public VueVignette(){
 
         initPanneau();
         initContenu();

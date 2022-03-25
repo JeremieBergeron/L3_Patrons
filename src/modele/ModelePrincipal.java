@@ -2,14 +2,22 @@ package modele;
 
 import observateur.Observable;
 
+import java.io.File;
+
 public class ModelePrincipal extends Observable {
 
-    public void ouvrir() {
+    private String pathImage;
 
-        System.out.println("Ouvrir");
+    public void ouvrir(File pathImage) {
+        this.pathImage = pathImage.toString();
+        notifierObservers();
     }
 
     public void sauvegarder () {
 
+    }
+
+    public String getPathImage() {
+        return this.pathImage;
     }
 }
