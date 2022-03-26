@@ -10,16 +10,16 @@ import java.awt.geom.Point2D;
 
 public class VueVignette extends JPanel implements Observer {
 
-    private final Point2D.Float POSITION_VIGNETTE = new Point2D.Float(0,0);
+    private final Point2D.Float positionVignette = new Point2D.Float(0,0);
     private Image image;
 
     // panneau
-    float paneauLongueur;
-    float paneauHauteur;
+    private float paneauLongueur;
+    private float paneauHauteur;
 
     // L'image
-    float vignetteLongueur;
-    float vignetteHauteur;
+    private float vignetteLongueur;
+    private float vignetteHauteur;
 
 
     /**
@@ -80,11 +80,11 @@ public class VueVignette extends JPanel implements Observer {
             ajusterDimension();
 
             // Position de la vignette
-            POSITION_VIGNETTE.x = (paneauLongueur/2) - (vignetteLongueur/2);
-            POSITION_VIGNETTE.y = (paneauHauteur/2) - (vignetteHauteur/2);
+            positionVignette.x = (paneauLongueur/2) - (vignetteLongueur/2);
+            positionVignette.y = (paneauHauteur/2) - (vignetteHauteur/2);
 
             // Dessiner image
-            g.drawImage(image.getImage(), (int) POSITION_VIGNETTE.x, (int) POSITION_VIGNETTE.y, (int) vignetteLongueur, (int) vignetteHauteur, this);
+            g.drawImage(image.getImage(), (int) positionVignette.x, (int) positionVignette.y, (int) vignetteLongueur, (int) vignetteHauteur, this);
         }
 
 
