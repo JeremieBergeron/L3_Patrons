@@ -2,17 +2,12 @@ package modele;
 
 import observateur.Observable;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class Perspective extends Observable {
 
     private Image image;
     private Point position = new Point();
-    private int hauteurRatio;
-    private int longueurRatio;
     private int hauteur;
     private int longueur;
 
@@ -20,8 +15,7 @@ public class Perspective extends Observable {
      *
      *
      */
-    public Perspective(/*Image image*/){
-        //this.image = image;
+    public Perspective(){
         position.x = 1;
         position.y = 1;
     }
@@ -31,11 +25,8 @@ public class Perspective extends Observable {
      */
     public void zoomer(){
 
-        hauteur += hauteurRatio;
-        longueur += longueurRatio;
-
-        //hauteur++;
-        //longueur++;
+        hauteur += image.getHauteurRatio();
+        longueur += image.getLongueurRatio();
 
         notifierObservers();
     }
@@ -45,8 +36,8 @@ public class Perspective extends Observable {
      */
     public void dezoomer(){
 
-        hauteur -= hauteurRatio;
-        longueur -= longueurRatio;
+        hauteur -= image.getHauteurRatio();
+        longueur -= image.getLongueurRatio();
 
         notifierObservers();
     }
@@ -66,31 +57,12 @@ public class Perspective extends Observable {
     public void setImage(Image image) {
         this.image = image;
 
-        try {
-            BufferedImage i = ImageIO.read(this.image.getPathImage());
-            hauteur = i.getHeight();
-            longueur = i.getWidth();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        int dim_pgcd = pgcd(hauteur, longueur);
-        hauteurRatio = hauteur / dim_pgcd;
-        longueurRatio = longueur / dim_pgcd;
+        hauteur = image.getHauteur();
+        longueur = image.getLongueur();
 
         notifierObservers();
     }
 
-    /**
-     *
-     * @param a :
-     * @param b :
-     * @return :
-     */
-    public int pgcd(int a, int b) {
-        return b == 0 ? a : pgcd(b, a % b);
-    }
 
     /**
      *

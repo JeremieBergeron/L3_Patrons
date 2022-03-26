@@ -4,18 +4,23 @@ import controleur.ControleurVignette;
 import modele.Image;
 import observateur.Observer;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.awt.geom.Point2D;
 
 public class VueVignette extends JPanel implements Observer {
 
+    private final Point2D.Float POSITION_VIGNETTE = new Point2D.Float(0,0);
     private Image image;
 
-    private final Point POSITION_VIGNETTE = new Point(0,0);
+    // panneau
+    float paneauLongueur;
+    float paneauHauteur;
+
+    // L'image
+    float vignetteLongueur;
+    float vignetteHauteur;
+
 
     /**
      *
@@ -48,23 +53,38 @@ public class VueVignette extends JPanel implements Observer {
 
     /**
      *
+     * @param image :
+     */
+    public void setImage (Image image) {
+        this.image = image;
+    }
+
+    /**
+     *
      * @param g :
      */
     @Override
     public void paint(Graphics g){
         super.paint(g);
 
-        try {
-            if(image != null) {
+        if(image != null) {
 
-                //BufferedImage i = ImageIO.read(new File(image.getPathImage()));
-                BufferedImage i = ImageIO.read(image.getPathImage());
-                POSITION_VIGNETTE.y = (this.getHeight()/2) - (i.getHeight()/2);
+            // Panneau
+            paneauLongueur = this.getWidth();
+            paneauHauteur = this.getHeight();
 
-                g.drawImage(i, POSITION_VIGNETTE.x, POSITION_VIGNETTE.y, this);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+            // L'image
+            vignetteLongueur = image.getLongueur();
+            vignetteHauteur = image.getHauteur();
+
+            ajusterDimension();
+
+            // Position de la vignette
+            POSITION_VIGNETTE.x = (paneauLongueur/2) - (vignetteLongueur/2);
+            POSITION_VIGNETTE.y = (paneauHauteur/2) - (vignetteHauteur/2);
+
+            // Dessiner image
+            g.drawImage(image.getImage(), (int) POSITION_VIGNETTE.x, (int) POSITION_VIGNETTE.y, (int) vignetteLongueur, (int) vignetteHauteur, this);
         }
 
 
@@ -73,12 +93,28 @@ public class VueVignette extends JPanel implements Observer {
     /**
      *
      */
+    public void ajusterDimension(){
+        // Ajuster la vignette à la vue par rapport à la longueur de l'image
+        if(vignetteLongueur > paneauLongueur) {
+            vignetteLongueur = paneauLongueur - 20;
+            vignetteHauteur = vignetteLongueur * ((float) image.getHauteurRatio() / (float) image.getLongueurRatio());
+        }
+
+        // Ajuster la vignette par rapport à l'hauteur de l'image
+        // dans le cas où l'hauteur est encore plus grand que celle de la vue
+        if (vignetteHauteur > paneauHauteur) {
+            vignetteHauteur = paneauHauteur - 20;
+            vignetteLongueur = vignetteHauteur * ( (float) image.getLongueurRatio() / (float) image.getHauteurRatio() );
+        }
+    }
+
+
+
+    /**
+     *
+     */
     @Override
     public void update() {
         repaint();
-    }
-
-    public void setImage (Image image) {
-        this.image = image;
     }
 }
