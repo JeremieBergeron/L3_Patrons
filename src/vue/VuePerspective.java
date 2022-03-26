@@ -97,9 +97,9 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
 
                 //BufferedImage i = ImageIO.read(new File(image.getPathImage()));
                 BufferedImage i = ImageIO.read(perspective.getImage().getPathImage());
-                //POSITION_VIGNETTE.y = (this.getHeight()/2) - (i.getHeight()/2);
+                //POSITION_VIGNETTE.y = (this.getHeight()/2) - (i.getHeight()/2)
 
-                g.drawImage(i, perspective.getPosition().x, perspective.getPosition().y, perspective.getHauteur(), perspective.getLongueur(),this);
+                g.drawImage(i, perspective.getPosition().x, perspective.getPosition().y, perspective.getLongueur(), perspective.getHauteur(),this);
             }
         } catch (IOException e) {
             e.printStackTrace();
