@@ -22,7 +22,7 @@ public class Perspective extends Observable {
 
     public void translater(Point position){
 
-        this.position = position;
+        this.position.setLocation(position);
 
         notifierObservers();
     }
