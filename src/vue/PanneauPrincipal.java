@@ -2,10 +2,7 @@ package vue;
 
 import commande.Commande;
 import commande.Ouvrir;
-import commande.Zoomer;
-import controleur.ControleurPerspective;
 import controleur.ControleurPrincipale;
-import controleur.ControleurVignette;
 import modele.ModelePrincipal;
 import modele.Perspective;
 import modele.Image;
@@ -88,20 +85,20 @@ public class PanneauPrincipal extends JPanel implements Observer {
         image.ajouterObservers(vueVignette);
         vueVignette.setImage(image);
         //image.setPathImage(path);
-        image.setPathImage(path); // Ceci est nécessaire pour faire rafraichir la vue
+        image.setImage(path,vueVignette.getWidth(), vueVignette.getHeight()); // Ceci est nécessaire pour faire rafraichir la vue
 
         // Vue de droite
         Perspective perspectiveDroite = new Perspective(/*image*/);
         perspectiveDroite.ajouterObservers(vuePerspectiveDroite);
         vuePerspectiveDroite.setPerspective(perspectiveDroite);
-        perspectiveDroite.setImage(image,vueVignette.getWidth(), vueVignette.getHeight()); // Ceci est nécessaire pour faire rafraichir la vue
+        perspectiveDroite.setImage(image,vuePerspectiveDroite.getWidth(), vuePerspectiveDroite.getHeight()); // Ceci est nécessaire pour faire rafraichir la vue
 
 
         // Vue de gauche
         Perspective perspectiveGauche = new Perspective(/*image*/);
         perspectiveGauche.ajouterObservers(vuePerspectiveGauche);
         vuePerspectiveGauche.setPerspective(perspectiveGauche);
-        perspectiveGauche.setImage(image,vueVignette.getWidth(), vueVignette.getHeight()); // Ceci est nécessaire pour faire rafraichir la vue
+        perspectiveGauche.setImage(image,vuePerspectiveGauche.getWidth(), vuePerspectiveGauche.getHeight()); // Ceci est nécessaire pour faire rafraichir la vue
 
     }
 }
