@@ -8,8 +8,8 @@ public class Perspective extends Observable {
 
     private Image image;
     private Point position = new Point();
-    private int hauteur;
-    private int longueur;
+    private int hauteurImage;
+    private int longueurImage;
 
     /**
      *
@@ -32,8 +32,8 @@ public class Perspective extends Observable {
      */
     public void zoomer(){
 
-        hauteur += image.getHauteurRatio();
-        longueur += image.getLongueurRatio();
+        hauteurImage += image.getHauteurRatio();
+        longueurImage += image.getLongueurRatio();
 
         notifierObservers();
     }
@@ -43,8 +43,8 @@ public class Perspective extends Observable {
      */
     public void dezoomer(){
 
-        hauteur -= image.getHauteurRatio();
-        longueur -= image.getLongueurRatio();
+        hauteurImage -= image.getHauteurRatio();
+        longueurImage -= image.getLongueurRatio();
 
         notifierObservers();
     }
@@ -61,11 +61,13 @@ public class Perspective extends Observable {
      *
      * @param image :
      */
-    public void setImage(Image image) {
+    public void setImage(Image image, int longueurVue, int hauteurVue) {
         this.image = image;
 
-        hauteur = image.getHauteur();
-        longueur = image.getLongueur();
+        this.hauteurImage = image.getHauteur();
+        this.longueurImage = image.getLongueur();
+
+        position.setLocation(longueurVue/2 - this.longueurImage/2, hauteurVue/2 - this.hauteurImage/2);
 
         notifierObservers();
     }
@@ -83,30 +85,30 @@ public class Perspective extends Observable {
      *
      * @return :
      */
-    public int getLongueur() {
-        return this.longueur;
+    public int getLongueurImage() {
+        return this.longueurImage;
     }
 
     /**
      *
      * @return :
      */
-    public int getHauteur() {
-        return this.hauteur;
+    public int getHauteurImage() {
+        return this.hauteurImage;
     }
 
     /**
      *
      */
-    public void setLongueur(int longueur) {
-        this.longueur = longueur;
+    public void setLongueurImage(int longueurImage) {
+        this.longueurImage = longueurImage;
     }
 
     /**
      *
      */
-    public void setHauteur(int hauteur) {
-        this.hauteur = hauteur;
+    public void setHauteurImage(int hauteurImage) {
+        this.hauteurImage = hauteurImage;
     }
 
 

@@ -94,13 +94,14 @@ public class PanneauPrincipal extends JPanel implements Observer {
         Perspective perspectiveDroite = new Perspective(/*image*/);
         perspectiveDroite.ajouterObservers(vuePerspectiveDroite);
         vuePerspectiveDroite.setPerspective(perspectiveDroite);
-        perspectiveDroite.setImage(image); // Ceci est nécessaire pour faire rafraichir la vue
+        perspectiveDroite.setImage(image,vueVignette.getWidth(), vueVignette.getHeight()); // Ceci est nécessaire pour faire rafraichir la vue
+
 
         // Vue de gauche
         Perspective perspectiveGauche = new Perspective(/*image*/);
         perspectiveGauche.ajouterObservers(vuePerspectiveGauche);
         vuePerspectiveGauche.setPerspective(perspectiveGauche);
-        perspectiveGauche.setImage(image); // Ceci est nécessaire pour faire rafraichir la vue
+        perspectiveGauche.setImage(image,vueVignette.getWidth(), vueVignette.getHeight()); // Ceci est nécessaire pour faire rafraichir la vue
 
     }
 }

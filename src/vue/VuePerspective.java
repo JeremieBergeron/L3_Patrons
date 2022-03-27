@@ -5,7 +5,6 @@ import commande.Dezoomer;
 import commande.Translater;
 import commande.Zoomer;
 import controleur.ControleurPerspective;
-import modele.Image;
 import modele.Perspective;
 import observateur.Observer;
 
@@ -72,7 +71,7 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
             BufferedImage i = perspective.getImage().getImage();
             //POSITION_VIGNETTE.y = (this.getHeight()/2) - (i.getHeight()/2)
 
-            g.drawImage(i, positionTemporaire.x, positionTemporaire.y, perspective.getLongueur(), perspective.getHauteur(),this);
+            g.drawImage(i, positionTemporaire.x, positionTemporaire.y, perspective.getLongueurImage(), perspective.getHauteurImage(),this);
         }
     }
 
@@ -146,7 +145,7 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
 
         Rectangle bounds = new Rectangle(
                 (int) perspective.getPosition().getX(), (int) perspective.getPosition().getY(),
-                perspective.getLongueur(), perspective.getHauteur());
+                perspective.getLongueurImage(), perspective.getHauteurImage());
         if (bounds.contains(event.getPoint())) {
             dragImage = true;
             clickOffset = new Point((int) (perspective.getPosition().getX() - event.getPoint().getX()), (int) (perspective.getPosition().getY() - event.getPoint().getY()));
