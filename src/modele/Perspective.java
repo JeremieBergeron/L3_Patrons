@@ -64,8 +64,8 @@ public class Perspective extends Observable {
     public void setImage(Image image, int longueurVue, int hauteurVue) {
         this.image = image;
 
-        this.hauteurImage = image.getHauteur();
-        this.longueurImage = image.getLongueur();
+        this.hauteurImage = image.getHauteurImage();
+        this.longueurImage = image.getLongueurImage();
 
         position.setLocation(longueurVue/2 - this.longueurImage/2, hauteurVue/2 - this.hauteurImage/2);
 

@@ -3,6 +3,7 @@ package modele;
 import observateur.Observable;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,10 +12,11 @@ public class Image extends Observable {
 
     private BufferedImage image;
 
-    private int hauteur;
-    private int longueur;
+    private int hauteurImage;
+    private int longueurImage;
     private int hauteurRatio;
     private int longueurRatio;
+    private Point position = new Point();
 
     public Image(){
 
@@ -24,7 +26,7 @@ public class Image extends Observable {
      *
      * @param pathImage :
      */
-    public void setPathImage(File pathImage) {
+    public void setImage(File pathImage, int longueurVue, int hauteurVue) {
 
         try {
             this.image = ImageIO.read(pathImage);
@@ -32,10 +34,24 @@ public class Image extends Observable {
             e.printStackTrace();
         }
 
-        hauteur = this.image.getHeight();
-        longueur = this.image.getWidth();
+        hauteurImage = this.image.getHeight();
+        longueurImage = this.image.getWidth();
 
         setImgRatio();
+
+        if(longueurImage > longueurVue) {
+            longueurImage = longueurVue - 20;
+            hauteurImage = (int) (longueurImage * ((float) hauteurRatio / (float) longueurRatio));
+        }
+
+        // Ajuster la vignette par rapport à l'hauteur de l'image
+        // dans le cas où l'hauteur est encore plus grand que celle de la vue
+        if (hauteurImage > hauteurVue) {
+            hauteurImage = hauteurVue - 20;
+            longueurImage = (int) (hauteurImage * ( (float) longueurRatio / (float) hauteurRatio ));
+        }
+
+        position.setLocation(longueurVue/2 - this.longueurImage/2, hauteurVue/2 - this.hauteurImage/2);
 
         notifierObservers();
     }
@@ -52,9 +68,9 @@ public class Image extends Observable {
      *
      */
     public void setImgRatio() {
-        int dim_pgcd = pgcd(hauteur, longueur);
-        hauteurRatio = hauteur / dim_pgcd;
-        longueurRatio = longueur / dim_pgcd;
+        int dim_pgcd = pgcd(hauteurImage, longueurImage);
+        hauteurRatio = hauteurImage / dim_pgcd;
+        longueurRatio = longueurImage / dim_pgcd;
     }
 
     /**
@@ -79,8 +95,8 @@ public class Image extends Observable {
      *
      * @return :
      */
-    public int getLongueur(){
-        return this.longueur;
+    public int getLongueurImage(){
+        return this.longueurImage;
     }
 
     /**
@@ -95,7 +111,11 @@ public class Image extends Observable {
      *
      * @return :
      */
-    public int getHauteur(){
-        return this.hauteur;
+    public int getHauteurImage(){
+        return this.hauteurImage;
+    }
+
+    public Point getPosition() {
+        return position;
     }
 }
