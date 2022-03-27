@@ -10,17 +10,7 @@ import java.awt.geom.Point2D;
 
 public class VueVignette extends JPanel implements Observer {
 
-    private final Point2D.Float positionVignette = new Point2D.Float(0,0);
     private Image image;
-
-    // panneau
-    private float paneauLongueur;
-    private float paneauHauteur;
-
-    // L'image
-    private float vignetteLongueur;
-    private float vignetteHauteur;
-
 
     /**
      *
@@ -73,7 +63,6 @@ public class VueVignette extends JPanel implements Observer {
             g.drawImage(image.getImage(), image.getPosition().x, image.getPosition().y, image.getLongueurImage(), image.getHauteurImage(),this);
 
         }
-
 
     }
 

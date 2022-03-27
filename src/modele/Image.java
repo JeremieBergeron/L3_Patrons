@@ -39,6 +39,14 @@ public class Image extends Observable {
 
         setImgRatio();
 
+        ajusterDimension(longueurVue, hauteurVue);
+
+        position.setLocation(longueurVue/2 - this.longueurImage/2, hauteurVue/2 - this.hauteurImage/2);
+
+        notifierObservers();
+    }
+
+    private void ajusterDimension(int longueurVue, int hauteurVue){
         if(longueurImage > longueurVue) {
             longueurImage = longueurVue - 20;
             hauteurImage = (int) (longueurImage * ((float) hauteurRatio / (float) longueurRatio));
@@ -50,10 +58,6 @@ public class Image extends Observable {
             hauteurImage = hauteurVue - 20;
             longueurImage = (int) (hauteurImage * ( (float) longueurRatio / (float) hauteurRatio ));
         }
-
-        position.setLocation(longueurVue/2 - this.longueurImage/2, hauteurVue/2 - this.hauteurImage/2);
-
-        notifierObservers();
     }
 
     /**
