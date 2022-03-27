@@ -2,6 +2,7 @@ package vue;
 
 import commande.Commande;
 import commande.Dezoomer;
+import commande.Translater;
 import commande.Zoomer;
 import controleur.ControleurPerspective;
 import modele.Perspective;
@@ -15,6 +16,8 @@ import java.awt.image.BufferedImage;
 public class VuePerspective extends JPanel implements Observer, MouseWheelListener, MouseMotionListener, MouseListener {
 
     private boolean vueActive;
+    private Point clickOffset;
+    private Point positionTemporaire;
 
     private /*final*/ Perspective perspective;
     private /*final*/ ControleurPerspective ctrlPerspective;
@@ -39,16 +42,20 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
         vueActive = false;
         addMouseWheelListener(this);
         addMouseListener(this);
+        addMouseMotionListener(this);
 
         setLayout(new FlowLayout());
         setBackground(Color.ORANGE);
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
     }
 
     /**
      *
      */
-    public void initContenu() { }
+    public void initContenu() {
+        positionTemporaire = new Point();
+    }
 
     /**
      *
@@ -64,7 +71,7 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
             BufferedImage i = perspective.getImage().getImage();
             //POSITION_VIGNETTE.y = (this.getHeight()/2) - (i.getHeight()/2)
 
-            g.drawImage(i, perspective.getPosition().x, perspective.getPosition().y, perspective.getLongueur(), perspective.getHauteur(),this);
+            g.drawImage(i, positionTemporaire.x, positionTemporaire.y, perspective.getLongueur(), perspective.getHauteur(),this);
         }
     }
 
@@ -81,6 +88,8 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
      */
     @Override
     public void update() {
+        positionTemporaire.setLocation(perspective.getPosition());
+
         repaint();
     }
 
@@ -131,6 +140,9 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
         System.out.println("Clicked");
 
         vueActive = true;
+
+        // Inspiré de https://stackoverflow.com/questions/33163298/dragging-image-using-mousedrag-method
+        clickOffset = new Point((int) (perspective.getPosition().getX() - event.getPoint().getX()), (int) (perspective.getPosition().getY()- event.getPoint().getY()));
     }
 
     /**
@@ -140,7 +152,13 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
      */
     @Override
     public void mouseReleased(MouseEvent event) {
+        Point dragPoint = new Point(event.getPoint());
 
+        dragPoint.x += clickOffset.x;
+        dragPoint.y += clickOffset.y;
+
+        Commande cmdTranslater = new Translater(perspective, dragPoint);
+        cmdTranslater.execute();
     }
 
     /**
@@ -184,7 +202,15 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
      */
     @Override
     public void mouseDragged(MouseEvent event) {
+        // Inspiré de https://stackoverflow.com/questions/33163298/dragging-image-using-mousedrag-method
+        Point dragPoint = new Point(event.getPoint());
 
+        dragPoint.x += clickOffset.x;
+        dragPoint.y += clickOffset.y;
+
+        positionTemporaire.setLocation(dragPoint);
+
+        repaint();
     }
 
     /**

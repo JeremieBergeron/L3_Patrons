@@ -2,22 +2,27 @@ package commande;
 
 import modele.Perspective;
 
+import java.awt.*;
+
 public class Translater implements Commande {
 
     private Perspective modelePerspective;
+    private Point point;
 
-    public void Translater(Perspective modelePerspective) {
+    public Translater(Perspective modelePerspective, Point point) {
+
         this.modelePerspective = modelePerspective;
+        this.point = point;
     }
 
     @Override
     public boolean execute() {
-        //modelePerspective.translater();
+        modelePerspective.translater(point);
         return true;
     }
 
     public boolean defaire() {
-        //modelePerspective.translater();
+        modelePerspective.translater(point);
         return true;
     }
 

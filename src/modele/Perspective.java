@@ -20,6 +20,13 @@ public class Perspective extends Observable {
         position.y = 1;
     }
 
+    public void translater(Point position){
+
+        this.position = position;
+
+        notifierObservers();
+    }
+
     /**
      *
      */
@@ -101,4 +108,6 @@ public class Perspective extends Observable {
     public void setHauteur(int hauteur) {
         this.hauteur = hauteur;
     }
+
+
 }
