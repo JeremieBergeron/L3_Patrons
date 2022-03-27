@@ -5,6 +5,7 @@ import commande.Dezoomer;
 import commande.Translater;
 import commande.Zoomer;
 import controleur.ControleurPerspective;
+import modele.Image;
 import modele.Perspective;
 import observateur.Observer;
 
@@ -18,7 +19,7 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
     private boolean vueActive;
     private Point clickOffset;
     private Point positionTemporaire;
-
+    private boolean dragImage;
     private /*final*/ Perspective perspective;
     private /*final*/ ControleurPerspective ctrlPerspective;
 
@@ -142,8 +143,15 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
         vueActive = true;
 
         // Inspiré de https://stackoverflow.com/questions/33163298/dragging-image-using-mousedrag-method
-        clickOffset = new Point((int) (perspective.getPosition().getX() - event.getPoint().getX()), (int) (perspective.getPosition().getY()- event.getPoint().getY()));
-    }
+
+        Rectangle bounds = new Rectangle(
+                (int) perspective.getPosition().getX(), (int) perspective.getPosition().getY(),
+                perspective.getLongueur(), perspective.getHauteur());
+        if (bounds.contains(event.getPoint())) {
+            dragImage = true;
+            clickOffset = new Point((int) (perspective.getPosition().getX() - event.getPoint().getX()), (int) (perspective.getPosition().getY() - event.getPoint().getY()));
+        }
+        }
 
     /**
      * Invoked when a mouse button has been released on a component.
@@ -152,13 +160,18 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
      */
     @Override
     public void mouseReleased(MouseEvent event) {
-        Point dragPoint = new Point(event.getPoint());
+        if (dragImage) {
+            Point dragPoint = new Point(event.getPoint());
 
-        dragPoint.x += clickOffset.x;
-        dragPoint.y += clickOffset.y;
+            dragPoint.x += clickOffset.x;
+            dragPoint.y += clickOffset.y;
 
-        Commande cmdTranslater = new Translater(perspective, dragPoint);
-        cmdTranslater.execute();
+
+            Commande cmdTranslater = new Translater(perspective, dragPoint);
+            cmdTranslater.execute();
+
+            dragImage = false;
+        }
     }
 
     /**
@@ -203,14 +216,16 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
     @Override
     public void mouseDragged(MouseEvent event) {
         // Inspiré de https://stackoverflow.com/questions/33163298/dragging-image-using-mousedrag-method
-        Point dragPoint = new Point(event.getPoint());
+        if(dragImage) {
+            Point dragPoint = new Point(event.getPoint());
 
-        dragPoint.x += clickOffset.x;
-        dragPoint.y += clickOffset.y;
+            dragPoint.x += clickOffset.x;
+            dragPoint.y += clickOffset.y;
 
-        positionTemporaire.setLocation(dragPoint);
+            positionTemporaire.setLocation(dragPoint);
 
-        repaint();
+            repaint();
+        }
     }
 
     /**
