@@ -14,8 +14,14 @@ import java.awt.image.BufferedImage;
 public class VuePerspective extends JPanel implements Observer, MouseWheelListener, MouseMotionListener, MouseListener {
 
     private boolean vueActive;
+    // Permet de bouger l'image à partir de n'importe quel point de celle-ci.
+    // Explication:
+    //  Si cette variable ne serait pas présente, le déplacement de l'image dépendrait entièrement du point en haut à gauche de l'image.
+    //  Ainsi, cette variable ajoute un certain x et un certain y pour compenser la distance entre la souris et le point HAUT-GAUCHE de l'image.
     private Point clickOffset;
+    // Position de l'image lorsque qu'on clique sur celle-ci et qu'on la bouge sans retiré son doigt de la souris
     private Point positionTemporaire;
+    // Si vrai, on peut déplacer l'image
     private boolean dragImage;
     private /*final*/ Perspective perspective;
     private /*final*/ ControleurPerspective ctrlPerspective;
