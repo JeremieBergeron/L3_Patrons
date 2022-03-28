@@ -23,6 +23,21 @@ public class Perspective extends Observable {
         position.y = 1;
     }
 
+    /**
+     * Constructeur de copie
+     *
+     * @param perspectiveACopier
+     */
+    public Perspective(Perspective perspectiveACopier){
+        this.image = perspectiveACopier.getImage();
+        this.position.setLocation(perspectiveACopier.getPosition());
+        this.hauteurImage = perspectiveACopier.getHauteurImage();
+        this.longueurImage = perspectiveACopier.getLongueurImage();
+        this.vueType = perspectiveACopier.getVueType();
+
+        this.ajouterObservers(perspectiveACopier.getListeObservers());
+    }
+
     public void translater(Point position){
 
         this.position.setLocation(position);

@@ -1,13 +1,19 @@
 package commande;
 
 import java.util.LinkedList;
+
+import controleur.ControleurPerspective;
+import memento.MementoIF;
+import memento.Originator;
+import modele.Perspective;
 import vue.VueType;
 import javax.swing.*;
 
 public class GestionnaireCommande {
 
-    private LinkedList<Commande> listeCommandeGauche;
-    private LinkedList<Commande> listeCommandeDroite;
+    private Originator originator = new Originator();
+    private LinkedList<MementoIF> listeCommandeGauche;
+    private LinkedList<MementoIF> listeCommandeDroite;
     private static GestionnaireCommande instance = new GestionnaireCommande();
 
     private GestionnaireCommande(){
@@ -19,39 +25,46 @@ public class GestionnaireCommande {
         return instance;
     }
 
-    public void addCommande(Commande commande, VueType vueType) {
-        switch (vueType) {
-            case GAUCHE:
-                listeCommandeGauche.add(commande);
-                break;
+    public void addCommande(Commande commande, Perspective perspective) {
 
-            case DROITE:
-                listeCommandeDroite.add(commande);
-                break;
+        if (!commande.unexecute()){
+            listeCommandeGauche.clear();
+            listeCommandeDroite.clear();
+        } else {
+            switch (perspective.getVueType()) {
+                case GAUCHE:
+                    listeCommandeGauche.add(originator.saveToMemento(perspective));
+                    break;
+
+                case DROITE:
+                    listeCommandeDroite.add(originator.saveToMemento(perspective));
+                    break;
+            }
         }
 
     }
 
-    public void removeLastCommande(VueType vueType) {
-
-        switch (vueType) {
+    public void removeLastCommande(ControleurPerspective controleurPerspective) {
+        Perspective perspective = null;
+        switch (controleurPerspective.getPerspective().getVueType()) {
             case GAUCHE:
                 if (listeCommandeGauche.size() != 0) {
-                    if (listeCommandeGauche.getLast().unexecute()) {
-                        listeCommandeGauche.removeLast();
-                    } else {
-                        listeCommandeGauche.clear();
-                    }
+                    MementoIF mementoIF = listeCommandeGauche.getLast();
+                    perspective = originator.restoreFromMemento(mementoIF);
+                    controleurPerspective.setPerspective(perspective);
+                    listeCommandeGauche.removeLast();
+
                 }
                 break;
 
             case DROITE:
                 if (listeCommandeDroite.size() != 0) {
-                    if (listeCommandeDroite.getLast().unexecute()) {
-                        listeCommandeDroite.removeLast();
-                    } else {
-                        listeCommandeDroite.clear();
-                    }
+                    MementoIF mementoIF = listeCommandeDroite.getLast();
+                    perspective = originator.restoreFromMemento(mementoIF);
+                    controleurPerspective.setPerspective(perspective);
+
+                    listeCommandeDroite.removeLast();
+
                 }
                 break;
         }

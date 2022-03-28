@@ -1,5 +1,6 @@
 package commande;
 
+import controleur.ControleurPerspective;
 import modele.Perspective;
 
 public class Dezoomer implements Commande {
