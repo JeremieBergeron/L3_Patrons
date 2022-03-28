@@ -16,7 +16,7 @@ public class Zoomer implements Commande {
         return true;
     }
 
-    public boolean defaire() {
+    public boolean unexecute() {
         modelePerspective.dezoomer();
         return true;
     }
