@@ -7,22 +7,28 @@ import java.awt.*;
 public class Translater implements Commande {
 
     private Perspective modelePerspective;
-    private Point point;
+    private Point newPoint = new Point();
+    private Point oldPoint= new Point();
 
     public Translater(Perspective modelePerspective, Point point) {
 
         this.modelePerspective = modelePerspective;
-        this.point = point;
+        this.newPoint.setLocation(point);
+        this.oldPoint.setLocation(modelePerspective.getPosition());
     }
 
     @Override
     public boolean execute() {
-        modelePerspective.translater(point);
+        modelePerspective.translater(newPoint);
+
+        GestionnaireCommande.getInstance().addCommande(this, modelePerspective.getVueType());
         return true;
     }
 
-    public boolean defaire() {
-        modelePerspective.translater(point);
+    public boolean unexecute() {
+
+
+        modelePerspective.translater(oldPoint);
         return true;
     }
 

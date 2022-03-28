@@ -21,4 +21,9 @@ public class Ouvrir implements Commande{
         return true;
     }
 
+    @Override
+    public boolean unexecute() {
+        return false;
+    }
+
 }

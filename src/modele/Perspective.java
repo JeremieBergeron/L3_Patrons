@@ -1,6 +1,7 @@
 package modele;
 
 import observateur.Observable;
+import vue.VueType;
 
 import java.awt.*;
 
@@ -10,12 +11,14 @@ public class Perspective extends Observable {
     private Point position = new Point();
     private int hauteurImage;
     private int longueurImage;
+    private VueType vueType;
 
     /**
      *
      *
      */
-    public Perspective(){
+    public Perspective(VueType vueType){
+        this.vueType = vueType;
         position.x = 1;
         position.y = 1;
     }
@@ -111,5 +114,11 @@ public class Perspective extends Observable {
         this.hauteurImage = hauteurImage;
     }
 
+    public VueType getVueType() {
+        return vueType;
+    }
 
+    public void setVueType(VueType vueType) {
+        this.vueType = vueType;
+    }
 }
