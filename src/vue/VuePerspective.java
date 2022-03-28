@@ -23,9 +23,10 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
     private Point positionTemporaire;
     // Si vrai, on peut déplacer l'image
     private boolean dragImage;
+
+
     private /*final*/ Perspective perspective;
     private /*final*/ ControleurPerspective ctrlPerspective;
-
 
     private static final String UNDO = "undo";
 
@@ -50,10 +51,6 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
         addMouseWheelListener(this);
         addMouseListener(this);
         addMouseMotionListener(this);
-
-
-
-        /*setFocusable(true);*/
 
         setLayout(new FlowLayout());
         setBackground(Color.ORANGE);
@@ -99,8 +96,6 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
         positionTemporaire.setLocation(perspective.getPosition());
 
         repaint();
-
-
     }
 
     /**
@@ -172,11 +167,11 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
     @Override
     public void mouseReleased(MouseEvent event) {
         if (dragImage) {
+            // Envoie la commande pour translater l'image
             Point dragPoint = new Point(event.getPoint());
 
             dragPoint.x += clickOffset.x;
             dragPoint.y += clickOffset.y;
-
 
             Commande cmdTranslater = new Translater(perspective, dragPoint);
             cmdTranslater.execute();
@@ -194,7 +189,7 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
     @Override
     public void mouseEntered(MouseEvent event) {
         // Ajout du raccourci clavier lorsque la souris est au dessus de la vue
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW ).put(KeyStroke.getKeyStroke("control Z"), UNDO);
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control Z"), UNDO);
         this.getActionMap().put(UNDO, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -237,6 +232,7 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
     public void mouseDragged(MouseEvent event) {
         // Inspiré de https://stackoverflow.com/questions/33163298/dragging-image-using-mousedrag-method
         if (dragImage) {
+            // Permet de faire bouger l'image. IMPORTANT : N'envoie pas de commande
             Point dragPoint = new Point(event.getPoint());
 
             dragPoint.x += clickOffset.x;
