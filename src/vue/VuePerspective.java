@@ -187,12 +187,12 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
      */
     @Override
     public void mouseEntered(MouseEvent event) {
+        // Ajout du raccourci clavier lorsque la souris est au dessus de la vue
         this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW ).put(KeyStroke.getKeyStroke("control Z"), UNDO);
         this.getActionMap().put(UNDO, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 GestionnaireCommande.getInstance().removeLastCommande(perspective.getVueType());
-
             }
         });
     }
@@ -204,8 +204,8 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
      */
     @Override
     public void mouseExited(MouseEvent event) {
+        // Retrait du raccourci clavier lorsque la souris est en dehors de la vue
         this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control Z"), "none");
-
     }
 
     /*  END MouseListener  */
