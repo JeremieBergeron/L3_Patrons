@@ -32,7 +32,7 @@ public class GestionnaireCommande {
 
     }
 
-    public Action removeLastCommande(VueType vueType) {
+    public void removeLastCommande(VueType vueType) {
 
         switch (vueType) {
             case GAUCHE:
@@ -55,7 +55,6 @@ public class GestionnaireCommande {
                 }
                 break;
         }
-        return null;
     }
 
 }
