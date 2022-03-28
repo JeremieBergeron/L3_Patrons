@@ -47,8 +47,7 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
 
 
 
-        /*addKeyListener(this);
-        setFocusable(true);*/
+        /*setFocusable(true);*/
 
         setLayout(new FlowLayout());
         setBackground(Color.ORANGE);
@@ -189,7 +188,13 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
     @Override
     public void mouseEntered(MouseEvent event) {
         this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW ).put(KeyStroke.getKeyStroke("control Z"), UNDO);
-        this.getActionMap().put(UNDO, new ctrlZ());
+        this.getActionMap().put(UNDO, new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GestionnaireCommande.getInstance().removeLastCommande(perspective.getVueType());
+
+            }
+        });
     }
 
     /**
@@ -266,18 +271,4 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
     }
 
     /* END MouseMotionListener */
-
-    private class ctrlZ extends AbstractAction {
-
-
-        ctrlZ() {
-
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-            GestionnaireCommande.getInstance().removeLastCommande(perspective.getVueType());
-        }
-    }
 }
