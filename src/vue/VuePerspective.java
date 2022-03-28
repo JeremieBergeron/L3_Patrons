@@ -11,7 +11,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
 
-public class VuePerspective extends JPanel implements Observer, MouseWheelListener, MouseMotionListener, MouseListener, KeyListener {
+public class VuePerspective extends JPanel implements Observer, MouseWheelListener, MouseMotionListener, MouseListener {
 
     private boolean vueActive;
     private Point clickOffset;
@@ -250,23 +250,6 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
      */
     @Override
     public void mouseMoved(MouseEvent event) {
-
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        System.out.println(perspective.getVueType().name());
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        System.out.println(perspective.getVueType().name());
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        System.out.println(perspective.getVueType().name());
 
     }
 
