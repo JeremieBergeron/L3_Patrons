@@ -1,9 +1,7 @@
 package commande;
 
 import java.util.LinkedList;
-
 import vue.VueType;
-
 import javax.swing.*;
 
 public class GestionnaireCommande {
@@ -34,9 +32,7 @@ public class GestionnaireCommande {
 
     }
 
-    public Action removeLastCommande(VueType vueType) {
-
-        System.out.println(vueType);
+    public void removeLastCommande(VueType vueType) {
 
         switch (vueType) {
             case GAUCHE:
@@ -59,7 +55,6 @@ public class GestionnaireCommande {
                 }
                 break;
         }
-        return null;
     }
 
 }
