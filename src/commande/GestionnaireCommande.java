@@ -14,6 +14,7 @@ public class GestionnaireCommande {
     private Originator originator = new Originator();
     private LinkedList<MementoIF> listeCommandeGauche;
     private LinkedList<MementoIF> listeCommandeDroite;
+
     private static GestionnaireCommande instance = new GestionnaireCommande();
 
     private GestionnaireCommande(){
@@ -45,28 +46,24 @@ public class GestionnaireCommande {
     }
 
     public void removeLastCommande(ControleurPerspective controleurPerspective) {
-        Perspective perspective = null;
         switch (controleurPerspective.getPerspective().getVueType()) {
             case GAUCHE:
-                if (listeCommandeGauche.size() != 0) {
-                    MementoIF mementoIF = listeCommandeGauche.getLast();
-                    perspective = originator.restoreFromMemento(mementoIF);
-                    controleurPerspective.setPerspective(perspective);
-                    listeCommandeGauche.removeLast();
-
-                }
+                removeLastCommande(controleurPerspective, listeCommandeGauche);
                 break;
 
             case DROITE:
-                if (listeCommandeDroite.size() != 0) {
-                    MementoIF mementoIF = listeCommandeDroite.getLast();
-                    perspective = originator.restoreFromMemento(mementoIF);
-                    controleurPerspective.setPerspective(perspective);
-
-                    listeCommandeDroite.removeLast();
-
-                }
+                removeLastCommande(controleurPerspective, listeCommandeDroite);
                 break;
+        }
+    }
+
+    private void removeLastCommande(ControleurPerspective controleurPerspective, LinkedList<MementoIF> liste){
+        if (liste.size() != 0) {
+            MementoIF mementoIF = liste.getLast();
+            Perspective perspective = originator.restoreFromMemento(mementoIF);
+            controleurPerspective.setPerspective(perspective);
+
+            liste.removeLast();
         }
     }
 
