@@ -1,6 +1,7 @@
 package modele;
 
 import observateur.Observable;
+import vue.VueType;
 
 import java.awt.*;
 
@@ -10,12 +11,30 @@ public class Perspective extends Observable {
     private Point position = new Point();
     private int hauteurImage;
     private int longueurImage;
+    private VueType vueType;
 
     /**
      *
      *
      */
-    public Perspective(){}
+    public Perspective(VueType vueType){
+        this.vueType = vueType;
+    }
+
+    /**
+     * Constructeur de copie
+     *
+     * @param perspectiveACopier
+     */
+    public Perspective(Perspective perspectiveACopier){
+        this.image = perspectiveACopier.getImage();
+        this.position.setLocation(perspectiveACopier.getPosition());
+        this.hauteurImage = perspectiveACopier.getHauteurImage();
+        this.longueurImage = perspectiveACopier.getLongueurImage();
+        this.vueType = perspectiveACopier.getVueType();
+
+        this.ajouterObservers(perspectiveACopier.getListeObservers());
+    }
 
     public void translater(Point position){
 
@@ -111,5 +130,11 @@ public class Perspective extends Observable {
         this.hauteurImage = hauteurImage;
     }
 
+    public VueType getVueType() {
+        return vueType;
+    }
 
+    public void setVueType(VueType vueType) {
+        this.vueType = vueType;
+    }
 }

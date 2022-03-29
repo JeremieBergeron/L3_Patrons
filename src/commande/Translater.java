@@ -1,28 +1,32 @@
 package commande;
 
+import controleur.ControleurPerspective;
 import modele.Perspective;
 
 import java.awt.*;
 
 public class Translater implements Commande {
 
-    private Perspective modelePerspective;
-    private Point point;
+    private Perspective perspective;
+    private Point point = new Point();
 
     public Translater(Perspective modelePerspective, Point point) {
 
-        this.modelePerspective = modelePerspective;
-        this.point = point;
+        this.perspective = modelePerspective;
+        this.point.setLocation(point);
     }
 
     @Override
     public boolean execute() {
-        modelePerspective.translater(point);
+        GestionnaireCommande.getInstance().addCommande(this, perspective);
+
+        perspective.translater(point);
+
         return true;
     }
 
-    public boolean defaire() {
-        modelePerspective.translater(point);
+    public boolean unexecute() {
+
         return true;
     }
 

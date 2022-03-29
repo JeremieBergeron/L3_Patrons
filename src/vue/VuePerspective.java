@@ -1,9 +1,6 @@
 package vue;
 
-import commande.Commande;
-import commande.Dezoomer;
-import commande.Translater;
-import commande.Zoomer;
+import commande.*;
 import controleur.ControleurPerspective;
 import modele.Perspective;
 import observateur.Observer;
@@ -13,14 +10,25 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
+
 public class VuePerspective extends JPanel implements Observer, MouseWheelListener, MouseMotionListener, MouseListener {
 
     private boolean vueActive;
+    // Permet de bouger l'image à partir de n'importe quel point de celle-ci.
+    // Explication:
+    //  Si cette variable ne serait pas présente, le déplacement de l'image dépendrait entièrement du point en haut à gauche de l'image.
+    //  Ainsi, cette variable ajoute un certain x et un certain y pour compenser la distance entre la souris et le point HAUT-GAUCHE de l'image.
     private Point clickOffset;
+    // Position de l'image lorsque qu'on clique sur celle-ci et qu'on la bouge sans retiré son doigt de la souris
     private Point positionTemporaire;
+    // Si vrai, on peut déplacer l'image
     private boolean dragImage;
+
+
     private /*final*/ Perspective perspective;
     private /*final*/ ControleurPerspective ctrlPerspective;
+
+    private static final String UNDO = "undo";
 
 
     /**
@@ -36,7 +44,7 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
     /**
      *
      */
-    public void initPanneau(){
+    public void initPanneau() {
         ctrlPerspective = new ControleurPerspective(this, perspective);
 
         vueActive = false;
@@ -47,7 +55,6 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
         setLayout(new FlowLayout());
         setBackground(Color.ORANGE);
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
     }
 
     /**
@@ -58,29 +65,32 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
     }
 
     /**
-     *
      * @param g :
      */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
 
-        if(perspective != null && perspective.getImage() != null) {
+        if (perspective != null && perspective.getImage() != null) {
 
             //BufferedImage i = ImageIO.read(new File(image.getPathImage()));
             BufferedImage i = perspective.getImage().getImage();
             //POSITION_VIGNETTE.y = (this.getHeight()/2) - (i.getHeight()/2)
 
-            g.drawImage(i, positionTemporaire.x, positionTemporaire.y, perspective.getLongueurImage(), perspective.getHauteurImage(),this);
+            g.drawImage(i, positionTemporaire.x, positionTemporaire.y, perspective.getLongueurImage(), perspective.getHauteurImage(), this);
         }
     }
 
     /**
-     *
      * @param perspective :
      */
     public void setPerspective(Perspective perspective) {
         this.perspective = perspective;
+
+        // TODO - Retirer le if ou la facon de set la perspective du controlleur. Il s'agit d'une tres mauvaise facon de proceder
+        if (ctrlPerspective.getPerspective() != perspective) {
+            this.ctrlPerspective.setPerspective(perspective);
+        }
     }
 
     /**
@@ -101,7 +111,7 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
      */
     @Override
     public void mouseWheelMoved(MouseWheelEvent event) {
-        if(vueActive) {
+        if (vueActive) {
 
             if (event.getPreciseWheelRotation() < 0) {
 
@@ -150,7 +160,8 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
             dragImage = true;
             clickOffset = new Point((int) (perspective.getPosition().getX() - event.getPoint().getX()), (int) (perspective.getPosition().getY() - event.getPoint().getY()));
         }
-        }
+
+    }
 
     /**
      * Invoked when a mouse button has been released on a component.
@@ -160,17 +171,20 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
     @Override
     public void mouseReleased(MouseEvent event) {
         if (dragImage) {
+            // Envoie la commande pour translater l'image
             Point dragPoint = new Point(event.getPoint());
 
             dragPoint.x += clickOffset.x;
             dragPoint.y += clickOffset.y;
-
 
             Commande cmdTranslater = new Translater(perspective, dragPoint);
             cmdTranslater.execute();
 
             dragImage = false;
         }
+
+        System.out.println(perspective.getVueType());
+
     }
 
     /**
@@ -180,7 +194,14 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
      */
     @Override
     public void mouseEntered(MouseEvent event) {
-
+        // Ajout du raccourci clavier lorsque la souris est au dessus de la vue
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control Z"), UNDO);
+        this.getActionMap().put(UNDO, new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ctrlPerspective.deExecuterCommande();
+            }
+        });
     }
 
     /**
@@ -190,7 +211,8 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
      */
     @Override
     public void mouseExited(MouseEvent event) {
-
+        // Retrait du raccourci clavier lorsque la souris est en dehors de la vue
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control Z"), "none");
     }
 
     /*  END MouseListener  */
@@ -215,7 +237,8 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
     @Override
     public void mouseDragged(MouseEvent event) {
         // Inspiré de https://stackoverflow.com/questions/33163298/dragging-image-using-mousedrag-method
-        if(dragImage) {
+        if (dragImage) {
+            // Permet de faire bouger l'image. IMPORTANT : N'envoie pas de commande
             Point dragPoint = new Point(event.getPoint());
 
             dragPoint.x += clickOffset.x;
@@ -237,7 +260,6 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
     public void mouseMoved(MouseEvent event) {
 
     }
-
 
     /* END MouseMotionListener */
 }

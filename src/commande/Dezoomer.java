@@ -1,5 +1,6 @@
 package commande;
 
+import controleur.ControleurPerspective;
 import modele.Perspective;
 
 public class Dezoomer implements Commande {
@@ -16,7 +17,7 @@ public class Dezoomer implements Commande {
         return true;
     }
 
-    public boolean defaire() {
+    public boolean unexecute() {
         modelePerspective.zoomer();
         return true;
     }

@@ -1,7 +1,9 @@
 package commande;
 
 
+import controleur.ControleurPerspective;
 import modele.ModelePrincipal;
+import modele.Perspective;
 
 import java.io.File;
 
@@ -19,6 +21,11 @@ public class Ouvrir implements Commande{
     public boolean execute() {
         modelePrincipal.ouvrir(selectedFile);
         return true;
+    }
+
+    @Override
+    public boolean unexecute() {
+        return false;
     }
 
 }

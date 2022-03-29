@@ -1,7 +1,9 @@
 package commande;
 
 
+import controleur.ControleurPerspective;
 import modele.ModelePrincipal;
+import modele.Perspective;
 
 public class Sauvegarder implements Commande {
 
@@ -20,5 +22,10 @@ public class Sauvegarder implements Commande {
         } else{
             return false;
         }
+    }
+
+    @Override
+    public boolean unexecute() {
+        return false;
     }
 }
