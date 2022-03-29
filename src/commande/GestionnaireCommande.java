@@ -14,6 +14,7 @@ public class GestionnaireCommande {
     private Originator originator = new Originator();
     private LinkedList<MementoIF> listeCommandeGauche;
     private LinkedList<MementoIF> listeCommandeDroite;
+
     private static GestionnaireCommande instance = new GestionnaireCommande();
 
     private GestionnaireCommande(){
