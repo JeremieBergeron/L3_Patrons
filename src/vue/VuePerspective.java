@@ -81,16 +81,15 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
         }
     }
 
+    public ControleurPerspective getCtrlPerspective() {
+        return ctrlPerspective;
+    }
+
     /**
      * @param perspective :
      */
     public void setPerspective(Perspective perspective) {
         this.perspective = perspective;
-
-        // TODO - Retirer le if ou la facon de set la perspective du controlleur. Il s'agit d'une tres mauvaise facon de proceder
-        if (ctrlPerspective.getPerspective() != perspective) {
-            this.ctrlPerspective.setPerspective(perspective);
-        }
     }
 
     /**
