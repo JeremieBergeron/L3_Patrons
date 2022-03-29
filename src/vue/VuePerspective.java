@@ -86,6 +86,8 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
     }
 
     /**
+     * Cette méthode doit uniquement être appeler par le controlleur
+     *
      * @param perspective :
      */
     public void setPerspective(Perspective perspective) {
