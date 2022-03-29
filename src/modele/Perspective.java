@@ -15,10 +15,7 @@ public class Perspective extends Observable {
      *
      *
      */
-    public Perspective(){
-        position.x = 1;
-        position.y = 1;
-    }
+    public Perspective(){}
 
     public void translater(Point position){
 
@@ -35,6 +32,8 @@ public class Perspective extends Observable {
         hauteurImage += image.getHauteurRatio();
         longueurImage += image.getLongueurRatio();
 
+        this.position.setLocation(this.position.x + image.getLongueurRatio(),this.position.y + image.getHauteurImage());
+
         notifierObservers();
     }
 
@@ -45,6 +44,7 @@ public class Perspective extends Observable {
 
         hauteurImage -= image.getHauteurRatio();
         longueurImage -= image.getLongueurRatio();
+        this.position.setLocation(this.position.x - image.getLongueurRatio()/2,this.position.y - image.getHauteurImage()/2);
 
         notifierObservers();
     }
