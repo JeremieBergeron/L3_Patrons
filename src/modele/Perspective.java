@@ -5,7 +5,7 @@ import vue.VueType;
 
 import java.awt.*;
 
-public class Perspective extends Observable {
+public class Perspective extends Observable implements java.io.Serializable {
 
     private Image image;
     private Point position = new Point();

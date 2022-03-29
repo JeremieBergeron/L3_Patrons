@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Image extends Observable {
+public class Image extends Observable implements java.io.Serializable {
 
     private BufferedImage image;
 
