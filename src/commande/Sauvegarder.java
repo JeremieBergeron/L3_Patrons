@@ -1,7 +1,9 @@
 package commande;
 
 
+import controleur.ControleurPerspective;
 import modele.ModelePrincipal;
+import modele.Perspective;
 
 public class Sauvegarder implements Commande {
 

@@ -86,6 +86,11 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
      */
     public void setPerspective(Perspective perspective) {
         this.perspective = perspective;
+
+        // TODO - Retirer le if ou la facon de set la perspective du controlleur. Il s'agit d'une tres mauvaise facon de proceder
+        if (ctrlPerspective.getPerspective() != perspective) {
+            this.ctrlPerspective.setPerspective(perspective);
+        }
     }
 
     /**
@@ -156,7 +161,6 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
             clickOffset = new Point((int) (perspective.getPosition().getX() - event.getPoint().getX()), (int) (perspective.getPosition().getY() - event.getPoint().getY()));
         }
 
-
     }
 
     /**
@@ -179,6 +183,8 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
             dragImage = false;
         }
 
+        System.out.println(perspective.getVueType());
+
     }
 
     /**
@@ -193,7 +199,7 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
         this.getActionMap().put(UNDO, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GestionnaireCommande.getInstance().removeLastCommande(perspective.getVueType());
+                ctrlPerspective.deExecuterCommande();
             }
         });
     }
