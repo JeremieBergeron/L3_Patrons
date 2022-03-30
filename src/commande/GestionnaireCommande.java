@@ -31,6 +31,11 @@ public class GestionnaireCommande {
         return listeCommandeGauche.isEmpty();
     }
 
+    /**
+     *
+     * @param commande :
+     * @param perspective :
+     */
     public void addCommande(Commande commande, Perspective perspective) {
 
         if (!commande.unexecute()){
@@ -50,6 +55,10 @@ public class GestionnaireCommande {
 
     }
 
+    /**
+     *
+     * @param controleurPerspective :
+     */
     public void removeLastCommande(ControleurPerspective controleurPerspective) {
         switch (controleurPerspective.getPerspective().getVueType()) {
             case GAUCHE:
@@ -62,6 +71,11 @@ public class GestionnaireCommande {
         }
     }
 
+    /**
+     *
+     * @param controleurPerspective :
+     * @param liste :
+     */
     private void removeLastCommande(ControleurPerspective controleurPerspective, LinkedList<MementoIF> liste){
         if (liste.size() != 0) {
             MementoIF mementoIF = liste.getLast();

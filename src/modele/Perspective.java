@@ -7,11 +7,15 @@ import java.awt.*;
 
 public class Perspective extends Observable {
 
+    private final int MAX_ZOOM = 950;
+    private final int MIN_ZOOM =  50;
+
     private Image image;
     private Point position = new Point();
     private int hauteurImage;
     private int longueurImage;
     private VueType vueType;
+
 
     /**
      *
@@ -24,7 +28,7 @@ public class Perspective extends Observable {
     /**
      * Constructeur de copie
      *
-     * @param perspectiveACopier
+     * @param perspectiveACopier :
      */
     public Perspective(Perspective perspectiveACopier){
         this.image = perspectiveACopier.getImage();
@@ -38,15 +42,15 @@ public class Perspective extends Observable {
 
     public void translater(Point position){
 
-        System.out.println("Old position");
+        /*System.out.println("Old position");
         System.out.println("x: "+ position.x);
-        System.out.println("y: "+ position.y);
+        System.out.println("y: "+ position.y);*/
 
         this.position.setLocation(position);
 
-        System.out.println("New position");
+        /*System.out.println("New position");
         System.out.println("x: "+ position.x);
-        System.out.println("y: "+ position.y);
+        System.out.println("y: "+ position.y);*/
         notifierObservers();
     }
 
@@ -55,33 +59,46 @@ public class Perspective extends Observable {
      */
     public void zoomer(){
 
-        Point centre1 = new Point(longueurImage/2, hauteurImage/2);
+        if(longueurImage < MAX_ZOOM && hauteurImage < MAX_ZOOM) {
 
-        hauteurImage += image.getHauteurRatio();
-        longueurImage += image.getLongueurRatio();
+            System.out.println(longueurImage);
 
-        Point centre2 = new Point(longueurImage/2, hauteurImage/2);
-        Point centre = new Point(centre1.x - centre2.x, centre1.y - centre2.y);
+            Point centre1 = new Point(longueurImage/2, hauteurImage/2);
 
-        translater(new Point(position.x + centre.x, position.y + centre.y));
+            longueurImage += image.getLongueurRatio();
+            hauteurImage += image.getHauteurRatio();
 
-        notifierObservers();
+            Point centre2 = new Point(longueurImage/2, hauteurImage/2);
+
+            // avoir la nouvelle position en soustrayant la nouvelle position de la vielle position
+            Point centre = new Point(centre1.x - centre2.x, centre1.y - centre2.y);
+
+            translater(new Point(position.x + centre.x, position.y + centre.y));
+
+            notifierObservers();
+        }
     }
 
     /**
      *
      */
     public void dezoomer(){
-        Point centre1 = new Point(longueurImage/2, hauteurImage/2);
 
-        hauteurImage -= image.getHauteurRatio();
-        longueurImage -= image.getLongueurRatio();
+        if(longueurImage > MIN_ZOOM && hauteurImage > MIN_ZOOM) {
 
-        Point centre2 = new Point(longueurImage/2, hauteurImage/2);
-        Point centre = new Point(centre1.x - centre2.x, centre1.y - centre2.y);
+            Point centre1 = new Point(longueurImage / 2, hauteurImage / 2);
 
-        translater(new Point(position.x + centre.x, position.y + centre.y));
-        notifierObservers();
+            longueurImage -= image.getLongueurRatio();
+            hauteurImage -= image.getHauteurRatio();
+
+            Point centre2 = new Point(longueurImage / 2, hauteurImage / 2);
+
+            // avoir la nouvelle position en soustrayant la nouvelle position de la vielle position
+            Point centre = new Point(centre1.x - centre2.x, centre1.y - centre2.y);
+
+            translater(new Point(position.x + centre.x, position.y + centre.y));
+            notifierObservers();
+        }
     }
 
     /**
