@@ -26,6 +26,11 @@ public class GestionnaireCommande {
         return instance;
     }
 
+    public boolean isEmpty(){
+        // Inutile de regarder les 2 listes
+        return listeCommandeGauche.isEmpty();
+    }
+
     public void addCommande(Commande commande, Perspective perspective) {
 
         if (!commande.unexecute()){
