@@ -24,6 +24,8 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
     // Si vrai, on peut déplacer l'image
     private boolean dragImage;
 
+    private JButton button;
+
 
     private /*final*/ Perspective perspective;
     private /*final*/ ControleurPerspective ctrlPerspective;
@@ -55,6 +57,17 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
         setLayout(new FlowLayout());
         setBackground(Color.ORANGE);
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+        button = new JButton();
+        button.setText("UNDO");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ctrlPerspective.deExecuterCommande();
+            }
+        });
+
+        add(button);
     }
 
     /**
