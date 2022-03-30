@@ -48,8 +48,10 @@ public class MenuFenetre extends JMenuBar {
                 fileChooser.setAcceptAllFileFilterUsed(false);
 
                 // Créer un filtre
+                FileNameExtensionFilter filtreAll = new FileNameExtensionFilter("Tout fichier", "jpg", "png");
                 FileNameExtensionFilter filtreJPG = new FileNameExtensionFilter(".jpg", "jpg");
                 FileNameExtensionFilter filtrePNG = new FileNameExtensionFilter(".png", "png");
+                fileChooser.addChoosableFileFilter(filtreAll);
                 fileChooser.addChoosableFileFilter(filtreJPG);
                 fileChooser.addChoosableFileFilter(filtrePNG);
 
