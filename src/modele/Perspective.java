@@ -19,8 +19,6 @@ public class Perspective extends Observable {
      */
     public Perspective(VueType vueType){
         this.vueType = vueType;
-        position.x = 1;
-        position.y = 1;
     }
 
     /**
