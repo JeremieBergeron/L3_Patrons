@@ -1,6 +1,7 @@
 package vue;
 
 import commande.Commande;
+import commande.GestionnaireCommande;
 import commande.Ouvrir;
 import controleur.ControleurPrincipale;
 import modele.ModelePrincipal;
@@ -10,6 +11,7 @@ import observateur.Observer;
 
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 
 // import java.awt.Point;

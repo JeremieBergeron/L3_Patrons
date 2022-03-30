@@ -1,10 +1,13 @@
 package vue;
 
+import commande.GestionnaireCommande;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
 
@@ -33,21 +36,29 @@ public class MenuFenetre extends JMenuBar {
         JMenuItem btnSauvgarder = new JMenuItem(NOM_BTN_SAUVGARDER);
 
         btnOuvrir.addActionListener((ActionEvent e) -> {
-            JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-            fileChooser.setDialogTitle("Sélectionnez un fichier");
-            fileChooser.setAcceptAllFileFilterUsed(false);
+            boolean ouvrirImage = true;
 
-            // Créer un filtre
-            FileNameExtensionFilter filtreJPG = new FileNameExtensionFilter(".jpg", "jpg");
-            FileNameExtensionFilter filtrePNG = new FileNameExtensionFilter(".png", "png");
-            fileChooser.addChoosableFileFilter(filtreJPG);
-            fileChooser.addChoosableFileFilter(filtrePNG);
+            if (!GestionnaireCommande.getInstance().isEmpty()){
+                int resultat = JOptionPane.showConfirmDialog((Component) null, "\u00CAtes-vous s\u00FBr de vouloir ouvrir une autre image sans sauvegarder ?","alert", JOptionPane.YES_NO_CANCEL_OPTION);
+                ouvrirImage = resultat == 1 ? false : true;
+            }
+            if (ouvrirImage) {
+                JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+                fileChooser.setDialogTitle("Sélectionnez un fichier");
+                fileChooser.setAcceptAllFileFilterUsed(false);
 
-            int returnValue = fileChooser.showOpenDialog(null);
+                // Créer un filtre
+                FileNameExtensionFilter filtreJPG = new FileNameExtensionFilter(".jpg", "jpg");
+                FileNameExtensionFilter filtrePNG = new FileNameExtensionFilter(".png", "png");
+                fileChooser.addChoosableFileFilter(filtreJPG);
+                fileChooser.addChoosableFileFilter(filtrePNG);
 
-            if (returnValue == JFileChooser.APPROVE_OPTION) {
-                File selectedFile = fileChooser.getSelectedFile();
-                fenetrePrincipale.getPanneauPrincipal().ouvrirImage(selectedFile);
+                int returnValue = fileChooser.showOpenDialog(null);
+
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    fenetrePrincipale.getPanneauPrincipal().ouvrirImage(selectedFile);
+                }
             }
         });
 
