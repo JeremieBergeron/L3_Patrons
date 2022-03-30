@@ -20,6 +20,7 @@ public class Ouvrir implements Commande{
     @Override
     public boolean execute() {
         modelePrincipal.ouvrir(selectedFile);
+        GestionnaireCommande.getInstance().addCommande(this, null);
         return true;
     }
 

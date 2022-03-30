@@ -38,8 +38,15 @@ public class Perspective extends Observable {
 
     public void translater(Point position){
 
+        System.out.println("Old position");
+        System.out.println("x: "+ position.x);
+        System.out.println("y: "+ position.y);
+
         this.position.setLocation(position);
 
+        System.out.println("New position");
+        System.out.println("x: "+ position.x);
+        System.out.println("y: "+ position.y);
         notifierObservers();
     }
 
@@ -48,10 +55,15 @@ public class Perspective extends Observable {
      */
     public void zoomer(){
 
+        Point centre1 = new Point(longueurImage/2, hauteurImage/2);
+
         hauteurImage += image.getHauteurRatio();
         longueurImage += image.getLongueurRatio();
 
-        this.position.setLocation(this.position.x + image.getLongueurRatio(),this.position.y + image.getHauteurImage());
+        Point centre2 = new Point(longueurImage/2, hauteurImage/2);
+        Point centre = new Point(centre1.x - centre2.x, centre1.y - centre2.y);
+
+        translater(new Point(position.x + centre.x, position.y + centre.y));
 
         notifierObservers();
     }
@@ -60,11 +72,15 @@ public class Perspective extends Observable {
      *
      */
     public void dezoomer(){
+        Point centre1 = new Point(longueurImage/2, hauteurImage/2);
 
         hauteurImage -= image.getHauteurRatio();
         longueurImage -= image.getLongueurRatio();
-        this.position.setLocation(this.position.x - image.getLongueurRatio()/2,this.position.y - image.getHauteurImage()/2);
 
+        Point centre2 = new Point(longueurImage/2, hauteurImage/2);
+        Point centre = new Point(centre1.x - centre2.x, centre1.y - centre2.y);
+
+        translater(new Point(position.x + centre.x, position.y + centre.y));
         notifierObservers();
     }
 

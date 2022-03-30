@@ -1,7 +1,9 @@
 package controleur;
 
 import commande.Commande;
+import commande.GestionnaireCommande;
 import modele.ModelePrincipal;
+import modele.Perspective;
 import vue.PanneauPrincipal;
 
 public class ControleurPrincipale {
