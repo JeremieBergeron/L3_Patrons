@@ -1,22 +1,21 @@
 package vue;
 
-import commande.GestionnaireCommande;
-
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
 
 public class MenuFenetre extends JMenuBar {
 
-    private static final String NOM_BTN_MENU = "Fichier";
+    private static final String NOM_BTN_FICHIER = "Fichier";
+    private static final String NOM_BTN_AIDE = "Aide";
     private static final String NOM_BTN_OUVRIR = "Ouvrir";
     private static final String NOM_BTN_SAUVEGARDER = "Sauvegarder";
-    private static final String MENU_AIDE_PROPOS = "À propos de...";
+    private static final String NOM_BTN_APROPOS = "À propos";
+
     private final FenetrePrincipale fenetrePrincipale;
 
     /**
@@ -31,27 +30,32 @@ public class MenuFenetre extends JMenuBar {
      *
      */
     public void initContenu() {
-        JMenu btnMenu= new JMenu(NOM_BTN_MENU);
+        JMenu btnFichier = new JMenu(NOM_BTN_FICHIER);
+
         JMenuItem btnOuvrir = new JMenuItem(NOM_BTN_OUVRIR);
         JMenuItem btnSauvegarder = new JMenuItem(NOM_BTN_SAUVEGARDER);
+
+        Object[] options1 = { "Oui", "Non",
+                "Cancel" };
 
         btnOuvrir.addActionListener((ActionEvent e) -> {
             boolean ouvrirImage = true;
 
-            if (!GestionnaireCommande.getInstance().isEmpty()){
-                int resultat = JOptionPane.showConfirmDialog((Component) null, "\u00CAtes-vous s\u00FBr de vouloir ouvrir une autre image sans sauvegarder ?","alert", JOptionPane.YES_NO_CANCEL_OPTION);
-                ouvrirImage = resultat == 1 ? false : true;
+            if (fenetrePrincipale.getPanneauPrincipal().getImageOuverte()){
+                int resultat = JOptionPane.showOptionDialog(null,"Êtes-vous sûr de vouloir ouvrir une autre image sans sauvegarder ?","Alert", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options1, options1[0]);
+                ouvrirImage = resultat == 0;
             }
+
             if (ouvrirImage) {
                 JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
                 fileChooser.setDialogTitle("Sélectionnez un fichier");
-                fileChooser.setAcceptAllFileFilterUsed(false);
+                fileChooser.setAcceptAllFileFilterUsed(true);
 
                 // Créer un filtre
-                FileNameExtensionFilter filtreAll = new FileNameExtensionFilter("Tout fichier", "jpg", "png");
+                //FileNameExtensionFilter filtreAll = new FileNameExtensionFilter("Tout fichier", "jpg", "png");
                 FileNameExtensionFilter filtreJPG = new FileNameExtensionFilter(".jpg", "jpg");
                 FileNameExtensionFilter filtrePNG = new FileNameExtensionFilter(".png", "png");
-                fileChooser.addChoosableFileFilter(filtreAll);
+                //fileChooser.addChoosableFileFilter(filtreAll);
                 fileChooser.addChoosableFileFilter(filtreJPG);
                 fileChooser.addChoosableFileFilter(filtrePNG);
 
@@ -87,9 +91,11 @@ public class MenuFenetre extends JMenuBar {
 
         });
 
-        btnMenu.add(btnOuvrir);
-        btnMenu.add(btnSauvegarder);
-        add(btnMenu);
+
+
+        btnFichier.add(btnOuvrir);
+        btnFichier.add(btnSauvegarder);
+        add(btnFichier);
 
         ajouterMenuAide();
     }
@@ -98,9 +104,10 @@ public class MenuFenetre extends JMenuBar {
      * Créer le menu Aide
      */
     private void ajouterMenuAide() {
-        JMenuItem menuPropos = new JMenuItem(MENU_AIDE_PROPOS);
+        JMenu btnAide = new JMenu(NOM_BTN_AIDE);
+        JMenuItem btnAPropos = new JMenuItem(NOM_BTN_APROPOS);
 
-        menuPropos.addActionListener((ActionEvent e) -> {
+        btnAPropos.addActionListener((ActionEvent e) -> {
             JOptionPane.showMessageDialog(null,
                     "<html><p>Application permettant d'afficher une image avec plusieurs perspectives.</p>" + "<br>"
                             + "<p>&copy; &nbsp; 2022 &nbsp; J&eacute;r&eacute;mie Bergeron</p>" + "<br>"
@@ -108,6 +115,9 @@ public class MenuFenetre extends JMenuBar {
                             + "<p>&copy; &nbsp; 2022 &nbsp; Kathleen Francis Kathleen Francis Mbo</p>" + "<br>"
                             + "<p>&Eacute;cole de technologie sup&eacute;rieure</p></html>");
         });
-        add(menuPropos);
+
+        add(btnAide);
+        btnAide.add(btnAPropos);
+
     }
 }

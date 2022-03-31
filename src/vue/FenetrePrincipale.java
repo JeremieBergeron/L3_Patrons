@@ -10,10 +10,8 @@ public class FenetrePrincipale extends JFrame implements Runnable, Observer {
 
     private static final String TITRE_FENETRE = "L3 - Patrons";
     private static final Dimension DIMENSIONS = Toolkit.getDefaultToolkit().getScreenSize();
-    //private static final Dimension DIMENSIONS = new Dimension(700, 700);
 
     private ModelePrincipal modelePrincipal;
-
     private PanneauPrincipal panneauPrincipal;
     private MenuFenetre menuFenetre;
 
@@ -55,9 +53,6 @@ public class FenetrePrincipale extends JFrame implements Runnable, Observer {
 
         // Mettre la fenêtre au centre de l'écran
         setLocationRelativeTo(null);
-
-        // Empêcher la redimensionne de la fenêtre
-        //setResizable(false);
     }
 
     /**
