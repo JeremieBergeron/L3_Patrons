@@ -26,8 +26,8 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
 
     private JButton button;
 
-    private /*final*/ Perspective perspective;
-    private /*final*/ ControleurPerspective ctrlPerspective;
+    private Perspective perspective;
+    private ControleurPerspective ctrlPerspective;
 
     private static final String UNDO = "undo";
 

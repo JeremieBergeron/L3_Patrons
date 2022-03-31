@@ -50,13 +50,13 @@ public class MenuFenetre extends JMenuBar {
             if (ouvrirImage) {
                 JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
                 fileChooser.setDialogTitle("Sélectionnez un fichier");
-                fileChooser.setAcceptAllFileFilterUsed(false);
+                fileChooser.setAcceptAllFileFilterUsed(true);
 
                 // Créer un filtre
-                FileNameExtensionFilter filtreAll = new FileNameExtensionFilter("Tout fichier", "jpg", "png");
+                //FileNameExtensionFilter filtreAll = new FileNameExtensionFilter("Tout fichier", "jpg", "png");
                 FileNameExtensionFilter filtreJPG = new FileNameExtensionFilter(".jpg", "jpg");
                 FileNameExtensionFilter filtrePNG = new FileNameExtensionFilter(".png", "png");
-                fileChooser.addChoosableFileFilter(filtreAll);
+                //fileChooser.addChoosableFileFilter(filtreAll);
                 fileChooser.addChoosableFileFilter(filtreJPG);
                 fileChooser.addChoosableFileFilter(filtrePNG);
 
