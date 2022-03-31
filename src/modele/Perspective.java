@@ -7,13 +7,14 @@ import java.awt.*;
 
 public class Perspective extends Observable {
 
-    private final int MAX_ZOOM = 950;
-    private final int MIN_ZOOM =  50;
+    private static final int MAX_ZOOM = 950;
+    private static final int MIN_ZOOM =  50;
+    private static final int ZOOM = 5;
 
     private Image image;
     private Point position = new Point();
-    private int hauteurImage;
-    private int longueurImage;
+    private float hauteurImage;
+    private float longueurImage;
     private VueType vueType;
 
 
@@ -40,17 +41,14 @@ public class Perspective extends Observable {
         this.ajouterObservers(perspectiveACopier.getListeObservers());
     }
 
+    /**
+     *
+     * @param position :
+     */
     public void translater(Point position){
-
-        /*System.out.println("Old position");
-        System.out.println("x: "+ position.x);
-        System.out.println("y: "+ position.y);*/
 
         this.position.setLocation(position);
 
-        /*System.out.println("New position");
-        System.out.println("x: "+ position.x);
-        System.out.println("y: "+ position.y);*/
         notifierObservers();
     }
 
@@ -61,20 +59,21 @@ public class Perspective extends Observable {
 
         if(longueurImage < MAX_ZOOM && hauteurImage < MAX_ZOOM) {
 
-            System.out.println(longueurImage);
+            Point centre1 = new Point((int)longueurImage/2, (int)hauteurImage/2);
 
-            Point centre1 = new Point(longueurImage/2, hauteurImage/2);
+            // Zoom par rapport à la longueur
+            float ancienneLongueur = longueurImage;
+            longueurImage += ZOOM;
+            hauteurImage = (longueurImage * hauteurImage) / ancienneLongueur;
+            // Zoom END
 
-            longueurImage += image.getLongueurRatio();
-            hauteurImage += image.getHauteurRatio();
+            Point centre2 = new Point((int)longueurImage/2, (int)hauteurImage/2);
 
-            Point centre2 = new Point(longueurImage/2, hauteurImage/2);
-
-            // avoir la nouvelle position en soustrayant la nouvelle position de la vielle position
+            // Calculer la difference des centres
             Point centre = new Point(centre1.x - centre2.x, centre1.y - centre2.y);
 
-            translater(new Point(position.x + centre.x, position.y + centre.y));
-
+            // Nouvelle position
+            translater( new Point((position.x + centre.x), (position.y + centre.y)));
             notifierObservers();
         }
     }
@@ -86,17 +85,20 @@ public class Perspective extends Observable {
 
         if(longueurImage > MIN_ZOOM && hauteurImage > MIN_ZOOM) {
 
-            Point centre1 = new Point(longueurImage / 2, hauteurImage / 2);
+            Point centre1 = new Point((int)longueurImage / 2, (int)hauteurImage / 2);
 
-            longueurImage -= image.getLongueurRatio();
-            hauteurImage -= image.getHauteurRatio();
+            // Zoom par rapport à la longueur
+            float ancienneLongueur = longueurImage;
+            longueurImage -= ZOOM;
+            hauteurImage = (longueurImage * hauteurImage) / ancienneLongueur;
+            // Zoom END
 
-            Point centre2 = new Point(longueurImage / 2, hauteurImage / 2);
+            Point centre2 = new Point((int)longueurImage / 2, (int)hauteurImage / 2);
 
-            // avoir la nouvelle position en soustrayant la nouvelle position de la vielle position
+            // Calculer la difference des centres
             Point centre = new Point(centre1.x - centre2.x, centre1.y - centre2.y);
 
-            translater(new Point(position.x + centre.x, position.y + centre.y));
+            translater( new Point((position.x + centre.x), (position.y + centre.y)));
             notifierObservers();
         }
     }
@@ -137,7 +139,7 @@ public class Perspective extends Observable {
      *
      * @return :
      */
-    public int getLongueurImage() {
+    public float getLongueurImage() {
         return this.longueurImage;
     }
 
@@ -145,28 +147,22 @@ public class Perspective extends Observable {
      *
      * @return :
      */
-    public int getHauteurImage() {
+    public float getHauteurImage() {
         return this.hauteurImage;
     }
 
     /**
      *
+     * @return :
      */
-    public void setLongueurImage(int longueurImage) {
-        this.longueurImage = longueurImage;
-    }
-
-    /**
-     *
-     */
-    public void setHauteurImage(int hauteurImage) {
-        this.hauteurImage = hauteurImage;
-    }
-
     public VueType getVueType() {
         return vueType;
     }
 
+    /**
+     *
+     * @param vueType :
+     */
     public void setVueType(VueType vueType) {
         this.vueType = vueType;
     }

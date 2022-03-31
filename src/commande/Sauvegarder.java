@@ -24,8 +24,4 @@ public class Sauvegarder implements Commande {
         }
     }
 
-    @Override
-    public boolean unexecute() {
-        return false;
-    }
 }
