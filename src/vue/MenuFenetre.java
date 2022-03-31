@@ -31,10 +31,9 @@ public class MenuFenetre extends JMenuBar {
      */
     public void initContenu() {
         JMenu btnFichier = new JMenu(NOM_BTN_FICHIER);
-        JMenu btnAide = new JMenu(NOM_BTN_AIDE);
+
         JMenuItem btnOuvrir = new JMenuItem(NOM_BTN_OUVRIR);
         JMenuItem btnSauvegarder = new JMenuItem(NOM_BTN_SAUVEGARDER);
-        JMenuItem btnAPropos = new JMenuItem(NOM_BTN_APROPOS);
 
         Object[] options1 = { "Oui", "Non",
                 "Cancel" };
@@ -86,9 +85,11 @@ public class MenuFenetre extends JMenuBar {
 
         });
 
-        btnMenu.add(btnOuvrir);
-        btnMenu.add(btnSauvegarder);
-        add(btnMenu);
+
+
+        btnFichier.add(btnOuvrir);
+        btnFichier.add(btnSauvegarder);
+        add(btnFichier);
 
         ajouterMenuAide();
     }
@@ -97,9 +98,10 @@ public class MenuFenetre extends JMenuBar {
      * Créer le menu Aide
      */
     private void ajouterMenuAide() {
-        JMenuItem menuPropos = new JMenuItem(MENU_AIDE_PROPOS);
+        JMenu btnAide = new JMenu(NOM_BTN_AIDE);
+        JMenuItem btnAPropos = new JMenuItem(NOM_BTN_APROPOS);
 
-        menuPropos.addActionListener((ActionEvent e) -> {
+        btnAPropos.addActionListener((ActionEvent e) -> {
             JOptionPane.showMessageDialog(null,
                     "<html><p>Application permettant d'afficher une image avec plusieurs perspectives.</p>" + "<br>"
                             + "<p>&copy; &nbsp; 2022 &nbsp; J&eacute;r&eacute;mie Bergeron</p>" + "<br>"
@@ -107,15 +109,9 @@ public class MenuFenetre extends JMenuBar {
                             + "<p>&copy; &nbsp; 2022 &nbsp; Kathleen Francis Kathleen Francis Mbo</p>" + "<br>"
                             + "<p>&Eacute;cole de technologie sup&eacute;rieure</p></html>");
         });
-        add(menuPropos);
-        btnAPropos.addActionListener((ActionEvent e) -> {
-            JOptionPane.showMessageDialog(null,"LOG121 / Laboratoire 3 / Hiver 2022 / ÉTS");
-        });
 
-        btnFichier.add(btnOuvrir);
-        btnFichier.add(btnSauvegarder);
-        btnAide.add(btnAPropos);
-        add(btnFichier);
         add(btnAide);
+        btnAide.add(btnAPropos);
+
     }
 }
