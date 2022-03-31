@@ -5,7 +5,11 @@ import commande.GestionnaireCommande;
 import modele.Perspective;
 import vue.VuePerspective;
 
-public class ControleurPerspective {
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseWheelListener;
+
+public class ControleurPerspective implements ActionListener {
     VuePerspective vuePerspective;
     Perspective perspective;
 
@@ -52,5 +56,15 @@ public class ControleurPerspective {
         this.perspective = perspective;
         this.vuePerspective.setPerspective(perspective);
         this.perspective.notifierObservers();
+    }
+
+    /**
+     * Invoked when an action occurs.
+     *
+     * @param e :
+     */
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
 }

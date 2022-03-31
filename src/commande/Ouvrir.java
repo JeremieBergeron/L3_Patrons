@@ -20,12 +20,8 @@ public class Ouvrir implements Commande{
     @Override
     public boolean execute() {
         modelePrincipal.ouvrir(selectedFile);
+        GestionnaireCommande.getInstance().effacerHistoriqueCmd();
         return true;
-    }
-
-    @Override
-    public boolean unexecute() {
-        return false;
     }
 
 }

@@ -46,6 +46,11 @@ public class Image extends Observable implements java.io.Serializable {
         notifierObservers();
     }
 
+    /**
+     *
+     * @param longueurVue :
+     * @param hauteurVue :
+     */
     private void ajusterDimension(int longueurVue, int hauteurVue){
         if(longueurImage > longueurVue) {
             longueurImage = longueurVue - 20;

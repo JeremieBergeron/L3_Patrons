@@ -28,7 +28,6 @@ public class Sauvegarder implements Commande {
         System.out.println("classe sauvegarder.java");
     }
 
-
     @Override
     public boolean execute() {
         if(etat) {
@@ -37,11 +36,6 @@ public class Sauvegarder implements Commande {
         } else{
             return false;
         }
-    }
-
-    @Override
-    public boolean unexecute() {
-        return false;
     }
 
 }

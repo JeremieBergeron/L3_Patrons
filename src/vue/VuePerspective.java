@@ -15,15 +15,16 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
 
     private boolean vueActive;
     // Permet de bouger l'image à partir de n'importe quel point de celle-ci.
-    // Explication:
+    // Explication :
     //  Si cette variable ne serait pas présente, le déplacement de l'image dépendrait entièrement du point en haut à gauche de l'image.
     //  Ainsi, cette variable ajoute un certain x et un certain y pour compenser la distance entre la souris et le point HAUT-GAUCHE de l'image.
     private Point clickOffset;
-    // Position de l'image lorsque qu'on clique sur celle-ci et qu'on la bouge sans retiré son doigt de la souris
+    // Position de l'image lorsque qu'on clique sur celle-ci et qu'on la bouge sans retirer son doigt de la souris
     private Point positionTemporaire;
     // Si vrai, on peut déplacer l'image
     private boolean dragImage;
 
+    private JButton button;
 
     private /*final*/ Perspective perspective;
     private /*final*/ ControleurPerspective ctrlPerspective;
@@ -55,6 +56,11 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
         setLayout(new FlowLayout());
         setBackground(Color.ORANGE);
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+        button = new JButton();
+        button.setText("UNDO");
+        button.addActionListener(e -> ctrlPerspective.deExecuterCommande());
+        add(button);
     }
 
     /**
@@ -72,25 +78,26 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
         super.paint(g);
 
         if (perspective != null && perspective.getImage() != null) {
-
-            //BufferedImage i = ImageIO.read(new File(image.getPathImage()));
             BufferedImage i = perspective.getImage().getImage();
-            //POSITION_VIGNETTE.y = (this.getHeight()/2) - (i.getHeight()/2)
-
-            g.drawImage(i, positionTemporaire.x, positionTemporaire.y, perspective.getLongueurImage(), perspective.getHauteurImage(), this);
+            g.drawImage(i, positionTemporaire.x, positionTemporaire.y, Math.round(perspective.getLongueurImage()), Math.round(perspective.getHauteurImage()), this);
         }
     }
 
     /**
+     *
+     * @return :
+     */
+    public ControleurPerspective getCtrlPerspective() {
+        return ctrlPerspective;
+    }
+
+    /**
+     * Cette méthode doit uniquement être appelé par le contrôleur
+     *
      * @param perspective :
      */
     public void setPerspective(Perspective perspective) {
         this.perspective = perspective;
-
-        // TODO - Retirer le if ou la facon de set la perspective du controlleur. Il s'agit d'une tres mauvaise facon de proceder
-        if (ctrlPerspective.getPerspective() != perspective) {
-            this.ctrlPerspective.setPerspective(perspective);
-        }
     }
 
     public Perspective getPerspective(){
@@ -117,17 +124,22 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
     public void mouseWheelMoved(MouseWheelEvent event) {
         if (vueActive) {
 
-            if (event.getPreciseWheelRotation() < 0) {
+            Commande cmdZoomerDezoomer;
+            //Commande cmdDezoomer = null;
+            //System.out.println(event.isControlDown());
 
-                Commande cmdZoomer = new Zoomer(perspective);
-                ctrlPerspective.executerCommande(cmdZoomer);
+            if (event.getWheelRotation() < 0) {
 
-            } else {
+                cmdZoomerDezoomer = new Zoomer(perspective);
+                ctrlPerspective.executerCommande(cmdZoomerDezoomer);
 
-                Commande cmdDezoomer = new Dezoomer(perspective);
-                ctrlPerspective.executerCommande(cmdDezoomer);
+            } else if (event.getWheelRotation() > 0) {
+
+                cmdZoomerDezoomer = new Dezoomer(perspective);
+                ctrlPerspective.executerCommande(cmdZoomerDezoomer);
 
             }
+
         }
     }
 
@@ -159,7 +171,7 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
 
         Rectangle bounds = new Rectangle(
                 (int) perspective.getPosition().getX(), (int) perspective.getPosition().getY(),
-                perspective.getLongueurImage(), perspective.getHauteurImage());
+                Math.round(perspective.getLongueurImage()), Math.round(perspective.getHauteurImage()));
         if (bounds.contains(event.getPoint())) {
             dragImage = true;
             clickOffset = new Point((int) (perspective.getPosition().getX() - event.getPoint().getX()), (int) (perspective.getPosition().getY() - event.getPoint().getY()));
@@ -198,7 +210,7 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
      */
     @Override
     public void mouseEntered(MouseEvent event) {
-        // Ajout du raccourci clavier lorsque la souris est au dessus de la vue
+        // Ajout du raccourci clavier lorsque la souris est au-dessus de la vue
         this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control Z"), UNDO);
         this.getActionMap().put(UNDO, new AbstractAction() {
             @Override
@@ -264,6 +276,8 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
     public void mouseMoved(MouseEvent event) {
 
     }
+
+
 
     /* END MouseMotionListener */
 }
