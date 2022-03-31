@@ -77,6 +77,12 @@ public class MenuFenetre extends JMenuBar {
                 // Créer un filtre
                 FileNameExtensionFilter filtreSER = new FileNameExtensionFilter(".ser", "ser");
                 fileSave.addChoosableFileFilter(filtreSER);
+
+                int returnValue = fileSave.showOpenDialog(null);
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    //File savedFile = fileSave.getSelectedFile();
+                    fenetrePrincipale.getPanneauPrincipal().SauvegarderImage(fileSave.getName(), fileSave.getCurrentDirectory());
+                }
             }
 
         });
