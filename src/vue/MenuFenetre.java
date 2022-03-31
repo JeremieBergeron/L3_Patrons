@@ -16,7 +16,7 @@ public class MenuFenetre extends JMenuBar {
     private static final String NOM_BTN_MENU = "Fichier";
     private static final String NOM_BTN_OUVRIR = "Ouvrir";
     private static final String NOM_BTN_SAUVEGARDER = "Sauvegarder";
-
+    private static final String MENU_AIDE_PROPOS = "À propos de...";
     private final FenetrePrincipale fenetrePrincipale;
 
     /**
@@ -84,5 +84,24 @@ public class MenuFenetre extends JMenuBar {
         btnMenu.add(btnOuvrir);
         btnMenu.add(btnSauvegarder);
         add(btnMenu);
+
+        ajouterMenuAide();
+    }
+
+    /**
+     * Créer le menu Aide
+     */
+    private void ajouterMenuAide() {
+        JMenuItem menuPropos = new JMenuItem(MENU_AIDE_PROPOS);
+
+        menuPropos.addActionListener((ActionEvent e) -> {
+            JOptionPane.showMessageDialog(null,
+                    "<html><p>Application permettant d'afficher une image avec plusieurs perspectives.</p>" + "<br>"
+                            + "<p>&copy; &nbsp; 2022 &nbsp; J&eacute;r&eacute;mie Bergeron</p>" + "<br>"
+                            + "<p>&copy; &nbsp; 2022 &nbsp; Julian Andres Maldonado</p>" + "<br>"
+                            + "<p>&copy; &nbsp; 2022 &nbsp; Kathleen Francis Kathleen Francis Mbo</p>" + "<br>"
+                            + "<p>&Eacute;cole de technologie sup&eacute;rieure</p></html>");
+        });
+        add(menuPropos);
     }
 }
