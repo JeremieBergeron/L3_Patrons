@@ -79,9 +79,9 @@ public class PanneauPrincipal extends JPanel implements Observer {
      *
      * @param :
      */
-    public void SauvegarderImage() {
+    public void SauvegarderImage(String nameSavedFile, File pathSavedFile) {
         //System.out.print("classe panneauprinc.java");
-        Commande cmdSauver = new Sauvegarder(modelePrincipal, vuePerspectiveGauche ,vuePerspectiveDroite);
+        Commande cmdSauver = new Sauvegarder(modelePrincipal, vuePerspectiveGauche ,vuePerspectiveDroite, nameSavedFile, pathSavedFile);
         this.controleurPrincipale.executerCommande(cmdSauver);
     }
 
