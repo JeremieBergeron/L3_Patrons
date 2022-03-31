@@ -26,6 +26,8 @@ public class PanneauPrincipal extends JPanel implements Observer {
     private VuePerspective vuePerspectiveGauche;
     private VuePerspective vuePerspectiveDroite;
 
+    private boolean imageOuverte = false;
+
     /**
      * Create the frame.
      */
@@ -102,5 +104,11 @@ public class PanneauPrincipal extends JPanel implements Observer {
         vuePerspectiveGauche.getCtrlPerspective().setPerspective(perspectiveGauche);
         perspectiveGauche.setImage(image,vuePerspectiveGauche.getWidth(), vuePerspectiveGauche.getHeight()); // Ceci est nécessaire pour faire rafraichir la vue
 
+        imageOuverte = true;
+
+    }
+
+    public boolean getImageOuverte(){
+        return imageOuverte;
     }
 }
