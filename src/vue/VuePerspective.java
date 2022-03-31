@@ -93,6 +93,10 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
         }
     }
 
+    public Perspective getPerspective(){
+        return perspective;
+    }
+
     /**
      *
      */
