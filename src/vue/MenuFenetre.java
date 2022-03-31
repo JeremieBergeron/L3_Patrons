@@ -15,7 +15,7 @@ public class MenuFenetre extends JMenuBar {
 
     private static final String NOM_BTN_MENU = "Fichier";
     private static final String NOM_BTN_OUVRIR = "Ouvrir";
-    private static final String NOM_BTN_SAUVREGARDER = "Sauvegarder";
+    private static final String NOM_BTN_SAUVEGARDER = "Sauvegarder";
 
     private final FenetrePrincipale fenetrePrincipale;
 
@@ -33,7 +33,7 @@ public class MenuFenetre extends JMenuBar {
     public void initContenu() {
         JMenu btnMenu= new JMenu(NOM_BTN_MENU);
         JMenuItem btnOuvrir = new JMenuItem(NOM_BTN_OUVRIR);
-        JMenuItem btnSauvgarder = new JMenuItem(NOM_BTN_SAUVREGARDER);
+        JMenuItem btnSauvegarder = new JMenuItem(NOM_BTN_SAUVEGARDER);
 
         btnOuvrir.addActionListener((ActionEvent e) -> {
             boolean ouvrirImage = true;
@@ -65,7 +65,7 @@ public class MenuFenetre extends JMenuBar {
         });
 
         btnMenu.add(btnOuvrir);
-        btnMenu.add(btnSauvgarder);
+        btnMenu.add(btnSauvegarder);
         add(btnMenu);
     }
 }
