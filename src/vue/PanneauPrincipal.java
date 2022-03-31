@@ -1,7 +1,6 @@
 package vue;
 
 import commande.Commande;
-import commande.GestionnaireCommande;
 import commande.Ouvrir;
 import commande.Sauvegarder;
 import controleur.ControleurPrincipale;
@@ -12,10 +11,7 @@ import observateur.Observer;
 
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.File;
-
-// import java.awt.Point;
 
 
 public class PanneauPrincipal extends JPanel implements Observer {
@@ -26,6 +22,8 @@ public class PanneauPrincipal extends JPanel implements Observer {
     private VueVignette vueVignette;
     private VuePerspective vuePerspectiveGauche;
     private VuePerspective vuePerspectiveDroite;
+
+    private boolean imageOuverte = false;
 
     /**
      * Create the frame.
@@ -48,15 +46,11 @@ public class PanneauPrincipal extends JPanel implements Observer {
         modelePrincipal.ajouterObservers(this);
         controleurPrincipale = new ControleurPrincipale(this, modelePrincipal);
 
-        // Creation des vues
-        //Image image = new Image();
         vueVignette = new VueVignette();
 
-        //Perspective perspectiveGauche = new Perspective(/*image*/);
-        vuePerspectiveGauche = new VuePerspective(/*perspectiveGauche*/);
+        vuePerspectiveGauche = new VuePerspective();
 
-        //Perspective perspectiveDroite = new Perspective(/*image*/);
-        vuePerspectiveDroite = new VuePerspective(/*perspectiveDroite*/);
+        vuePerspectiveDroite = new VuePerspective();
 
         // Ajout des vues
         add(vueVignette);
@@ -113,5 +107,14 @@ public class PanneauPrincipal extends JPanel implements Observer {
         vuePerspectiveGauche.getCtrlPerspective().setPerspective(perspectiveGauche);
         perspectiveGauche.setImage(image,vuePerspectiveGauche.getWidth(), vuePerspectiveGauche.getHeight()); // Ceci est nécessaire pour faire rafraichir la vue
 
+        imageOuverte = true;
+    }
+
+    /**
+     *
+     * @return :
+     */
+    public boolean getImageOuverte(){
+        return imageOuverte;
     }
 }

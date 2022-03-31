@@ -26,6 +26,10 @@ public class GestionnaireCommande {
         return instance;
     }
 
+    /**
+     *
+     * @return :
+     */
     public boolean isEmpty(){
         // Inutile de regarder les 2 listes
         return listeCommandeGauche.isEmpty();
