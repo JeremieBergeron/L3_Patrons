@@ -31,25 +31,29 @@ public class GestionnaireCommande {
         return listeCommandeGauche.isEmpty();
     }
 
+    /**
+     *
+     * @param commande :
+     * @param perspective :
+     */
     public void addCommande(Commande commande, Perspective perspective) {
 
-        if (!commande.unexecute()){
-            listeCommandeGauche.clear();
-            listeCommandeDroite.clear();
-        } else {
-            switch (perspective.getVueType()) {
-                case GAUCHE:
-                    listeCommandeGauche.add(originator.saveToMemento(perspective));
-                    break;
+        switch (perspective.getVueType()) {
+            case GAUCHE:
+                listeCommandeGauche.add(originator.saveToMemento(perspective));
+                break;
 
-                case DROITE:
-                    listeCommandeDroite.add(originator.saveToMemento(perspective));
-                    break;
-            }
+            case DROITE:
+                listeCommandeDroite.add(originator.saveToMemento(perspective));
+                break;
         }
 
     }
 
+    /**
+     *
+     * @param controleurPerspective :
+     */
     public void removeLastCommande(ControleurPerspective controleurPerspective) {
         switch (controleurPerspective.getPerspective().getVueType()) {
             case GAUCHE:
@@ -62,6 +66,11 @@ public class GestionnaireCommande {
         }
     }
 
+    /**
+     *
+     * @param controleurPerspective :
+     * @param liste :
+     */
     private void removeLastCommande(ControleurPerspective controleurPerspective, LinkedList<MementoIF> liste){
         if (liste.size() != 0) {
             MementoIF mementoIF = liste.getLast();
@@ -70,6 +79,14 @@ public class GestionnaireCommande {
 
             liste.removeLast();
         }
+    }
+
+    /**
+     *
+     */
+    public void effacerHistoriqueCmd() {
+        listeCommandeGauche.clear();
+        listeCommandeDroite.clear();
     }
 
 }

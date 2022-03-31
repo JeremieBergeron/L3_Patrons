@@ -25,9 +25,4 @@ public class Translater implements Commande {
         return true;
     }
 
-    public boolean unexecute() {
-
-        return true;
-    }
-
 }

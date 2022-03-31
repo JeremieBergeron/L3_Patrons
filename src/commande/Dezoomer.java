@@ -13,12 +13,8 @@ public class Dezoomer implements Commande {
 
     @Override
     public boolean execute() {
+        GestionnaireCommande.getInstance().addCommande(this, modelePerspective);
         modelePerspective.dezoomer();
-        return true;
-    }
-
-    public boolean unexecute() {
-        modelePerspective.zoomer();
         return true;
     }
 
