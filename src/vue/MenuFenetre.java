@@ -69,6 +69,45 @@ public class MenuFenetre extends JMenuBar {
             }
         });
 
+        btnSauvegarder.addActionListener((ActionEvent e) -> {
+            int retour = JOptionPane.showConfirmDialog(null,
+                    "Voulez-vous vraiment sauvegarder?",
+                    "Confirmation", JOptionPane.YES_NO_OPTION);
+            if(retour==0) {//si le bouton cliqué est "oui"
+                //fenetrePrincipale.getPanneauPrincipal().SauvegarderImage();
+                JFileChooser fileSave = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+                fileSave.setDialogTitle("Sélectionnez un emplacement pour la sauvegarde");
+                fileSave.setAcceptAllFileFilterUsed(false);
+
+                // Créer un filtre
+                FileNameExtensionFilter filtreSER = new FileNameExtensionFilter(".ser", "ser");
+                fileSave.addChoosableFileFilter(filtreSER);
+            }
+
+        });
+
+        btnMenu.add(btnOuvrir);
+        btnMenu.add(btnSauvegarder);
+        add(btnMenu);
+
+        ajouterMenuAide();
+    }
+
+    /**
+     * Créer le menu Aide
+     */
+    private void ajouterMenuAide() {
+        JMenuItem menuPropos = new JMenuItem(MENU_AIDE_PROPOS);
+
+        menuPropos.addActionListener((ActionEvent e) -> {
+            JOptionPane.showMessageDialog(null,
+                    "<html><p>Application permettant d'afficher une image avec plusieurs perspectives.</p>" + "<br>"
+                            + "<p>&copy; &nbsp; 2022 &nbsp; J&eacute;r&eacute;mie Bergeron</p>" + "<br>"
+                            + "<p>&copy; &nbsp; 2022 &nbsp; Julian Andres Maldonado</p>" + "<br>"
+                            + "<p>&copy; &nbsp; 2022 &nbsp; Kathleen Francis Kathleen Francis Mbo</p>" + "<br>"
+                            + "<p>&Eacute;cole de technologie sup&eacute;rieure</p></html>");
+        });
+        add(menuPropos);
         btnAPropos.addActionListener((ActionEvent e) -> {
             JOptionPane.showMessageDialog(null,"LOG121 / Laboratoire 3 / Hiver 2022 / ÉTS");
         });

@@ -5,7 +5,7 @@ import vue.VueType;
 
 import java.awt.*;
 
-public class Perspective extends Observable {
+public class Perspective extends Observable implements java.io.Serializable {
 
     private static final int MAX_ZOOM = 950;
     private static final int MIN_ZOOM =  50;

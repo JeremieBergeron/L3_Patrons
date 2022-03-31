@@ -2,6 +2,7 @@ package vue;
 
 import commande.Commande;
 import commande.Ouvrir;
+import commande.Sauvegarder;
 import controleur.ControleurPrincipale;
 import modele.ModelePrincipal;
 import modele.Perspective;
@@ -66,6 +67,16 @@ public class PanneauPrincipal extends JPanel implements Observer {
 
         Commande cmdOuvrir = new Ouvrir(modelePrincipal ,selectedFile);
         this.controleurPrincipale.executerCommande(cmdOuvrir);
+    }
+
+    /**
+     *
+     * @param :
+     */
+    public void SauvegarderImage() {
+        //System.out.print("classe panneauprinc.java");
+        Commande cmdSauver = new Sauvegarder(modelePrincipal, vuePerspectiveGauche ,vuePerspectiveDroite);
+        this.controleurPrincipale.executerCommande(cmdSauver);
     }
 
 
