@@ -12,7 +12,7 @@ import java.util.LinkedList;
 
 public class Sauvegarder implements Commande {
 
-    private boolean etat = false;
+    private boolean etat = true;
     private ModelePrincipal modelePrincipal;
 
     private VuePerspective vuePerspectiveFinale1;

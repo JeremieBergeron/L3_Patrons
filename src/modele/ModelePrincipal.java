@@ -5,12 +5,11 @@ import java.io.*;
 import java.io.File;
 import java.util.LinkedList;
 
-import modele.Perspective;
 import vue.VuePerspective;
 
 public class ModelePrincipal extends Observable {
 
-    private /*String*/ File pathImage;
+    private File pathImage;
 
     private Perspective perspectiveFinale1;
     private Perspective perspectiveFinale2;
@@ -22,7 +21,7 @@ public class ModelePrincipal extends Observable {
     }
 
     public void sauvegarder (VuePerspective vuePerspectiveFinale1, VuePerspective vuePerspectiveFinale2, String nameSavedFile, File pathSavedFile) {
-        System.out.println("modeleprinc");
+        System.out.println("modeleprinc.java");
         LinkedList<Perspective> perspectives = new LinkedList<>();
         try {
             FileOutputStream fileOut = new FileOutputStream( pathSavedFile + nameSavedFile + ".ser");
@@ -37,11 +36,7 @@ public class ModelePrincipal extends Observable {
             i.printStackTrace();
         }
     }
-
-    /*private void writeObject( ObjectOutputStream out ) throws IOException {
-        out.write(this);
-        out.flush();
-    }*/
+  
     //private Object readObject( ObjectInputStream in ) throws IOException, ClassNotFoundException {
         //Simple s = (Simple) in.read();
         //s.setWin( new JFrame( s.getUsername() ) );
@@ -62,9 +57,8 @@ public class ModelePrincipal extends Observable {
         } catch (IOException i) {
             i.printStackTrace();
         }*/
-    //}
-
-    public /*String*/ File getPathImage() {
+    
+    public File getPathImage() {
         return this.pathImage;
     }
 }
