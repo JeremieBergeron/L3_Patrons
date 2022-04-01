@@ -41,7 +41,7 @@ public class MenuFenetre extends JMenuBar {
         btnOuvrir.addActionListener((ActionEvent e) -> {
             boolean ouvrirImage = true;
 
-            if (fenetrePrincipale.getPanneauPrincipal().getImageOuverte()){
+            if (fenetrePrincipale.getPanneauPrincipal().isImageOuverte()){
                 int resultat = JOptionPane.showOptionDialog(null,"Êtes-vous sûr de vouloir ouvrir une autre image sans sauvegarder ?","Alert", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options1, options1[0]);
                 ouvrirImage = resultat == 0;
             }
@@ -72,7 +72,7 @@ public class MenuFenetre extends JMenuBar {
             int retour = JOptionPane.showConfirmDialog(null,
                     "Voulez-vous vraiment sauvegarder?",
                     "Confirmation", JOptionPane.YES_NO_OPTION);
-            if(retour==0) {//si le bouton cliqué est "oui"
+            if(true) {//si le bouton cliqué est "oui"
                 //fenetrePrincipale.getPanneauPrincipal().SauvegarderImage();
                 JFileChooser fileSave = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
                 fileSave.setDialogTitle("Sélectionnez un emplacement pour la sauvegarde");
