@@ -18,7 +18,7 @@ public class Translater implements Commande {
 
     @Override
     public boolean execute() {
-        GestionnaireCommande.getInstance().addCommande(this, perspective);
+        GestionnaireCommande.getInstance().addCommande(perspective);
 
         perspective.translater(point);
 

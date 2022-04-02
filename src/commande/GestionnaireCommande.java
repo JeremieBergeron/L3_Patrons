@@ -6,16 +6,14 @@ import controleur.ControleurPerspective;
 import memento.MementoIF;
 import memento.Originator;
 import modele.Perspective;
-import vue.VueType;
-import javax.swing.*;
 
 public class GestionnaireCommande {
 
-    private Originator originator = new Originator();
-    private LinkedList<MementoIF> listeCommandeGauche;
-    private LinkedList<MementoIF> listeCommandeDroite;
+    private final Originator originator = new Originator();
+    private final LinkedList<MementoIF> listeCommandeGauche;
+    private final LinkedList<MementoIF> listeCommandeDroite;
 
-    private static GestionnaireCommande instance = new GestionnaireCommande();
+    private static final GestionnaireCommande instance = new GestionnaireCommande();
 
     private GestionnaireCommande(){
         listeCommandeGauche = new LinkedList<>();
@@ -26,21 +24,12 @@ public class GestionnaireCommande {
         return instance;
     }
 
-    /**
-     *
-     * @return :
-     */
-    public boolean isEmpty(){
-        // Inutile de regarder les 2 listes
-        return listeCommandeGauche.isEmpty();
-    }
 
     /**
      *
-     * @param commande :
      * @param perspective :
      */
-    public void addCommande(Commande commande, Perspective perspective) {
+    public void addCommande(Perspective perspective) {
 
         switch (perspective.getVueType()) {
             case GAUCHE:
@@ -61,11 +50,11 @@ public class GestionnaireCommande {
     public void removeLastCommande(ControleurPerspective controleurPerspective) {
         switch (controleurPerspective.getPerspective().getVueType()) {
             case GAUCHE:
-                removeLastCommande(controleurPerspective, listeCommandeGauche);
+                restore(controleurPerspective, listeCommandeGauche);
                 break;
 
             case DROITE:
-                removeLastCommande(controleurPerspective, listeCommandeDroite);
+                restore(controleurPerspective, listeCommandeDroite);
                 break;
         }
     }
@@ -75,7 +64,7 @@ public class GestionnaireCommande {
      * @param controleurPerspective :
      * @param liste :
      */
-    private void removeLastCommande(ControleurPerspective controleurPerspective, LinkedList<MementoIF> liste){
+    private void restore(ControleurPerspective controleurPerspective, LinkedList<MementoIF> liste){
         if (liste.size() != 0) {
             MementoIF mementoIF = liste.getLast();
             Perspective perspective = originator.restoreFromMemento(mementoIF);

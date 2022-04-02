@@ -37,10 +37,16 @@ public class PanneauPrincipal extends JPanel implements Observer {
 
     }
 
+    /**
+     *
+     */
     public void initPanneau(){
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
     }
 
+    /**
+     *
+     */
     public void initContenu(){
 
         modelePrincipal.ajouterObservers(this);
@@ -71,7 +77,8 @@ public class PanneauPrincipal extends JPanel implements Observer {
 
     /**
      *
-     * @param :
+     * @param nameSavedFile :
+     * @param pathSavedFile :
      */
     public void SauvegarderImage(String nameSavedFile, File pathSavedFile) {
         //System.out.print("classe panneauprinc.java");
