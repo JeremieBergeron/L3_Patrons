@@ -81,7 +81,7 @@ public class MenuFenetre extends JMenuBar {
                 int returnValue = fileSave.showSaveDialog(null);
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     //File savedFile = fileSave.getSelectedFile();
-                    fenetrePrincipale.getPanneauPrincipal().SauvegarderImage(fileSave.getName(), fileSave.getCurrentDirectory());
+                    fenetrePrincipale.getPanneauPrincipal().SauvegarderImage(fileSave.getSelectedFile().getName(), fileSave.getCurrentDirectory());
                 }
             }
 
