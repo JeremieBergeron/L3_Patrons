@@ -125,7 +125,7 @@ public class PanneauPrincipal extends JPanel implements Observer {
      *
      * @return :
      */
-    public boolean isImageOuverte(){
+    public boolean getImageOuverte(){
         return imageOuverte;
     }
 }
