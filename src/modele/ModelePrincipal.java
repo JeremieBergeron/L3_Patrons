@@ -1,6 +1,7 @@
 package modele;
 
 import observateur.Observable;
+
 import java.io.*;
 import java.io.File;
 import java.util.LinkedList;
@@ -20,28 +21,29 @@ public class ModelePrincipal extends Observable {
         notifierObservers();
     }
 
-    public void sauvegarder (VuePerspective vuePerspectiveFinale1, VuePerspective vuePerspectiveFinale2, String nameSavedFile, File pathSavedFile) {
+    public void sauvegarder(VuePerspective vuePerspectiveFinale1, VuePerspective vuePerspectiveFinale2, String nameSavedFile, File pathSavedFile) {
         System.out.println("modeleprinc.java");
         LinkedList<Perspective> perspectives = new LinkedList<>();
         try {
-            FileOutputStream fileOut = new FileOutputStream( pathSavedFile + nameSavedFile + ".ser");
+            File myFile = new File(pathSavedFile + "\\" + nameSavedFile + ".ser");
+            FileOutputStream fileOut = new FileOutputStream(myFile);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             perspectives.add(vuePerspectiveFinale1.getPerspective());
             perspectives.add(vuePerspectiveFinale2.getPerspective());
             out.writeObject(perspectives);
             out.close();
             fileOut.close();
-            System.out.println("Serialized data is saved in " + pathSavedFile + nameSavedFile + ".ser");
+            System.out.println("Serialized data is saved in " + myFile.getAbsolutePath());
         } catch (IOException i) {
             i.printStackTrace();
         }
     }
-  
+
     //private Object readObject( ObjectInputStream in ) throws IOException, ClassNotFoundException {
-        //Simple s = (Simple) in.read();
-        //s.setWin( new JFrame( s.getUsername() ) );
-        //...any other extra setup can be done here
-        //return s;
+    //Simple s = (Simple) in.read();
+    //s.setWin( new JFrame( s.getUsername() ) );
+    //...any other extra setup can be done here
+    //return s;
 
         /*try {
         FileInputStream fis=new FileInputStream("C://object.ser");
@@ -57,7 +59,7 @@ public class ModelePrincipal extends Observable {
         } catch (IOException i) {
             i.printStackTrace();
         }*/
-    
+
     public File getPathImage() {
         return this.pathImage;
     }
