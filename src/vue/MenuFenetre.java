@@ -67,7 +67,7 @@ public class MenuFenetre extends JMenuBar {
         });
 
         btnSauvegarder.addActionListener((ActionEvent e) -> {
-            int retour = JOptionPane.showOptionDialog(null,"Êtes-vous sûr de vouloir ouvrir une autre image sans sauvegarder ?","Alert", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options1, options1[0]);
+            int retour = JOptionPane.showOptionDialog(null,"Voulez-vous vraiment sauvegarder?","Confirmation", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options1, options1[0]);
             if(retour==0) {//si le bouton cliqué est "oui"
                 //fenetrePrincipale.getPanneauPrincipal().SauvegarderImage();
                 JFileChooser fileSave = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -103,14 +103,12 @@ public class MenuFenetre extends JMenuBar {
         JMenu btnAide = new JMenu(NOM_BTN_AIDE);
         JMenuItem btnAPropos = new JMenuItem(NOM_BTN_APROPOS);
 
-        btnAPropos.addActionListener((ActionEvent e) -> {
-            JOptionPane.showMessageDialog(null,
-                    "<html><p>Application permettant d'afficher une image avec plusieurs perspectives.</p>" + "<br>"
-                            + "<p>&copy; &nbsp; 2022 &nbsp; J&eacute;r&eacute;mie Bergeron</p>" + "<br>"
-                            + "<p>&copy; &nbsp; 2022 &nbsp; Julian Andres Maldonado</p>" + "<br>"
-                            + "<p>&copy; &nbsp; 2022 &nbsp; Kathleen Francis Kathleen Francis Mbo</p>" + "<br>"
-                            + "<p>&Eacute;cole de technologie sup&eacute;rieure</p></html>");
-        });
+        btnAPropos.addActionListener((ActionEvent e) -> JOptionPane.showMessageDialog(null,
+                "<html><p>Application permettant d'afficher une image avec plusieurs perspectives.</p>" + "<br>"
+                        + "<p>&copy; &nbsp; 2022 &nbsp; J&eacute;r&eacute;mie Bergeron</p>" + "<br>"
+                        + "<p>&copy; &nbsp; 2022 &nbsp; Julian Andres Maldonado</p>" + "<br>"
+                        + "<p>&copy; &nbsp; 2022 &nbsp; Kathleen Francis Kathleen Francis Mbo</p>" + "<br>"
+                        + "<p>&Eacute;cole de technologie sup&eacute;rieure</p></html>"));
 
         add(btnAide);
         btnAide.add(btnAPropos);

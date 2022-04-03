@@ -2,12 +2,9 @@ package controleur;
 
 import commande.Commande;
 import commande.GestionnaireCommande;
+import mediateur.VuePerspectiveMediateur;
 import modele.Perspective;
 import vue.VuePerspective;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseWheelListener;
 
 public class ControleurPerspective  {
     VuePerspective vuePerspective;
@@ -34,12 +31,19 @@ public class ControleurPerspective  {
         commande.execute();
     }
 
+    /**
+     *
+     */
     public void deExecuterCommande() {
 
         //
         GestionnaireCommande.getInstance().removeLastCommande(this);
     }
 
+    /**
+     *
+     * @return :
+     */
     public VuePerspective getVuePerspective() {
         return vuePerspective;
     }
@@ -48,14 +52,30 @@ public class ControleurPerspective  {
         this.vuePerspective = vuePerspective;
     }
 
+    /**
+     *
+     * @return :
+     */
     public Perspective getPerspective() {
         return perspective;
     }
 
+    /**
+     *
+     * @param perspective :
+     */
     public void setPerspective(Perspective perspective) {
         this.perspective = perspective;
         this.vuePerspective.setPerspective(perspective);
         this.perspective.notifierObservers();
+    }
+
+    /**
+     *
+     * @param vue :
+     */
+    public void notifierAutreVue(VuePerspective vue){
+        VuePerspectiveMediateur.getInstance().updateEtatVues(vue);
     }
 
 }

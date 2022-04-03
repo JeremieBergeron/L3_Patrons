@@ -22,6 +22,7 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
     private Point positionTemporaire;
     // Si vrai, on peut déplacer l'image
     private boolean dragImage;
+    private boolean vueActive = false;
 
     private Perspective perspective;
     private ControleurPerspective ctrlPerspective;
@@ -45,7 +46,7 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
     public void initPanneau() {
         ctrlPerspective = new ControleurPerspective(this, perspective);
 
-        setFocusable(false);
+        setFocusable(true);
         addMouseWheelListener(this);
         addMouseListener(this);
         addMouseMotionListener(this);
@@ -55,8 +56,12 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         JButton button = new JButton();
+        button.setFocusable(false);
         button.setText("UNDO");
-        button.addActionListener(e -> ctrlPerspective.deExecuterCommande());
+        button.addActionListener(e ->  {
+            if(vueActive && perspective != null) { ctrlPerspective.deExecuterCommande();
+            }
+        });
         add(button);
     }
 
@@ -65,6 +70,14 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
      */
     public void initContenu() {
         positionTemporaire = new Point();
+    }
+
+    /**
+     *
+     * @param etat :
+     */
+    public void setVueActive(boolean etat){
+        this.vueActive = etat;
     }
 
     /**
@@ -119,7 +132,7 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
      */
     @Override
     public void mouseWheelMoved(MouseWheelEvent event) {
-        if (this.isFocusable()) {
+        if (vueActive && perspective != null) {
 
             Commande cmdZoomerDezoomer;
 
@@ -155,9 +168,13 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
      */
     @Override
     public void mousePressed(MouseEvent event) {
-        this.setFocusable(!this.isFocusable());
 
-        if (this.isFocusable()) {
+        if(!vueActive) {
+            vueActive = true;
+            this.ctrlPerspective.notifierAutreVue(this);
+        }
+
+        if (vueActive && perspective != null) {
             // Inspiré de https://stackoverflow.com/questions/33163298/dragging-image-using-mousedrag-method
 
             Rectangle bounds = new Rectangle(
@@ -198,14 +215,17 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
      */
     @Override
     public void mouseEntered(MouseEvent event) {
-        // Ajout du raccourci clavier lorsque la souris est au-dessus de la vue
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control Z"), UNDO);
-        this.getActionMap().put(UNDO, new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ctrlPerspective.deExecuterCommande();
-            }
-        });
+
+            // Ajout du raccourci clavier lorsque la souris est au-dessus de la vue
+            this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control Z"), UNDO);
+            this.getActionMap().put(UNDO, new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if(vueActive && perspective != null) {
+                        ctrlPerspective.deExecuterCommande();
+                    }
+                }
+            });
     }
 
     /**

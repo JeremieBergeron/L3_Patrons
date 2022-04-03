@@ -4,6 +4,7 @@ import commande.Commande;
 import commande.Ouvrir;
 import commande.Sauvegarder;
 import controleur.ControleurPrincipale;
+import mediateur.VuePerspectiveMediateur;
 import modele.ModelePrincipal;
 import modele.Perspective;
 import modele.Image;
@@ -16,7 +17,7 @@ import java.io.File;
 
 public class PanneauPrincipal extends JPanel implements Observer {
 
-    private ModelePrincipal modelePrincipal;
+    private final ModelePrincipal modelePrincipal;
     private ControleurPrincipale controleurPrincipale;
 
     private VueVignette vueVignette;
@@ -57,6 +58,9 @@ public class PanneauPrincipal extends JPanel implements Observer {
         vuePerspectiveGauche = new VuePerspective();
 
         vuePerspectiveDroite = new VuePerspective();
+
+        VuePerspectiveMediateur.getInstance().addVueInactive(vuePerspectiveGauche);
+        VuePerspectiveMediateur.getInstance().addVueInactive(vuePerspectiveDroite);
 
         // Ajout des vues
         add(vueVignette);
