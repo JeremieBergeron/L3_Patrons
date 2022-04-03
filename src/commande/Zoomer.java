@@ -16,7 +16,7 @@ public class Zoomer implements Commande {
 
     @Override
     public boolean execute() {
-        GestionnaireCommande.getInstance().addCommande(this, modelePerspective);
+        GestionnaireCommande.getInstance().addCommande( modelePerspective);
         modelePerspective.zoomer();
         return true;
     }

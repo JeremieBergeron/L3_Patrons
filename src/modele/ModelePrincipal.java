@@ -53,7 +53,7 @@ public class ModelePrincipal extends Observable {
             i.printStackTrace();
         }
     }
-
+  
     //private Object readObject( ObjectInputStream in ) throws IOException, ClassNotFoundException {
         //Simple s = (Simple) in.read();
         //s.setWin( new JFrame( s.getUsername() ) );
@@ -74,8 +74,7 @@ public class ModelePrincipal extends Observable {
         } catch (IOException i) {
             i.printStackTrace();
         }*/
-    //}
-
+    
     public File getPathImage() {
         return this.pathImage;
     }

@@ -1,11 +1,10 @@
 package commande;
 
-import controleur.ControleurPerspective;
 import modele.Perspective;
 
 public class Dezoomer implements Commande {
 
-    private Perspective modelePerspective;
+    private final Perspective modelePerspective;
 
     public Dezoomer(Perspective modelePerspective) {
         this.modelePerspective = modelePerspective;
@@ -13,7 +12,7 @@ public class Dezoomer implements Commande {
 
     @Override
     public boolean execute() {
-        GestionnaireCommande.getInstance().addCommande(this, modelePerspective);
+        GestionnaireCommande.getInstance().addCommande(modelePerspective);
         modelePerspective.dezoomer();
         return true;
     }
