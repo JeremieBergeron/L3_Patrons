@@ -78,6 +78,22 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
      */
     public void setVueActive(boolean etat){
         this.vueActive = etat;
+
+        if(this.vueActive){
+            // Ajout du raccourci clavier lorsque la souris est au-dessus de la vue
+            this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control Z"), UNDO);
+            this.getActionMap().put(UNDO, new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if(vueActive && perspective != null) {
+                        ctrlPerspective.deExecuterCommande();
+                    }
+                }
+            });
+        } else {
+            // Retrait du raccourci clavier lorsque la souris est en dehors de la vue
+            this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control Z"), "none");
+        }
     }
 
     /**
@@ -170,7 +186,7 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
     public void mousePressed(MouseEvent event) {
 
         if(!vueActive) {
-            vueActive = true;
+            setVueActive(true);
             this.ctrlPerspective.notifierAutreVue(this);
         }
 
@@ -216,16 +232,7 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
     @Override
     public void mouseEntered(MouseEvent event) {
 
-            // Ajout du raccourci clavier lorsque la souris est au-dessus de la vue
-            this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control Z"), UNDO);
-            this.getActionMap().put(UNDO, new AbstractAction() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if(vueActive && perspective != null) {
-                        ctrlPerspective.deExecuterCommande();
-                    }
-                }
-            });
+
     }
 
     /**
@@ -235,8 +242,7 @@ public class VuePerspective extends JPanel implements Observer, MouseWheelListen
      */
     @Override
     public void mouseExited(MouseEvent event) {
-        // Retrait du raccourci clavier lorsque la souris est en dehors de la vue
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control Z"), "none");
+
     }
 
     /*  END MouseListener  */
