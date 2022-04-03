@@ -52,10 +52,8 @@ public class MenuFenetre extends JMenuBar {
                 fileChooser.setAcceptAllFileFilterUsed(true);
 
                 // Créer un filtre
-                //FileNameExtensionFilter filtreAll = new FileNameExtensionFilter("Tout fichier", "jpg", "png");
                 FileNameExtensionFilter filtreJPG = new FileNameExtensionFilter(".jpg", "jpg");
                 FileNameExtensionFilter filtrePNG = new FileNameExtensionFilter(".png", "png");
-                //fileChooser.addChoosableFileFilter(filtreAll);
                 fileChooser.addChoosableFileFilter(filtreJPG);
                 fileChooser.addChoosableFileFilter(filtrePNG);
 
@@ -69,9 +67,7 @@ public class MenuFenetre extends JMenuBar {
         });
 
         btnSauvegarder.addActionListener((ActionEvent e) -> {
-            int retour = JOptionPane.showConfirmDialog(null,
-                    "Voulez-vous vraiment sauvegarder?",
-                    "Confirmation", JOptionPane.YES_NO_OPTION);
+            int retour = JOptionPane.showOptionDialog(null,"Voulez-vous vraiment sauvegarder?","Confirmation", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options1, options1[0]);
             if(retour==0) {//si le bouton cliqué est "oui"
                 //fenetrePrincipale.getPanneauPrincipal().SauvegarderImage();
                 JFileChooser fileSave = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -82,7 +78,7 @@ public class MenuFenetre extends JMenuBar {
                 FileNameExtensionFilter filtreSER = new FileNameExtensionFilter(".ser", "ser");
                 fileSave.addChoosableFileFilter(filtreSER);
 
-                int returnValue = fileSave.showOpenDialog(null);
+                int returnValue = fileSave.showSaveDialog(null);
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     //File savedFile = fileSave.getSelectedFile();
                     fenetrePrincipale.getPanneauPrincipal().SauvegarderImage(fileSave.getName(), fileSave.getCurrentDirectory());
@@ -107,14 +103,12 @@ public class MenuFenetre extends JMenuBar {
         JMenu btnAide = new JMenu(NOM_BTN_AIDE);
         JMenuItem btnAPropos = new JMenuItem(NOM_BTN_APROPOS);
 
-        btnAPropos.addActionListener((ActionEvent e) -> {
-            JOptionPane.showMessageDialog(null,
-                    "<html><p>Application permettant d'afficher une image avec plusieurs perspectives.</p>" + "<br>"
-                            + "<p>&copy; &nbsp; 2022 &nbsp; J&eacute;r&eacute;mie Bergeron</p>" + "<br>"
-                            + "<p>&copy; &nbsp; 2022 &nbsp; Julian Andres Maldonado</p>" + "<br>"
-                            + "<p>&copy; &nbsp; 2022 &nbsp; Kathleen Francis Kathleen Francis Mbo</p>" + "<br>"
-                            + "<p>&Eacute;cole de technologie sup&eacute;rieure</p></html>");
-        });
+        btnAPropos.addActionListener((ActionEvent e) -> JOptionPane.showMessageDialog(null,
+                "<html><p>Application permettant d'afficher une image avec plusieurs perspectives.</p>" + "<br>"
+                        + "<p>&copy; &nbsp; 2022 &nbsp; J&eacute;r&eacute;mie Bergeron</p>" + "<br>"
+                        + "<p>&copy; &nbsp; 2022 &nbsp; Julian Andres Maldonado</p>" + "<br>"
+                        + "<p>&copy; &nbsp; 2022 &nbsp; Kathleen Francis Kathleen Francis Mbo</p>" + "<br>"
+                        + "<p>&Eacute;cole de technologie sup&eacute;rieure</p></html>"));
 
         add(btnAide);
         btnAide.add(btnAPropos);
