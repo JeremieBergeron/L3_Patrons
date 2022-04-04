@@ -12,7 +12,6 @@ import java.util.LinkedList;
 
 public class Sauvegarder implements Commande {
 
-    private boolean etat = true;
     private ModelePrincipal modelePrincipal;
 
     private VuePerspective vuePerspectiveFinale1;
@@ -31,12 +30,8 @@ public class Sauvegarder implements Commande {
 
     @Override
     public boolean execute() {
-        if(etat) {
-            modelePrincipal.sauvegarder(vuePerspectiveFinale1, vuePerspectiveFinale2, nameSavedFile, pathSavedFile);
-            return true;
-        } else{
-            return false;
-        }
+        modelePrincipal.sauvegarder(vuePerspectiveFinale1, vuePerspectiveFinale2, nameSavedFile, pathSavedFile);
+        return true;
     }
 
 }

@@ -1,5 +1,7 @@
 package vue;
 
+import commande.Sauvegarder;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
@@ -34,6 +36,7 @@ public class MenuFenetre extends JMenuBar {
 
         JMenuItem btnOuvrir = new JMenuItem(NOM_BTN_OUVRIR);
         JMenuItem btnSauvegarder = new JMenuItem(NOM_BTN_SAUVEGARDER);
+        btnSauvegarder.setEnabled(false);
 
         Object[] options1 = { "Oui", "Non",
                 "Cancel" };
@@ -54,37 +57,40 @@ public class MenuFenetre extends JMenuBar {
                 // Créer un filtre
                 FileNameExtensionFilter filtreJPG = new FileNameExtensionFilter(".jpg", "jpg");
                 FileNameExtensionFilter filtrePNG = new FileNameExtensionFilter(".png", "png");
+                FileNameExtensionFilter filtreSER = new FileNameExtensionFilter(".ser", "ser");
                 fileChooser.addChoosableFileFilter(filtreJPG);
                 fileChooser.addChoosableFileFilter(filtrePNG);
+                fileChooser.addChoosableFileFilter(filtreSER);
 
                 int returnValue = fileChooser.showOpenDialog(null);
 
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     File selectedFile = fileChooser.getSelectedFile();
                     fenetrePrincipale.getPanneauPrincipal().ouvrirImage(selectedFile);
+                    btnSauvegarder.setEnabled(true);
                 }
             }
         });
 
         btnSauvegarder.addActionListener((ActionEvent e) -> {
             int retour = JOptionPane.showOptionDialog(null,"Voulez-vous vraiment sauvegarder?","Confirmation", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options1, options1[0]);
-            if(retour==0) {//si le bouton cliqué est "oui"
-                //fenetrePrincipale.getPanneauPrincipal().SauvegarderImage();
+            if(retour==0) {
                 JFileChooser fileSave = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
                 fileSave.setDialogTitle("Sélectionnez un emplacement pour la sauvegarde");
                 fileSave.setAcceptAllFileFilterUsed(false);
 
-                // Créer un filtre
                 FileNameExtensionFilter filtreSER = new FileNameExtensionFilter(".ser", "ser");
                 fileSave.addChoosableFileFilter(filtreSER);
 
                 int returnValue = fileSave.showSaveDialog(null);
-                if (returnValue == JFileChooser.APPROVE_OPTION) {
-                    //File savedFile = fileSave.getSelectedFile();
+                if (returnValue == JFileChooser.APPROVE_OPTION & fileSave.getSelectedFile().getName() != null) {
                     fenetrePrincipale.getPanneauPrincipal().SauvegarderImage(fileSave.getSelectedFile().getName(), fileSave.getCurrentDirectory());
-                    fenetrePrincipale.getPanneauPrincipal().SauvegarderImage(fileSave.getName(), fileSave.getCurrentDirectory());
-                    System.out.print("nameImage " + fenetrePrincipale.getPanneauPrincipal().SauvegarderImage(fileSave.getName());
-                    System.out.print("pathImage " + fileSave.getCurrentDirectory());
+                    //fenetrePrincipale.getPanneauPrincipal().SauvegarderImage(fileSave.getName(), fileSave.getCurrentDirectory());
+                    JOptionPane.showMessageDialog(null,"Fichier sauvegardé.");
+                    System.out.print("nameImage " + fileSave.getSelectedFile().getName());
+                    //System.out.print("pathImage " + fileSave.getCurrentDirectory());
+                } else {
+                    //JOptionPane.showOptionDialog(null,"Fichier non sauvegardé." + "/n Veuillez nommer le fichier","Alert", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, options1[0]);
                 }
             }
 
