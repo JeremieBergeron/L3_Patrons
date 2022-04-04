@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 public class ModelePrincipal extends Observable {
 
     private File pathImage;
+    private boolean isSaveLastVersion = false;
 
     private Perspective perspectiveFinale1;
     private Perspective perspectiveFinale2;
@@ -56,6 +57,8 @@ public class ModelePrincipal extends Observable {
             out.writeObject(perspectives);
             out.close();
             fileOut.close();
+            isSaveLastVersion = true;
+            System.out.println("Serialized data is saved in " + myFile.getAbsolutePath());
             //System.out.println("Serialized data is saved in " + myFile.getAbsolutePath());
             //System.out.println("Serialized data is saved in " + pathSavedFile + nameSavedFile + ".ser");
 
@@ -68,6 +71,15 @@ public class ModelePrincipal extends Observable {
         } catch (IOException i) {
             i.printStackTrace();
         }
+    }
+
+
+    public boolean getIsSaveLastVersion(){
+        return isSaveLastVersion;
+    }
+
+    public void setIsSaveLastVersion(boolean isSaveLastVersion){
+        this.isSaveLastVersion = isSaveLastVersion;
     }
 
     //private Object readObject( ObjectInputStream in ) throws IOException, ClassNotFoundException {

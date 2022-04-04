@@ -44,7 +44,7 @@ public class MenuFenetre extends JMenuBar {
         btnOuvrir.addActionListener((ActionEvent e) -> {
             boolean ouvrirImage = true;
 
-            if (fenetrePrincipale.getPanneauPrincipal().getImageOuverte()){
+            if (fenetrePrincipale.getPanneauPrincipal().getImageOuverte() && !fenetrePrincipale.getPanneauPrincipal().getModelePrincipal().getIsSaveLastVersion()){
                 int resultat = JOptionPane.showOptionDialog(null,"Êtes-vous sûr de vouloir ouvrir une autre image sans sauvegarder ?","Alert", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options1, options1[0]);
                 ouvrirImage = resultat == 0;
             }
