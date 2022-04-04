@@ -21,13 +21,32 @@ public class ModelePrincipal extends Observable {
     private LinkedList<Perspective> perspectives = new LinkedList<>();
 
     public void ouvrir(File pathImage) {
-        //this.pathImage = pathImage.toString();
-        this.pathImage = pathImage;
+        if(pathImage.getName().contains(".ser")) {
+            try {
+                FileInputStream fileIn = new FileInputStream(pathImage);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+
+                perspectives = (LinkedList<Perspective>) in.readObject();
+
+                for (int i = 0; i < 1; i++) {
+                    //perspectives.add(new Perspective());
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else {
+            this.pathImage = pathImage;
+        }
         notifierObservers();
     }
 
     public void sauvegarder(VuePerspective vuePerspectiveFinale1, VuePerspective vuePerspectiveFinale2, String nameSavedFile, File pathSavedFile) {
         System.out.println("modeleprinc.java");
+        //LinkedList<Perspective> perspectives = new LinkedList<>();
         try {
             File myFile = new File(pathSavedFile + "\\" + nameSavedFile + ".ser");
             FileOutputStream fileOut = new FileOutputStream(myFile);
@@ -37,8 +56,8 @@ public class ModelePrincipal extends Observable {
             out.writeObject(perspectives);
             out.close();
             fileOut.close();
-            System.out.println("Serialized data is saved in " + myFile.getAbsolutePath());
-            System.out.println("Serialized data is saved in " + pathSavedFile + nameSavedFile + ".ser");
+            //System.out.println("Serialized data is saved in " + myFile.getAbsolutePath());
+            //System.out.println("Serialized data is saved in " + pathSavedFile + nameSavedFile + ".ser");
 
             //transient List<BufferedImage> images;
             /*out.defaultWriteObject();
@@ -57,20 +76,6 @@ public class ModelePrincipal extends Observable {
     //...any other extra setup can be done here
     //return s;
 
-        /*try {
-        FileInputStream fis=new FileInputStream("C://object.ser");
-        ObjectInputStream ois=new ObjectInputStream(fis);
-        WriteObject wo=null;
-        WriteObject[] woj=new WriteObject[5];
-
-        ArrayList<WriteObject> woi=new ArrayList<>();
-        woi=(ArrayList<WriteObject>)ois.readObject();
-
-        for(int i=0;i<woi.size();i++){
-            woi.get(i).getvalues();
-        } catch (IOException i) {
-            i.printStackTrace();
-        }*/
 
     public File getPathImage() {
         return this.pathImage;
