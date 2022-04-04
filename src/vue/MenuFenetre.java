@@ -69,6 +69,7 @@ public class MenuFenetre extends JMenuBar {
         btnSauvegarder.addActionListener((ActionEvent e) -> {
             int retour = JOptionPane.showOptionDialog(null,"Voulez-vous vraiment sauvegarder?","Confirmation", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options1, options1[0]);
             if(retour==0) {//si le bouton cliqué est "oui"
+                //fenetrePrincipale.getPanneauPrincipal().SauvegarderImage();
                 JFileChooser fileSave = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
                 fileSave.setDialogTitle("Sélectionnez un emplacement pour la sauvegarde");
                 fileSave.setAcceptAllFileFilterUsed(false);
@@ -80,6 +81,7 @@ public class MenuFenetre extends JMenuBar {
                 int returnValue = fileSave.showSaveDialog(null);
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     //File savedFile = fileSave.getSelectedFile();
+                    fenetrePrincipale.getPanneauPrincipal().SauvegarderImage(fileSave.getSelectedFile().getName(), fileSave.getCurrentDirectory());
                     fenetrePrincipale.getPanneauPrincipal().SauvegarderImage(fileSave.getName(), fileSave.getCurrentDirectory());
                     System.out.print("nameImage " + fenetrePrincipale.getPanneauPrincipal().SauvegarderImage(fileSave.getName());
                     System.out.print("pathImage " + fileSave.getCurrentDirectory());

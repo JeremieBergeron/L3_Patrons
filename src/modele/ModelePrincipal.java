@@ -2,6 +2,7 @@ package modele;
 
 import observateur.Observable;
 
+
 import java.awt.image.RenderedImage;
 import java.io.*;
 import java.io.File;
@@ -25,22 +26,18 @@ public class ModelePrincipal extends Observable {
         notifierObservers();
     }
 
-    public void sauvegarder (VuePerspective vuePerspectiveFinale1, VuePerspective vuePerspectiveFinale2, String nameSavedFile, File pathSavedFile) {
+    public void sauvegarder(VuePerspective vuePerspectiveFinale1, VuePerspective vuePerspectiveFinale2, String nameSavedFile, File pathSavedFile) {
         System.out.println("modeleprinc.java");
         try {
-            //transient vuePerspectiveFinale1.getPerspective().getImage();
-            FileOutputStream fileOut = new FileOutputStream( pathSavedFile + nameSavedFile + ".ser");
+            File myFile = new File(pathSavedFile + "\\" + nameSavedFile + ".ser");
+            FileOutputStream fileOut = new FileOutputStream(myFile);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             perspectives.add(vuePerspectiveFinale1.getPerspective());
             perspectives.add(vuePerspectiveFinale2.getPerspective());
-            //out.writeObject(perspectives);
-            out.defaultWriteObject();
-            //out.writeInt(images.size()); // how many images are serialized?
-            //for (BufferedImage eachImage : images) {
-                ImageIO.write((RenderedImage) vuePerspectiveFinale1.getPerspective().getImage(), "png", out); // png is lossless
-            //}
+            out.writeObject(perspectives);
             out.close();
             fileOut.close();
+            System.out.println("Serialized data is saved in " + myFile.getAbsolutePath());
             System.out.println("Serialized data is saved in " + pathSavedFile + nameSavedFile + ".ser");
 
             //transient List<BufferedImage> images;
@@ -53,12 +50,12 @@ public class ModelePrincipal extends Observable {
             i.printStackTrace();
         }
     }
-  
+
     //private Object readObject( ObjectInputStream in ) throws IOException, ClassNotFoundException {
-        //Simple s = (Simple) in.read();
-        //s.setWin( new JFrame( s.getUsername() ) );
-        //...any other extra setup can be done here
-        //return s;
+    //Simple s = (Simple) in.read();
+    //s.setWin( new JFrame( s.getUsername() ) );
+    //...any other extra setup can be done here
+    //return s;
 
         /*try {
         FileInputStream fis=new FileInputStream("C://object.ser");
@@ -74,7 +71,7 @@ public class ModelePrincipal extends Observable {
         } catch (IOException i) {
             i.printStackTrace();
         }*/
-    
+
     public File getPathImage() {
         return this.pathImage;
     }
