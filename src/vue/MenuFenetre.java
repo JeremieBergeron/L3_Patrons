@@ -73,7 +73,7 @@ public class MenuFenetre extends JMenuBar {
         });
 
         btnSauvegarder.addActionListener((ActionEvent e) -> {
-            int retour = JOptionPane.showOptionDialog(null,"Voulez-vous vraiment sauvegarder?","Confirmation", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options1, options1[0]);
+            int retour = JOptionPane.showOptionDialog(null,"Voulez-vous vraiment sauvegarder?","Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options1, options1[0]);
             if(retour==0) {
                 JFileChooser fileSave = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
                 fileSave.setDialogTitle("Sélectionnez un emplacement pour la sauvegarde");
@@ -85,12 +85,11 @@ public class MenuFenetre extends JMenuBar {
                 int returnValue = fileSave.showSaveDialog(null);
                 if (returnValue == JFileChooser.APPROVE_OPTION & fileSave.getSelectedFile().getName() != null) {
                     fenetrePrincipale.getPanneauPrincipal().SauvegarderImage(fileSave.getSelectedFile().getName(), fileSave.getCurrentDirectory());
-                    //fenetrePrincipale.getPanneauPrincipal().SauvegarderImage(fileSave.getName(), fileSave.getCurrentDirectory());
                     JOptionPane.showMessageDialog(null,"Fichier sauvegardé.");
-                    System.out.print("nameImage " + fileSave.getSelectedFile().getName());
-                    //System.out.print("pathImage " + fileSave.getCurrentDirectory());
+                    //System.out.print("nameImage: " + fileSave.getSelectedFile().getName());
+                    System.out.print("pathImage: " + fileSave.getCurrentDirectory());
                 } else {
-                    //JOptionPane.showOptionDialog(null,"Fichier non sauvegardé." + "/n Veuillez nommer le fichier","Alert", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, options1[0]);
+                    JOptionPane.showMessageDialog(null,"Fichier non sauvegardé. /n Veuillez nommer le fichier","Inane error", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
