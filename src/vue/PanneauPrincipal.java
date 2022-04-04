@@ -1,8 +1,6 @@
 package vue;
 
-import commande.Commande;
-import commande.Ouvrir;
-import commande.Sauvegarder;
+import commande.*;
 import controleur.ControleurPrincipale;
 import mediateur.VuePerspectiveMediateur;
 import modele.ModelePrincipal;
@@ -12,10 +10,12 @@ import observateur.Observer;
 
 
 import javax.swing.*;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.io.File;
 
 
-public class PanneauPrincipal extends JPanel implements Observer {
+public class PanneauPrincipal extends JPanel implements Observer, MouseWheelListener {
 
     private final ModelePrincipal modelePrincipal;
     private ControleurPrincipale controleurPrincipale;
@@ -42,6 +42,7 @@ public class PanneauPrincipal extends JPanel implements Observer {
      *
      */
     public void initPanneau(){
+        addMouseWheelListener(this);
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
     }
 
@@ -127,7 +128,46 @@ public class PanneauPrincipal extends JPanel implements Observer {
         return imageOuverte;
     }
 
+    /**
+     *
+     * @return :
+     */
     public ModelePrincipal getModelePrincipal() {
         return modelePrincipal;
+    }
+
+    /**
+     * Invoked when the mouse wheel is rotated.
+     *  Utilisé pour appeler les commandes zoomer et dezoomer.
+     * @param event : Event
+     * @see MouseWheelEvent
+     */
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent event) {
+        VuePerspective vue = null;
+
+        // Savoir qu'elle est la vue active
+        if(vuePerspectiveDroite.getVueEtat()) {
+            vue = vuePerspectiveDroite;
+        } else if (vuePerspectiveGauche.getVueEtat()) {
+            vue = vuePerspectiveGauche;
+        }
+
+        //assert vue != null; // ajouté par l'IDE, je ne sais pas vraiment pourquoi, mais cela enlève un avertissement.
+        if (vue != null && vue.verifierPerspective()) {
+            Commande cmdZoomerDezoomer;
+
+            if (event.getWheelRotation() < 0) {
+
+                cmdZoomerDezoomer = new Zoomer(vue.getPerspective());
+                vue.getCtrlPerspective().executerCommande(cmdZoomerDezoomer);
+
+            } else if (event.getWheelRotation() > 0) {
+
+                cmdZoomerDezoomer = new Dezoomer(vue.getPerspective());
+                vue.getCtrlPerspective().executerCommande(cmdZoomerDezoomer);
+
+            }
+        }
     }
 }
