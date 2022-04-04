@@ -13,12 +13,12 @@ public class Perspective extends Observable implements java.io.Serializable {
 
     // MODELE
     private Image image;
-    private ModelePrincipal modelePrincipal;
+    private final ModelePrincipal modelePrincipal;
 
-    private Point position = new Point();
+    private final Point position = new Point();
     private float hauteurImage;
     private float longueurImage;
-    private VueType vueType;
+    private final VueType vueType;
 
 
     /**
@@ -41,6 +41,7 @@ public class Perspective extends Observable implements java.io.Serializable {
         this.hauteurImage = perspectiveACopier.getHauteurImage();
         this.longueurImage = perspectiveACopier.getLongueurImage();
         this.vueType = perspectiveACopier.getVueType();
+        this.modelePrincipal = perspectiveACopier.modelePrincipal;
 
         this.ajouterObservers(perspectiveACopier.getListeObservers());
     }
@@ -164,13 +165,5 @@ public class Perspective extends Observable implements java.io.Serializable {
      */
     public VueType getVueType() {
         return vueType;
-    }
-
-    /**
-     *
-     * @param vueType :
-     */
-    public void setVueType(VueType vueType) {
-        this.vueType = vueType;
     }
 }
