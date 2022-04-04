@@ -1,18 +1,12 @@
 package commande;
 
-
-import controleur.ControleurPerspective;
-import modele.Image;
 import modele.ModelePrincipal;
-import modele.Perspective;
 import vue.VuePerspective;
 
 import java.io.File;
-import java.util.LinkedList;
 
 public class Sauvegarder implements Commande {
 
-    private boolean etat = true;
     private ModelePrincipal modelePrincipal;
 
     private VuePerspective vuePerspectiveFinale1;
@@ -26,17 +20,12 @@ public class Sauvegarder implements Commande {
         this.vuePerspectiveFinale2 = vuePerspectiveFinale2;
         this.pathSavedFile = pathSavedFile;
         this.nameSavedFile = nameSavedFile;
-        System.out.println("classe sauvegarder.java");
     }
 
     @Override
     public boolean execute() {
-        if(etat) {
-            modelePrincipal.sauvegarder(vuePerspectiveFinale1, vuePerspectiveFinale2, nameSavedFile, pathSavedFile);
-            return true;
-        } else{
-            return false;
-        }
+        modelePrincipal.sauvegarder(vuePerspectiveFinale1, vuePerspectiveFinale2, nameSavedFile, pathSavedFile);
+        return true;
     }
 
 }
