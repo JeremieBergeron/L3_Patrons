@@ -1,7 +1,5 @@
 package vue;
 
-import commande.Sauvegarder;
-
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
@@ -86,8 +84,6 @@ public class MenuFenetre extends JMenuBar {
                 if (returnValue == JFileChooser.APPROVE_OPTION & fileSave.getSelectedFile().getName() != null) {
                     fenetrePrincipale.getPanneauPrincipal().SauvegarderImage(fileSave.getSelectedFile().getName(), fileSave.getCurrentDirectory());
                     JOptionPane.showMessageDialog(null,"Fichier sauvegardé.");
-                    //System.out.print("nameImage: " + fileSave.getSelectedFile().getName());
-                    System.out.print("pathImage: " + fileSave.getCurrentDirectory());
                 } else {
                     JOptionPane.showMessageDialog(null,"Fichier non sauvegardé. /n Veuillez nommer le fichier","Inane error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -115,7 +111,7 @@ public class MenuFenetre extends JMenuBar {
                 "<html><p>Application permettant d'afficher une image avec plusieurs perspectives.</p>" + "<br>"
                         + "<p>&copy; &nbsp; 2022 &nbsp; J&eacute;r&eacute;mie Bergeron</p>" + "<br>"
                         + "<p>&copy; &nbsp; 2022 &nbsp; Julian Andres Maldonado</p>" + "<br>"
-                        + "<p>&copy; &nbsp; 2022 &nbsp; Kathleen Francis Kathleen Francis Mbo</p>" + "<br>"
+                        + "<p>&copy; &nbsp; 2022 &nbsp; Kathleen Francis Mbo</p>" + "<br>"
                         + "<p>&Eacute;cole de technologie sup&eacute;rieure</p></html>"));
 
         add(btnAide);

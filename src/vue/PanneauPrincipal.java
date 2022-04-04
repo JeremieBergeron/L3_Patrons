@@ -97,13 +97,11 @@ public class PanneauPrincipal extends JPanel implements Observer {
     @Override
     public void update() {
 
-        //String path = this.modelePrincipal.getPathImage();
         File path = this.modelePrincipal.getPathImage();
 
         Image image = new Image();
         image.ajouterObservers(vueVignette);
         vueVignette.setImage(image);
-        //image.setPathImage(path);
         image.setImage(path,vueVignette.getWidth(), vueVignette.getHeight()); // Ceci est nécessaire pour faire rafraichir la vue
 
         // Vue de droite

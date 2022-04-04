@@ -24,6 +24,7 @@ public class ModelePrincipal extends Observable {
     public void ouvrir(File pathImage) {
         if(pathImage.getName().contains(".ser")) {
             try {
+                System.out.println(pathImage);
                 FileInputStream fileIn = new FileInputStream(pathImage);
                 ObjectInputStream in = new ObjectInputStream(fileIn);
 
@@ -46,8 +47,7 @@ public class ModelePrincipal extends Observable {
     }
 
     public void sauvegarder(VuePerspective vuePerspectiveFinale1, VuePerspective vuePerspectiveFinale2, String nameSavedFile, File pathSavedFile) {
-        System.out.println("modeleprinc.java");
-        //LinkedList<Perspective> perspectives = new LinkedList<>();
+        //System.out.println("modeleprinc.java");
         try {
             File myFile = new File(pathSavedFile + "\\" + nameSavedFile + ".ser");
             FileOutputStream fileOut = new FileOutputStream(myFile);

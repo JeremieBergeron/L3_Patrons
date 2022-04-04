@@ -1,10 +1,6 @@
 package commande;
 
-
-import controleur.ControleurPerspective;
 import modele.ModelePrincipal;
-import modele.Perspective;
-
 import java.io.File;
 
 public class Ouvrir implements Commande{

@@ -1,14 +1,9 @@
 package commande;
 
-
-import controleur.ControleurPerspective;
-import modele.Image;
 import modele.ModelePrincipal;
-import modele.Perspective;
 import vue.VuePerspective;
 
 import java.io.File;
-import java.util.LinkedList;
 
 public class Sauvegarder implements Commande {
 
@@ -25,7 +20,6 @@ public class Sauvegarder implements Commande {
         this.vuePerspectiveFinale2 = vuePerspectiveFinale2;
         this.pathSavedFile = pathSavedFile;
         this.nameSavedFile = nameSavedFile;
-        System.out.println("classe sauvegarder.java");
     }
 
     @Override
