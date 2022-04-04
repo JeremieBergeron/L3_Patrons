@@ -11,7 +11,10 @@ public class Perspective extends Observable implements java.io.Serializable {
     private static final int MIN_ZOOM =  50;
     private static final int ZOOM = 5;
 
+    // MODELE
     private Image image;
+    private ModelePrincipal modelePrincipal;
+
     private Point position = new Point();
     private float hauteurImage;
     private float longueurImage;
@@ -22,8 +25,9 @@ public class Perspective extends Observable implements java.io.Serializable {
      *
      *
      */
-    public Perspective(VueType vueType){
+    public Perspective(VueType vueType, ModelePrincipal modelePrincipal){
         this.vueType = vueType;
+        this.modelePrincipal = modelePrincipal;
     }
 
     /**
@@ -50,6 +54,7 @@ public class Perspective extends Observable implements java.io.Serializable {
         this.position.setLocation(position);
 
         notifierObservers();
+        modelePrincipal.setIsSaveLastVersion(false);
     }
 
     /**
@@ -75,6 +80,7 @@ public class Perspective extends Observable implements java.io.Serializable {
             // Nouvelle position
             translater( new Point((position.x + centre.x), (position.y + centre.y)));
             notifierObservers();
+            modelePrincipal.setIsSaveLastVersion(false);
         }
     }
 
@@ -100,6 +106,7 @@ public class Perspective extends Observable implements java.io.Serializable {
 
             translater( new Point((position.x + centre.x), (position.y + centre.y)));
             notifierObservers();
+            modelePrincipal.setIsSaveLastVersion(false);
         }
     }
 
