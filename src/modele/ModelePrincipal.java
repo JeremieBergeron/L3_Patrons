@@ -48,13 +48,13 @@ public class ModelePrincipal extends Observable {
     }
 
     public void sauvegarder(VuePerspective vuePerspectiveFinale1, VuePerspective vuePerspectiveFinale2, String nameSavedFile, File pathSavedFile) {
-        //System.out.println("modeleprinc.java");
         try {
             File myFile = new File(pathSavedFile + "\\" + nameSavedFile + ".ser");
             FileOutputStream fileOut = new FileOutputStream(myFile);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             perspectives.add(vuePerspectiveFinale1.getPerspective());
             perspectives.add(vuePerspectiveFinale2.getPerspective());
+            //ImageIO.write(vuePerspectiveFinale1.getPerspective().getImage().getImage(), "png", out);
             out.writeObject(perspectives);
             out.close();
             fileOut.close();
@@ -75,13 +75,6 @@ public class ModelePrincipal extends Observable {
     public void setIsSaveLastVersion(boolean isSaveLastVersion){
         this.isSaveLastVersion = isSaveLastVersion;
     }
-
-    //private Object readObject( ObjectInputStream in ) throws IOException, ClassNotFoundException {
-    //Simple s = (Simple) in.read();
-    //s.setWin( new JFrame( s.getUsername() ) );
-    //...any other extra setup can be done here
-    //return s;
-
 
     public File getPathImage() {
         return this.pathImage;
