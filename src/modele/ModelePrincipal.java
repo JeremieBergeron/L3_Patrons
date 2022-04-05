@@ -6,6 +6,7 @@ import observateur.Observable;
 import java.awt.image.RenderedImage;
 import java.io.*;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import vue.VuePerspective;
@@ -19,20 +20,20 @@ public class ModelePrincipal extends Observable {
 
     private Perspective perspectiveFinale1;
     private Perspective perspectiveFinale2;
-    private LinkedList<Perspective> perspectives = new LinkedList<>();
+    private ArrayList<Perspective> perspectives = new ArrayList<>();
 
     public void ouvrir(File pathImage) {
         if(pathImage.getName().contains(".ser")) {
             try {
-                System.out.println(pathImage);
+                System.out.println("pathImage(ModelePrinc - .ser): "+pathImage);
                 FileInputStream fileIn = new FileInputStream(pathImage);
                 ObjectInputStream in = new ObjectInputStream(fileIn);
+                perspectives = (ArrayList<Perspective>) in.readObject();
+                in.close();
 
-                perspectives = (LinkedList<Perspective>) in.readObject();
-
-                for (int i = 0; i < 1; i++) {
-                    //perspectives.add(new Perspective());
-                }
+                /*for (int i = 0; i < 2; i++) {
+                    perspectives.add(new Perspective(in.read()));
+                }*/
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -58,16 +59,9 @@ public class ModelePrincipal extends Observable {
             out.close();
             fileOut.close();
             isSaveLastVersion = true;
-            System.out.println("Serialized data is saved in " + myFile.getAbsolutePath());
             //System.out.println("Serialized data is saved in " + myFile.getAbsolutePath());
             //System.out.println("Serialized data is saved in " + pathSavedFile + nameSavedFile + ".ser");
 
-            //transient List<BufferedImage> images;
-            /*out.defaultWriteObject();
-            out.writeInt(images.size()); // how many images are serialized?
-            for (BufferedImage eachImage : images) {
-                ImageIO.write(eachImage, "png", out); // png is lossless
-            }*/
         } catch (IOException i) {
             i.printStackTrace();
         }
@@ -93,3 +87,4 @@ public class ModelePrincipal extends Observable {
         return this.pathImage;
     }
 }
+
