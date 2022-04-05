@@ -13,7 +13,7 @@ public class Perspective extends Observable implements java.io.Serializable {
 
     // MODELE
     private Image image;
-    private final ModelePrincipal modelePrincipal;
+    private transient final ModelePrincipal modelePrincipal;
 
     private final Point position = new Point();
     private float hauteurImage;

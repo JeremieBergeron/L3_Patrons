@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class Image extends Observable implements java.io.Serializable {
 
-    private BufferedImage image;
+    private transient BufferedImage image;
 
     private int hauteurImage;
     private int longueurImage;

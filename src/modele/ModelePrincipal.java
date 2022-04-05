@@ -3,6 +3,7 @@ package modele;
 import observateur.Observable;
 
 
+import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.*;
 import java.io.File;
@@ -23,12 +24,19 @@ public class ModelePrincipal extends Observable {
     private ArrayList<Perspective> perspectives = new ArrayList<>();
 
     public void ouvrir(File pathImage) {
-        if(pathImage.getName().contains(".ser")) {
+        if (pathImage.getName().contains(".ser")) {
             try {
-                System.out.println("pathImage(ModelePrinc - .ser): "+pathImage);
+                System.out.println("pathImage(ModelePrinc - .ser): " + pathImage);
                 FileInputStream fileIn = new FileInputStream(pathImage);
                 ObjectInputStream in = new ObjectInputStream(fileIn);
+
+                int size = in.readInt(); // Read byte count
+                byte[] buffer = new byte[size];
+                in.readFully(buffer); // Make sure you read all bytes of the image
+                BufferedImage image = ImageIO.read(new ByteArrayInputStream(buffer));
+
                 perspectives = (ArrayList<Perspective>) in.readObject();
+
                 in.close();
 
                 /*for (int i = 0; i < 2; i++) {
@@ -55,7 +63,18 @@ public class ModelePrincipal extends Observable {
             perspectives.add(vuePerspectiveFinale1.getPerspective());
             perspectives.add(vuePerspectiveFinale2.getPerspective());
             //ImageIO.write(vuePerspectiveFinale1.getPerspective().getImage().getImage(), "png", out);
+
             out.writeObject(perspectives);
+            out.writeInt(1); // how many images are serialized?
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            ImageIO.write(vuePerspectiveFinale1.getPerspective().getImage().getImage(), "jpg", buffer);
+
+            out.writeInt(buffer.size()); // Prepend image with byte count
+            buffer.writeTo(out);         // Write image
+
+            /*for (Perspective perspective:perspectives) {
+                out.writeObject(perspective);
+            }*/
             out.close();
             fileOut.close();
             isSaveLastVersion = true;
@@ -68,11 +87,11 @@ public class ModelePrincipal extends Observable {
     }
 
 
-    public boolean getIsSaveLastVersion(){
+    public boolean getIsSaveLastVersion() {
         return isSaveLastVersion;
     }
 
-    public void setIsSaveLastVersion(boolean isSaveLastVersion){
+    public void setIsSaveLastVersion(boolean isSaveLastVersion) {
         this.isSaveLastVersion = isSaveLastVersion;
     }
 
