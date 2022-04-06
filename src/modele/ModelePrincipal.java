@@ -20,7 +20,7 @@ public class ModelePrincipal extends Observable {
     private BufferedImage bufferedImage;
     private boolean isSaveLastVersion = false;
 
-    private ArrayList<Perspective> perspectives = new ArrayList<>();
+    private final ArrayList<Perspective> perspectives = new ArrayList<>();
 
     public void ouvrir(File pathImage) {
         if (pathImage.getName().contains(".ser")) {
