@@ -78,12 +78,13 @@ public class ModelePrincipal extends Observable {
             //ImageIO.write(vuePerspectiveFinale1.getPerspective().getImage().getImage(), "png", out);
 
             out.writeObject(perspectives);
-            out.writeInt(1); // how many images are serialized?
-            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-            ImageIO.write(vuePerspectiveFinale1.getPerspective().getImage().getBufferedImage(), "jpg", buffer);
+            //out.writeInt(1); // how many images are serialized?
+            //ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            System.out.println(vuePerspectiveFinale1.getPerspective().getImage().getBufferedImage());
+            ImageIO.write(vuePerspectiveFinale1.getPerspective().getImage().getBufferedImage(), "jpg", out);
 
-            out.writeInt(buffer.size()); // Prepend image with byte count
-            buffer.writeTo(out);         // Write image
+            //out.writeInt(buffer.size()); // Prepend image with byte count
+            //buffer.writeTo(out);         // Write image
 
             /*for (Perspective perspective:perspectives) {
                 out.writeObject(perspective);
