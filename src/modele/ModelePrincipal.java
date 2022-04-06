@@ -67,8 +67,6 @@ public class ModelePrincipal extends Observable {
                 e.printStackTrace();
             }
         } else {
-            //this.pathImage = pathImage;
-
             try {
                 this.bufferedImage = ImageIO.read(pathImage);
                 notifierObservers();
