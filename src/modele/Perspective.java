@@ -17,13 +17,12 @@ public class Perspective extends Observable implements java.io.Serializable {
 
     // MODELE
     private Image image;
-    private transient final ModelePrincipal modelePrincipal;
+    private transient ModelePrincipal modelePrincipal;
 
     private final Point position = new Point();
     private float hauteurImage;
     private float longueurImage;
     private final VueType vueType;
-
 
     /**
      *
@@ -140,6 +139,11 @@ public class Perspective extends Observable implements java.io.Serializable {
         notifierObservers();
     }
 
+    public void setModelePrincipal(ModelePrincipal modelePrincipal){
+        this.modelePrincipal = modelePrincipal;
+    }
+
+
 
     /**
      *
@@ -172,5 +176,7 @@ public class Perspective extends Observable implements java.io.Serializable {
     public VueType getVueType() {
         return vueType;
     }
+
+
 
 }
