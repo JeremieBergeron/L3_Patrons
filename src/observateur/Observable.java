@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Observable {
 
-    private LinkedList<Observer> listeObservers = new LinkedList<>();
+    private transient LinkedList<Observer> listeObservers = new LinkedList<>();
 
     public List<Observer> getListeObservers(){return listeObservers;}
 
