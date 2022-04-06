@@ -17,12 +17,9 @@ public class ModelePrincipal extends Observable {
 
     private PanneauPrincipal panneauPrincipal;
 
-    //private File pathImage;
     private BufferedImage bufferedImage;
     private boolean isSaveLastVersion = false;
 
-    private Perspective perspectiveFinale1;
-    private Perspective perspectiveFinale2;
     private ArrayList<Perspective> perspectives = new ArrayList<>();
 
     public void ouvrir(File pathImage) {
