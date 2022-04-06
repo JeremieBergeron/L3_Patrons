@@ -10,6 +10,7 @@ import java.awt.*;
 public class VueVignette extends JPanel implements Observer {
 
     private Image image;
+    private ControleurVignette controleurVignette;
 
     /**
      *
@@ -36,7 +37,7 @@ public class VueVignette extends JPanel implements Observer {
      */
     public void initContenu(){
 
-        new ControleurVignette(this, image);
+        controleurVignette = new ControleurVignette(this, image);
 
     }
 
@@ -46,6 +47,10 @@ public class VueVignette extends JPanel implements Observer {
      */
     public void setImage (Image image) {
         this.image = image;
+    }
+
+    public ControleurVignette getControleurVignette() {
+        return controleurVignette;
     }
 
     /**

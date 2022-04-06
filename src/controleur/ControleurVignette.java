@@ -13,4 +13,8 @@ public class ControleurVignette {
         this.image = image;
 
     }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
 }
