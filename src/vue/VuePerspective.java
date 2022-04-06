@@ -59,7 +59,14 @@ public class VuePerspective extends JPanel implements Observer, MouseMotionListe
         button.setFocusable(false);
         button.setText("UNDO");
         button.addActionListener(e ->  {
-            if(vueActive && perspective != null) { ctrlPerspective.deExecuterCommande();
+            if(perspective != null) {
+
+                if (!this.vueActive) {
+                    this.ctrlPerspective.notifierAutreVue(this);
+                    setVueActive(true);
+                }
+
+                ctrlPerspective.deExecuterCommande();
             }
         });
         add(button);
