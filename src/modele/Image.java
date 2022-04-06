@@ -26,7 +26,6 @@ public class Image extends Observable implements java.io.Serializable {
      */
     public void setImage(BufferedImage image, int longueurVue, int hauteurVue) {
 
-
         this.image = image;
 
         hauteurImage = this.image.getHeight();

@@ -29,8 +29,6 @@ public class ModelePrincipal extends Observable {
                 ObjectInputStream in = new ObjectInputStream(fileIn);
 
                 this.perspectives.addAll((ArrayList<Perspective>) in.readObject());
-                this.bufferedImage = this.perspectives.get(0).getImage().getBufferedImage();
-
                 in.close();
 
                 // On set le nouveau modelePrincipale
@@ -38,25 +36,28 @@ public class ModelePrincipal extends Observable {
                 perspectives.get(1).setModelePrincipal(this);
 
                 // Ajouter les nouveaux observeurs
+                perspectives.get(0).getImage().ajouterObservers(panneauPrincipal.getVueVignette());
                 perspectives.get(0).ajouterObservers(panneauPrincipal.getVuePerspectiveGauche());
                 perspectives.get(1).ajouterObservers(panneauPrincipal.getVuePerspectiveDroite());
-                perspectives.get(0).getImage().ajouterObservers(panneauPrincipal.getVueVignette());
 
 
                 // Obtenir les vues et y ajouter la perspective désérialiser
+                panneauPrincipal.getVueVignette().setImage(perspectives.get(0).getImage());
                 panneauPrincipal.getVuePerspectiveGauche().setPerspective(perspectives.get(0));
                 panneauPrincipal.getVuePerspectiveDroite().setPerspective(perspectives.get(1));
-                panneauPrincipal.getVueVignette().setImage(perspectives.get(0).getImage());
+
 
                 // Obtenir les controlleurs et y ajouter la perspective désérialiser
+                panneauPrincipal.getVueVignette().getControleurVignette().setImage(perspectives.get(0).getImage());
                 panneauPrincipal.getVuePerspectiveGauche().getCtrlPerspective().setPerspective(perspectives.get(0));
                 panneauPrincipal.getVuePerspectiveDroite().getCtrlPerspective().setPerspective(perspectives.get(1));
-                panneauPrincipal.getVueVignette().getControleurVignette().setImage(perspectives.get(0).getImage());
 
                 // Rafraichir les vues
                 perspectives.get(0).notifierObservers();
                 perspectives.get(1).notifierObservers();
                 perspectives.get(0).getImage().notifierObservers();
+
+                perspectives.clear();
 
             } catch (EOFException e) {
                 e.getCause();
