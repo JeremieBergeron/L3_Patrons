@@ -3,7 +3,11 @@ package modele;
 import observateur.Observable;
 import vue.VueType;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 public class Perspective extends Observable implements java.io.Serializable {
 
@@ -28,6 +32,8 @@ public class Perspective extends Observable implements java.io.Serializable {
     public Perspective(VueType vueType, ModelePrincipal modelePrincipal){
         this.vueType = vueType;
         this.modelePrincipal = modelePrincipal;
+
+
     }
 
     /**
@@ -166,4 +172,5 @@ public class Perspective extends Observable implements java.io.Serializable {
     public VueType getVueType() {
         return vueType;
     }
+
 }
