@@ -34,6 +34,8 @@ public class PanneauPrincipal extends JPanel implements Observer, MouseWheelList
 
         this.modelePrincipal = modelePrincipal;
 
+        this.modelePrincipal.setPanneauPrincipal(this);
+
         initPanneau();
         initContenu();
 
@@ -69,6 +71,19 @@ public class PanneauPrincipal extends JPanel implements Observer, MouseWheelList
         add(vuePerspectiveGauche);
         add(vuePerspectiveDroite);
 
+    }
+
+
+    public VueVignette getVueVignette() {
+        return vueVignette;
+    }
+
+    public VuePerspective getVuePerspectiveGauche() {
+        return vuePerspectiveGauche;
+    }
+
+    public VuePerspective getVuePerspectiveDroite() {
+        return vuePerspectiveDroite;
     }
 
     /**
