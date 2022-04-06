@@ -36,6 +36,10 @@ public class ModelePrincipal extends Observable {
 
                 in.close();
 
+                // On set le nouveau modelePrincipale
+                perspectives.get(0).setModelePrincipal(this);
+                perspectives.get(1).setModelePrincipal(this);
+
                 // Ajouter les nouveaux observeurs
                 perspectives.get(0).ajouterObservers(panneauPrincipal.getVuePerspectiveGauche());
                 perspectives.get(1).ajouterObservers(panneauPrincipal.getVuePerspectiveDroite());
