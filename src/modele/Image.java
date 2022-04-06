@@ -5,8 +5,7 @@ import observateur.Observable;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 public class Image extends Observable implements java.io.Serializable {
 
@@ -18,12 +17,11 @@ public class Image extends Observable implements java.io.Serializable {
     private int longueurRatio;
     private Point position = new Point();
 
-    public Image(){
+    public Image() {
 
     }
 
     /**
-     *
      * @param image :
      */
     public void setImage(BufferedImage image, int longueurVue, int hauteurVue) {
@@ -38,18 +36,17 @@ public class Image extends Observable implements java.io.Serializable {
 
         ajusterDimension(longueurVue, hauteurVue);
 
-        position.setLocation(longueurVue/2 - this.longueurImage/2, hauteurVue/2 - this.hauteurImage/2);
+        position.setLocation(longueurVue / 2 - this.longueurImage / 2, hauteurVue / 2 - this.hauteurImage / 2);
 
         notifierObservers();
     }
 
     /**
-     *
      * @param longueurVue :
-     * @param hauteurVue :
+     * @param hauteurVue  :
      */
-    private void ajusterDimension(int longueurVue, int hauteurVue){
-        if(longueurImage > longueurVue) {
+    private void ajusterDimension(int longueurVue, int hauteurVue) {
+        if (longueurImage > longueurVue) {
             longueurImage = longueurVue - 20;
             hauteurImage = (int) (longueurImage * ((float) hauteurRatio / (float) longueurRatio));
         }
@@ -58,12 +55,11 @@ public class Image extends Observable implements java.io.Serializable {
         // dans le cas où l'hauteur est encore plus grand que celle de la vue
         if (hauteurImage > hauteurVue) {
             hauteurImage = hauteurVue - 20;
-            longueurImage = (int) (hauteurImage * ( (float) longueurRatio / (float) hauteurRatio ));
+            longueurImage = (int) (hauteurImage * ((float) longueurRatio / (float) hauteurRatio));
         }
     }
 
     /**
-     *
      * @return :
      */
     public BufferedImage getBufferedImage() {
@@ -80,7 +76,6 @@ public class Image extends Observable implements java.io.Serializable {
     }
 
     /**
-     *
      * @param a :
      * @param b :
      * @return :
@@ -90,7 +85,6 @@ public class Image extends Observable implements java.io.Serializable {
     }
 
     /**
-     *
      * @return :
      */
     public int getLongueurRatio() {
@@ -98,30 +92,39 @@ public class Image extends Observable implements java.io.Serializable {
     }
 
     /**
-     *
      * @return :
      */
-    public int getLongueurImage(){
+    public int getLongueurImage() {
         return this.longueurImage;
     }
 
     /**
-     *
      * @return :
      */
-    public int getHauteurRatio () {
+    public int getHauteurRatio() {
         return this.hauteurRatio;
     }
 
     /**
-     *
      * @return :
      */
-    public int getHauteurImage(){
+    public int getHauteurImage() {
         return this.hauteurImage;
     }
 
     public Point getPosition() {
         return position;
+    }
+
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+        out.writeInt(1); // how many images are serialized?
+        ImageIO.write(image, "png", out); // png is lossless
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        in.readInt();
+        image = ImageIO.read(in);
     }
 }

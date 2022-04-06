@@ -8,11 +8,14 @@ import java.io.*;
 import java.io.File;
 import java.util.ArrayList;
 
+import vue.PanneauPrincipal;
 import vue.VuePerspective;
 
 import javax.imageio.ImageIO;
 
 public class ModelePrincipal extends Observable {
+
+    private PanneauPrincipal panneauPrincipal;
 
     //private File pathImage;
     private BufferedImage bufferedImage;
@@ -25,29 +28,30 @@ public class ModelePrincipal extends Observable {
     public void ouvrir(File pathImage) {
         if (pathImage.getName().contains(".ser")) {
             try {
-                //System.out.println("pathImage(ModelePrinc - .ser): " + pathImage);
                 FileInputStream fileIn = new FileInputStream(pathImage);
                 ObjectInputStream in = new ObjectInputStream(fileIn);
 
-                //System.out.println("Readin " + in.readObject());
-                //System.out.println("Readin " + in.readObject());
-                System.out.println("Addall : " + this.perspectives.addAll((ArrayList<Perspective>) in.readObject()));
-
-                System.out.println("perspectives : " + this.perspectives.get(0).getImage().getBufferedImage());
+                this.perspectives.addAll((ArrayList<Perspective>) in.readObject());
                 this.bufferedImage = this.perspectives.get(0).getImage().getBufferedImage();
-
-                //int size = in.readInt(); // Read byte count
-                //byte[] buffer = new byte[size];
-                //in.readFully(buffer); // Make sure you read all bytes of the image
-                //BufferedImage image = ImageIO.read(new ByteArrayInputStream(buffer));
-                //System.out.println("Image : " + image);
-                //perspectives = (ArrayList<Perspective>) in.readObject();
 
                 in.close();
 
-                /*for (int i = 0; i < 2; i++) {
-                    perspectives.add(new Perspective(in.read()));
-                }*/
+                // Ajouter les nouveaux observeurs
+                perspectives.get(0).ajouterObservers(panneauPrincipal.getVuePerspectiveGauche());
+                perspectives.get(1).ajouterObservers(panneauPrincipal.getVuePerspectiveDroite());
+
+                // Obtenir les vues et y ajouter la perspective désérialiser
+                panneauPrincipal.getVuePerspectiveGauche().setPerspective(perspectives.get(0));
+                panneauPrincipal.getVuePerspectiveDroite().setPerspective(perspectives.get(1));
+
+                // Obtenir les controlleurs et y ajouter la perspective désérialiser
+                panneauPrincipal.getVuePerspectiveGauche().getCtrlPerspective().setPerspective(perspectives.get(0));
+                panneauPrincipal.getVuePerspectiveDroite().getCtrlPerspective().setPerspective(perspectives.get(1));
+
+                // Rafraichir les vues
+                perspectives.get(0).notifierObservers();
+                perspectives.get(1).notifierObservers();
+
             } catch (EOFException e) {
                 e.getCause();
                 System.out.println("Message 1 : " + e.getMessage());
@@ -61,11 +65,12 @@ public class ModelePrincipal extends Observable {
 
             try {
                 this.bufferedImage = ImageIO.read(pathImage);
+                notifierObservers();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        notifierObservers();
     }
 
     public void sauvegarder(VuePerspective vuePerspectiveFinale1, VuePerspective vuePerspectiveFinale2, String nameSavedFile, File pathSavedFile) {
@@ -75,25 +80,14 @@ public class ModelePrincipal extends Observable {
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             perspectives.add(vuePerspectiveFinale1.getPerspective());
             perspectives.add(vuePerspectiveFinale2.getPerspective());
-            //ImageIO.write(vuePerspectiveFinale1.getPerspective().getImage().getImage(), "png", out);
 
             out.writeObject(perspectives);
-            out.writeInt(1); // how many images are serialized?
-            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-            ImageIO.write(vuePerspectiveFinale1.getPerspective().getImage().getBufferedImage(), "jpg", buffer);
 
-            out.writeInt(buffer.size()); // Prepend image with byte count
-            buffer.writeTo(out);         // Write image
-
-            /*for (Perspective perspective:perspectives) {
-                out.writeObject(perspective);
-            }*/
             out.close();
             fileOut.close();
             this.perspectives.clear();
             isSaveLastVersion = true;
-            //System.out.println("Serialized data is saved in " + myFile.getAbsolutePath());
-            //System.out.println("Serialized data is saved in " + pathSavedFile + nameSavedFile + ".ser");
+
 
         } catch (IOException i) {
             i.printStackTrace();
@@ -111,6 +105,10 @@ public class ModelePrincipal extends Observable {
 
     public BufferedImage getBufferedImage() {
         return this.bufferedImage;
+    }
+
+    public void setPanneauPrincipal(PanneauPrincipal panneauPrincipal) {
+        this.panneauPrincipal = panneauPrincipal;
     }
 }
 
