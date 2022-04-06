@@ -17,7 +17,7 @@ public class Observable {
         listeObservers.addAll(observerList);
     }
 
-    public void eneleverObserver(Observer observer) {
+    public void enleverObserver(Observer observer) {
         listeObservers.remove(observer);
     }
 

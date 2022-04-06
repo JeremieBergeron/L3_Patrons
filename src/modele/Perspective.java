@@ -22,8 +22,9 @@ public class Perspective extends Observable implements java.io.Serializable {
 
 
     /**
+     * Constructeur
      *
-     *
+     * vueType, modelePrincipal
      */
     public Perspective(VueType vueType, ModelePrincipal modelePrincipal){
         this.vueType = vueType;
@@ -33,7 +34,7 @@ public class Perspective extends Observable implements java.io.Serializable {
     /**
      * Constructeur de copie
      *
-     * @param perspectiveACopier :
+     * @param : perspectiveACopier
      */
     public Perspective(Perspective perspectiveACopier){
         this.image = perspectiveACopier.getImage();
@@ -48,7 +49,7 @@ public class Perspective extends Observable implements java.io.Serializable {
 
     /**
      *
-     * @param position :
+     * @param : position
      */
     public void translater(Point position){
 
@@ -113,7 +114,7 @@ public class Perspective extends Observable implements java.io.Serializable {
 
     /**
      *
-     * @return :
+     * @return : Image
      */
     public Image getImage() {
         return this.image;
@@ -121,7 +122,7 @@ public class Perspective extends Observable implements java.io.Serializable {
 
     /**
      *
-     * @param image :
+     * @param : image, longueurVue, hauteurVue
      */
     public void setImage(Image image, int longueurVue, int hauteurVue) {
         this.image = image;
@@ -137,7 +138,7 @@ public class Perspective extends Observable implements java.io.Serializable {
 
     /**
      *
-     * @return :
+     * @return : Point
      */
     public Point getPosition() {
         return this.position;
@@ -145,7 +146,7 @@ public class Perspective extends Observable implements java.io.Serializable {
 
     /**
      *
-     * @return :
+     * @return : float
      */
     public float getLongueurImage() {
         return this.longueurImage;
@@ -153,7 +154,7 @@ public class Perspective extends Observable implements java.io.Serializable {
 
     /**
      *
-     * @return :
+     * @return : float
      */
     public float getHauteurImage() {
         return this.hauteurImage;
@@ -161,7 +162,7 @@ public class Perspective extends Observable implements java.io.Serializable {
 
     /**
      *
-     * @return :
+     * @return : VueType
      */
     public VueType getVueType() {
         return vueType;
