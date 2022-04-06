@@ -43,18 +43,23 @@ public class ModelePrincipal extends Observable {
                 // Ajouter les nouveaux observeurs
                 perspectives.get(0).ajouterObservers(panneauPrincipal.getVuePerspectiveGauche());
                 perspectives.get(1).ajouterObservers(panneauPrincipal.getVuePerspectiveDroite());
+                perspectives.get(0).getImage().ajouterObservers(panneauPrincipal.getVueVignette());
+
 
                 // Obtenir les vues et y ajouter la perspective désérialiser
                 panneauPrincipal.getVuePerspectiveGauche().setPerspective(perspectives.get(0));
                 panneauPrincipal.getVuePerspectiveDroite().setPerspective(perspectives.get(1));
+                panneauPrincipal.getVueVignette().setImage(perspectives.get(0).getImage());
 
                 // Obtenir les controlleurs et y ajouter la perspective désérialiser
                 panneauPrincipal.getVuePerspectiveGauche().getCtrlPerspective().setPerspective(perspectives.get(0));
                 panneauPrincipal.getVuePerspectiveDroite().getCtrlPerspective().setPerspective(perspectives.get(1));
+                panneauPrincipal.getVueVignette().getControleurVignette().setImage(perspectives.get(0).getImage());
 
                 // Rafraichir les vues
                 perspectives.get(0).notifierObservers();
                 perspectives.get(1).notifierObservers();
+                perspectives.get(0).getImage().notifierObservers();
 
             } catch (EOFException e) {
                 e.getCause();
