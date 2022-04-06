@@ -43,7 +43,7 @@ public class MenuFenetre extends JMenuBar {
             boolean ouvrirImage = true;
 
             if (fenetrePrincipale.getPanneauPrincipal().getImageOuverte() && !fenetrePrincipale.getPanneauPrincipal().getModelePrincipal().getIsSaveLastVersion()){
-                int resultat = JOptionPane.showOptionDialog(null,"Êtes-vous sûr de vouloir ouvrir une autre image sans sauvegarder ?","Alert", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options1, options1[0]);
+                int resultat = JOptionPane.showOptionDialog(null,"Êtes-vous sûr de vouloir ouvrir une autre image sans sauvegarder ?","Alert", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, options1[0]);
                 ouvrirImage = resultat == 0;
             }
 
@@ -71,7 +71,7 @@ public class MenuFenetre extends JMenuBar {
         });
 
         btnSauvegarder.addActionListener((ActionEvent e) -> {
-            int retour = JOptionPane.showOptionDialog(null,"Voulez-vous vraiment sauvegarder?","Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options1, options1[0]);
+            int retour = JOptionPane.showOptionDialog(null,"Voulez-vous vraiment sauvegarder?","Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, options1[0]);
             if(retour==0) {
                 JFileChooser fileSave = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
                 fileSave.setDialogTitle("Sélectionnez un emplacement pour la sauvegarde");
