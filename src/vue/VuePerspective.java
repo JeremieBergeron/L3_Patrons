@@ -87,7 +87,7 @@ public class VuePerspective extends JPanel implements Observer, MouseMotionListe
         super.paint(g);
 
         if (perspective != null && perspective.getImage() != null) {
-            BufferedImage i = perspective.getImage().getImage();
+            BufferedImage i = perspective.getImage().getBufferedImage();
             g.drawImage(i, positionTemporaire.x, positionTemporaire.y, Math.round(perspective.getLongueurImage()), Math.round(perspective.getHauteurImage()), this);
         }
     }

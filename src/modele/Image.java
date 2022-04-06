@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class Image extends Observable implements java.io.Serializable {
 
-    private BufferedImage image;
+    private transient BufferedImage image;
 
     private int hauteurImage;
     private int longueurImage;
@@ -24,15 +24,12 @@ public class Image extends Observable implements java.io.Serializable {
 
     /**
      *
-     * @param pathImage :
+     * @param image :
      */
-    public void setImage(File pathImage, int longueurVue, int hauteurVue) {
+    public void setImage(BufferedImage image, int longueurVue, int hauteurVue) {
 
-        try {
-            this.image = ImageIO.read(pathImage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        this.image = image;
 
         hauteurImage = this.image.getHeight();
         longueurImage = this.image.getWidth();
@@ -69,7 +66,7 @@ public class Image extends Observable implements java.io.Serializable {
      *
      * @return :
      */
-    public BufferedImage getImage() {
+    public BufferedImage getBufferedImage() {
         return this.image;
     }
 

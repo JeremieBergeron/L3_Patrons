@@ -64,6 +64,7 @@ public class MenuFenetre extends JMenuBar {
 
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     File selectedFile = fileChooser.getSelectedFile();
+                    System.out.println(selectedFile.getAbsoluteFile());
                     fenetrePrincipale.getPanneauPrincipal().ouvrirImage(selectedFile);
                     btnSauvegarder.setEnabled(true);
                 }

@@ -12,6 +12,7 @@ import observateur.Observer;
 import javax.swing.*;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 
@@ -98,7 +99,7 @@ public class PanneauPrincipal extends JPanel implements Observer, MouseWheelList
     @Override
     public void update() {
 
-        File path = this.modelePrincipal.getPathImage();
+        BufferedImage path = this.modelePrincipal.getBufferedImage();
 
         Image image = new Image();
         image.ajouterObservers(vueVignette);

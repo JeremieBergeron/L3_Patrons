@@ -6,7 +6,6 @@ import observateur.Observer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Point2D;
 
 public class VueVignette extends JPanel implements Observer {
 
@@ -60,7 +59,7 @@ public class VueVignette extends JPanel implements Observer {
         if(image != null) {
 
             // Dessiner image
-            g.drawImage(image.getImage(), image.getPosition().x, image.getPosition().y, image.getLongueurImage(), image.getHauteurImage(),this);
+            g.drawImage(image.getBufferedImage(), image.getPosition().x, image.getPosition().y, image.getLongueurImage(), image.getHauteurImage(),this);
 
         }
 
